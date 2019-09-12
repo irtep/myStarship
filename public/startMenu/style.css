@@ -1,0 +1,62 @@
+body {
+  color: white;
+  background-color: black;
+  font-family: 'Audiowide', cursive;
+}
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    'upC upC upC'
+    'leS ceS riS'
+    'foo foo foo';
+  grid-gap: 10px;
+    
+}
+#upCenter { 
+  grid-area: upC;
+  text-align: center;
+  border-bottom: solid;
+  border-color: blue;
+}
+#leftSection { 
+  grid-area: leS;
+  padding: 10px;
+}
+#centerSection { 
+  grid-area: ceS;
+  padding: 10px; 
+}
+#rightSection { 
+  grid-area: riS;
+  padding: 10px; 
+}
+#foot { grid-area: foo;
+  padding: 10px; 
+}
+/*
+#container {
+  
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+    'theHead'
+    'theForm'
+    'theFooter'
+    'theRecords';
+    grid-gap: 1px;
+}
+#theHeader { 
+  grid-area: theHead;
+  border-style: solid;
+  text-align: center;
+  font-size: 50px;
+}
+    <header id= "upCenter">
+      <main id= "leftSection">
+      <section id= "centerSection">
+      <section id= "rightSection">
+      <footer id= "foot">
+*/
