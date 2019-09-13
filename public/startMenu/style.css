@@ -35,28 +35,60 @@ body {
 #foot { grid-area: foo;
   padding: 10px; 
 }
+.stars {
+
+  color: white;
+  text-shadow: 0 0 24px yellowgreen;
+  /*transform:rotate(300deg);
+  -webkit-transform:rotate(300deg); */
+  z-index: -1;
+}
 /*
-#container {
-  
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-    'theHead'
-    'theForm'
-    'theFooter'
-    'theRecords';
-    grid-gap: 1px;
+
+.stars {
+
+  color: white;
+  font-size: 10px;
+  margin: 30px 0px 0px 0px;
+  text-shadow: 0 0 14px yellowgreen;
+  transform:rotate(300deg);
+  -webkit-transform:rotate(300deg); 
+  z-index: 0;
+
 }
-#theHeader { 
-  grid-area: theHead;
-  border-style: solid;
-  text-align: center;
-  font-size: 50px;
+
+.star1 {
+
+  position: relative;
+  float: left;
+ 
 }
-    <header id= "upCenter">
-      <main id= "leftSection">
-      <section id= "centerSection">
-      <section id= "rightSection">
-      <footer id= "foot">
+
+.star2 {
+
+  position: relative;
+  float: center;
+  left: 40px;
+
+}
+
+.star3 {
+
+  position: relative;
+  float: center;
+  left: 67px;
+}
+.star4 {
+
+  position: relative;
+  float: center;
+  left: 140px;
+
+}
+.star5 {
+
+  position: relative;
+  float: right;
+
+}
 */
