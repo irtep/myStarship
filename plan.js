@@ -1,4 +1,5 @@
 /*
+remember: export, import, get, set
 STARTSCREEN ------------------------------
 - index.html (start screen)
   up and center: "upCenter"
