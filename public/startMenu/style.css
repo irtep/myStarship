@@ -19,6 +19,7 @@ body {
   text-align: center;
   border-bottom: solid;
   border-color: blue;
+  height: auto;
 }
 #leftSection { 
   grid-area: leS;
@@ -27,6 +28,9 @@ body {
 #centerSection { 
   grid-area: ceS;
   padding: 10px; 
+  border-left: solid;
+  border-right: solid;
+  border-color: blue;
 }
 #rightSection { 
   grid-area: riS;
@@ -34,6 +38,8 @@ body {
 }
 #foot { grid-area: foo;
   padding: 10px; 
+  border-top: solid;
+  border-color: blue;
 }
 .stars {
 
@@ -43,52 +49,23 @@ body {
   -webkit-transform:rotate(300deg); */
   z-index: -1;
 }
-/*
 
-.stars {
-
-  color: white;
-  font-size: 10px;
-  margin: 30px 0px 0px 0px;
-  text-shadow: 0 0 14px yellowgreen;
-  transform:rotate(300deg);
-  -webkit-transform:rotate(300deg); 
-  z-index: 0;
-
+input[type=button] {
+  
+  background: black;
+  color: blue;
+  font-size: 17px;
+  border-color: deepskyblue;
+  border-radius: 5px;
+  width: 130px;
+  height: 40px;
+  margin: 15px;
+  font-family: 'Audiowide', cursive;
 }
-
-.star1 {
-
-  position: relative;
-  float: left;
- 
+.but:hover {
+  background: blue;
+  color: black;
 }
-
-.star2 {
-
-  position: relative;
-  float: center;
-  left: 40px;
-
+.yellowTxt {
+  color: yellow;
 }
-
-.star3 {
-
-  position: relative;
-  float: center;
-  left: 67px;
-}
-.star4 {
-
-  position: relative;
-  float: center;
-  left: 140px;
-
-}
-.star5 {
-
-  position: relative;
-  float: right;
-
-}
-*/

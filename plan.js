@@ -4,6 +4,7 @@ STARTSCREEN ------------------------------
 - index.html (start screen)
   up and center: "upCenter"
   big greeting
+  also game info could be here... maybe should be changing when clicking things...
   
   left side: "leftSection"
   buttons: new game, load game
