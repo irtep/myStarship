@@ -39,6 +39,8 @@ function updatePro(newPro) {
   const desci = professions.filter( pro => pro.name === newPro);
   gameObject.player.profession = newPro;
   leftSection.innerHTML = desci[0].desc;
+  centerSection.innerHTML += `<input type= "button" id= "submitPro" value= "submit" class= "but" onclick= "buttonControl(this.id)">
+         <input type= "button" id= "backfromPro" value= "back" class= "but" onclick= "buttonControl(this.id)">`;
   /* vasta submitin yhteydessä tämä ja submit nappula siihe vielä.
   rightSection.innerHTML += `name
 profession: <span class= "yellowTxt"> ${newPro}</span>`;
@@ -64,7 +66,7 @@ function buttonControl(ide) {
     case 'submitName':
       
       gameObject.player.name = document.getElementById('charName').value;
-      rightSection.innerHTML = 'name: <span class= "yellowTxt">'+ gameObject.player.name+ '</span><br>';
+      rightSection.innerHTML = 'name: <span class= "yellowTxt fadingIn">'+ gameObject.player.name+ '</span><br>';
       centerSection.innerHTML = `choose name for your ship: <br><input type= "text" id= "shipName" max= "15"><br>
         <input type= "button" id= "submitShip" value= "submit" class= "but" onclick= "buttonControl(this.id)">
          <input type= "button" id= "backfromShip" value= "back" class= "but" onclick= "buttonControl(this.id)">`;
@@ -72,7 +74,7 @@ function buttonControl(ide) {
     case 'submitShip':
       
       gameObject.player.ship.name = document.getElementById('shipName').value;
-      rightSection.innerHTML += 'ship: <span class= "yellowTxt">'+ gameObject.player.ship.name+ '</span><br>';
+      rightSection.innerHTML += 'ship: <span class= "yellowTxt fadingIn">'+ gameObject.player.ship.name+ '</span><br>';
       // dropdown for professions
       centerSection.innerHTML = 'select your profession: <br>' + 
             `<form name= "selectProfession id= "selectProfession> 
@@ -89,7 +91,11 @@ function buttonControl(ide) {
          document.getElementById("selectPro").appendChild(o);
       });
     break;
-
+    case 'submitPro':
+      rightSection.innerHTML = `name: <span class= "yellowTxt"> ${gameObject.player.name}</span>
+ship: <span class= "yellowTxt"> ${gameObject.player.ship.name}</span>
+profession: <span class= "yellowTxt fadingIn">${gameObject.player.profession}`;
+    break;
     default: console.log('buttonControl didnt find id.');
   }
   
