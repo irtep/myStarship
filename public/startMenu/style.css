@@ -1,3 +1,7 @@
+:root {
+  --colorFrom: black;
+  --colorTo: white;
+}
 body {
   color: white;
   background-color: black;
@@ -69,3 +73,42 @@ input[type=button] {
 .yellowTxt {
   color: yellow;
 }
+/* Animations */
+.fadingIn {
+   -moz-animation: colorChange 6s; /* Firefox */
+   -webkit-animation: colorChange 6s; /* Safari      and Chrome */
+   -o-animation: colorChange 6s; /* Opera */
+}
+@keyframes colorChange {
+    from {
+        color: var(--colorFrom);
+    }
+    to {
+        color:var(--colorTo);
+    }
+}
+@-moz-keyframes colorChange { /* Firefox */
+    from {
+        color: var(--colorFrom);
+    }
+    to {
+        color: var(--colorTo);
+    }
+}
+@-webkit-keyframes colorChange { /* Safari and Chrome */
+    from {
+        color: var(--colorFrom);
+    }
+    to {
+        color: var(--colorTo);
+    }
+}
+@-o-keyframes colorChange { /* Opera */
+    from {
+        color: var(--colorFrom);
+    }
+    to {
+        color: var(--colorTo);
+    }
+}
+*/
