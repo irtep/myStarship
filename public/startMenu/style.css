@@ -40,13 +40,13 @@ body {
   grid-area: riS;
   padding: 10px; 
 }
-#foot { grid-area: foo;
+#foot { 
+  grid-area: foo;
   padding: 10px; 
   border-top: solid;
   border-color: blue;
 }
 .stars {
-
   color: white;
   text-shadow: 0 0 24px yellowgreen;
   /*transform:rotate(300deg);
@@ -54,8 +54,7 @@ body {
   z-index: -1;
 }
 
-input[type=button] {
-  
+input[type=button] {  
   background: black;
   color: blue;
   font-size: 17px;
@@ -72,6 +71,13 @@ input[type=button] {
 }
 .yellowTxt {
   color: yellow;
+}
+.bigger {
+  color: deepskyBlue;
+  font-size: 24px;
+}
+.invis {
+  display: none;
 }
 /* Animations */
 .fadingIn {
@@ -111,4 +117,3 @@ input[type=button] {
         color: var(--colorTo);
     }
 }
-*/
