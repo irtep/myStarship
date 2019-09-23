@@ -101,7 +101,7 @@ function buttonControl(ide) {
          document.getElementById("selectPro").appendChild(o);
       });
       // listener for dropdown:
-      const changeListener = document.getElementById('selectPro').addEventListener('click', updatePro);
+      const changeListener = document.getElementById('selectPro').addEventListener('change', updatePro);
     break;
     case 'submitPro':
       
