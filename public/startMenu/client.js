@@ -2,7 +2,8 @@
 const leftSection = document.getElementById('leftSection');
 const centerSection = document.getElementById('centerSection');
 const rightSection = document.getElementById('rightSection');
-
+import avatarImages from '../images/images.js';
+console.log('imgs', avatarImages);
 // gameObject that contains all player and planet data.
 const gameObject = {
   player: {
@@ -35,34 +36,41 @@ Starting bonus is upgraded engine and some extra armour to keep a distance to ha
    }
 ];
 
+/*
+  document.querySelector('.but').addEventListener('click', buttonControl(this.id))
+*/
+
 // update profession, dropdown menu control
-function updatePro(newPro) {
-  const desci = professions.filter( pro => pro.name === newPro);
+function updatePro(newPro) { // tulee yhen jälessä.... kokoajan...
+  if (newPro.target.value !== 'Choose a profession') {
+  console.log(newPro.target.value);
+  const desci = professions.filter( pro => pro.name === newPro.target.value);
   const sePro = document.getElementById('selectPro');
   const subButton = document.getElementById('submitPro');
   const backButton = document.getElementById('backFromPro');
   // find out index number to set dropdown menu selection, as it doesnt update correctly:
-  //const indexNro = professions.map( (e) => { return e.name }).indexOf(newPro);
+  //const indexNro = professions.map( (e) => { return e.name }).indexOf(newPro.target.value);
   
   if (gameObject.player.profession === null) { 
     subButton.classList.remove('invis');
     backButton.classList.remove('invis');
   }    
-  gameObject.player.profession = newPro;
+  gameObject.player.profession = newPro.target.value;
   leftSection.innerHTML = '<span class= "bigger"><center>'+ desci[0].name + '</center></span>' + desci[0].desc;
+  }
 }
 // button control:
 function buttonControl(ide) {
   
-  switch (ide) {
+  switch (ide.target.id) {
     
     case 'newGame':
       
       leftSection.innerHTML = '<span class= "fa fa-star stars small" style="font-size:7px;">';
       
       centerSection.innerHTML = `choose your name: <br><input type= "text" id= "charName" max= "15"><br>
-        <input type= "button" id= "submitName" value= "submit" class= "but" onclick= "buttonControl(this.id)">
-         <input type= "button" id= "backfromName" value= "back" class= "but" onclick= "buttonControl(this.id)">`;
+        <input type= "button" id= "submitName" value= "submit" class= "but">
+        <input type= "button" id= "backfromName" value= "back" class= "but">`;
     break;
     
     case 'submitName':
@@ -70,8 +78,8 @@ function buttonControl(ide) {
       gameObject.player.name = document.getElementById('charName').value;
       rightSection.innerHTML = 'name: <span class= "yellowTxt fadingIn">'+ gameObject.player.name+ '</span><br>';
       centerSection.innerHTML = `choose name for your ship: <br><input type= "text" id= "shipName" max= "15"><br>
-        <input type= "button" id= "submitShip" value= "submit" class= "but" onclick= "buttonControl(this.id)">
-         <input type= "button" id= "backfromShip" value= "back" class= "but" onclick= "buttonControl(this.id)">`;
+        <input type= "button" id= "submitShip" value= "submit" class= "but">
+         <input type= "button" id= "backfromShip" value= "back" class= "but">`;
     break;    
     case 'submitShip':
       
@@ -79,11 +87,11 @@ function buttonControl(ide) {
       rightSection.innerHTML += 'ship: <span class= "yellowTxt fadingIn">'+ gameObject.player.ship.name+ '</span><br>';
       // dropdown for professions
       centerSection.innerHTML = `select your profession: <br>
-            <select id="selectPro" onchange= "updatePro(this.value)">
+            <select id="selectPro">
                 <option value = "Choose a profession">Choose a profession</option>
               </select><br>
-         <input type= "button" id= "submitPro" value= "submit" class= "but invis" onclick= "buttonControl(this.id)">
-         <input type= "button" id= "backFromPro" value= "back" class= "but invis" onclick= "buttonControl(this.id)">`;
+         <input type= "button" id= "submitPro" value= "submit" class= "but invis">
+         <input type= "button" id= "backFromPro" value= "back" class= "but invis">`;
       // complete dropdowns from const:
       professions.forEach( (item) => { 
          const o = document.createElement("option");
@@ -92,6 +100,8 @@ function buttonControl(ide) {
          o.value = item.name;
          document.getElementById("selectPro").appendChild(o);
       });
+      // listener for dropdown:
+      const changeListener = document.getElementById('selectPro').addEventListener('click', updatePro);
     break;
     case 'submitPro':
       
@@ -103,6 +113,12 @@ profession: <span class= "yellowTxt fadingIn">${gameObject.player.profession}`;
     break;
     default: console.log('buttonControl didnt find id.');
   }
+      // event listeners:
+      const butButtons = document.querySelectorAll('.but');
+
+      butButtons.forEach((btn) => {
+        btn.addEventListener('click', buttonControl );
+      });
 }
 /*image
 var img = document.createElement("img");
@@ -117,30 +133,18 @@ src.appendChild(img);
 window.onload = (() => {
   
   // make new game and load game buttons:
-  leftSection.innerHTML = '<input type= "button" id= "newGame" value= "New Game" class= "but" onclick= "buttonControl(this.id)"> <br>'+
-                          '<input type= "button" id= "loadGame" value= "Load Game" class= "but" onclick= "buttonControl(this.id)">';
+  leftSection.innerHTML = '<input type= "button" id= "newGame" value= "New Game" class= "but"> <br>'+
+                          '<input type= "button" id= "loadGame" value= "Load Game" class= "but">';
   // center:
   centerSection.innerHTML = '<span class= "fa fa-star stars small" style="font-size:7px;"></span>';
   
   // right:
-  rightSection.innerHTML = 'Legendary captains: <br> <span class= "fa fa-star stars small" style="font-size:7px;">'
- /*
- make dropdowns:
- // Dropdown menu for cars:
-vehicles.forEach( (item) => { 
-   const o = document.createElement("option");
+  rightSection.innerHTML = 'Legendary captains: <br> <span class= "fa fa-star stars small" style="font-size:7px;">';
   
-   o.text = item.name;
-   o.value = item.name;
-   document.getElementById("selectCar").appendChild(o);
-});
-
-            Select your car:
-            <form name= "selectCarForm" id= "selectCarForm"> 
-              <select id="selectCar" onchange= "checkFields()">
-                <option>Choose a car</option>
-              </select>
-            </form>  
- */ 
+  // event listeners:
+  const butButtons = document.querySelectorAll('.but');
   
+  butButtons.forEach((btn) => {
+    btn.addEventListener('click', buttonControl );
+  });
 });
