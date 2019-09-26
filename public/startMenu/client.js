@@ -2,8 +2,7 @@
 const leftSection = document.getElementById('leftSection');
 const centerSection = document.getElementById('centerSection');
 const rightSection = document.getElementById('rightSection');
-import {avatarImages} from '../images/images.js';
-import {gameObject, professions} from '../gameData.js';
+import {avatars, gameObject, professions} from '../gameData.js';
 
 // update profession, dropdown menu control
 function updatePro(newPro) { 
@@ -26,6 +25,41 @@ function updatePro(newPro) {
     gameObject.player.profession = newPro.target.value;
     leftSection.innerHTML = '<span class= "bigger"><center>'+ desci[0].name + '</center></span>' + desci[0].desc;
   }
+}
+
+// show description of avatar image:
+function showDesc(avatar) {
+  const avatarImage = avatars.filter(ava => ava.name === avatar.target.id);
+  // write info:
+  leftSection.innerHTML = avatarImage[0].desc;
+}
+
+// checks if both password fields match and not empty.
+function pswCheck() {
+  const psw1 = document.getElementById('psw1');
+  const psw2 = document.getElementById('psw2');
+  
+  if (psw1.value === psw2.value && psw1.value !== '') {
+    gameObject.player.psw = psw1.value; 
+  }
+}
+
+function confAvatar(avatar) {
+  // write to gameObject
+  gameObject.player.avatar = avatar.target.id;
+  console.log('gO ', gameObject);
+  
+  centerSection.innerHTML = `Alright captain. While ${gameObject.player.ship.name} is being prepared for you, 
+  please create your password in case you survive the playing session and wish to continue later: <br><br>
+  <input id= "psw1" type= "password" max= "50"><br>
+  <input id= "psw2" type= "password" max= "50"><br>
+  <input type= "button" id= "confirmPassword" class= "but" value= "Continue"><br>
+  <input type= "button" id= "backfromPsw" value= "back" class= "but">`
+  
+  // event listeners
+  document.getElementById('confirmPassword').addEventListener('click', buttonControl);
+  
+  leftSection.innerHTML = '<span class= "fa fa-star stars small" style="font-size:17px;">';
 }
 // button control:
 function buttonControl(ide) {
@@ -86,23 +120,44 @@ function buttonControl(ide) {
         leftSection.innerHTML = '&nbsp; &nbsp; &nbsp; &nbsp; <span class= "fa fa-star stars small" style="font-size:7px;">';
         centerSection.innerHTML = `select avatar: <br>`;
         // make images:
-        avatarImages.forEach( (image) => {
+        avatars.forEach( (image) => {
 
-          centerSection.innerHTML += `<img src= ${image.url} alt= "avatarImage" class= "avaImage">`;
+          centerSection.innerHTML += `<img src= ${image.url} alt= "avatarImage" class= "avaImage" id= ${image.name}>`;
         });
         // back button:
         centerSection.innerHTML += '<p><input type= "button" id= "backFromAva" value= "back" class= "but"></p>'
       break;
-
+      
+      case 'confirmPassword':
+        pswCheck();
+        
+        if (gameObject.player.psw === null){
+          centerSection.innerHTML += 'passwords not matching.';
+        } else {
+          centerSection.innerHTML += 'passwords ok!';
+        }
+      break;  
       default: console.log('buttonControl didnt find id.');
     }
   }
       // event listeners:
       const butButtons = document.querySelectorAll('.but');
+      const avas = document.querySelectorAll('.avaImage');
 
       butButtons.forEach((btn) => {
         btn.addEventListener('click', buttonControl );
       });
+      avas.forEach((ava) => {
+        ava.addEventListener('click', confAvatar );
+      });
+      avas.forEach((ava) => {
+        ava.addEventListener('mouseover', showDesc );
+      });
+  /*
+  document.addEventListener("mouseover", myFunction);
+document.addEventListener("click", someOtherFunction);
+document.addEventListener("mouseout", someOtherFunction);
+  */
 }
 
 // -- ON LOAD ---
