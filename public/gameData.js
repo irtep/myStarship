@@ -12,6 +12,7 @@ export const gameObject = {
     armour: null,
     reputation: null,
     avatar: null,
+    psw: null,
     
     ship: {
       name: null,
@@ -31,6 +32,21 @@ Not only because violence sucks and is not an answer, but also being a member of
 Merchant guild starting bonus is extended cargo bay and upgraded ship engine, as time is money!`
    },{name: 'Smuggler', desc: `If you think that legal goods won't give you enough profits, as you can make much more money with illegal stuff like slaves, illegal imigrants and narcotics. Then the Smugglers are what you are looking for.
 Starting bonus is upgraded engine and some extra armour to keep a distance to hand of so called justice.`
-   },{name: 'Freelancer', desc: `Instead of doing jobs for other people, why not to work for yourself? You will not get any starter bonuses but you are free to do whatever missions you like!`
+   },{name: 'Freelancer', desc: `Instead of doing jobs for other people, why not to work for yourself? You will not get any starter bonuses but you are free to do whatever missions you like!
+Maybe do some intergalactic trading or bounty hunting?`
    }
+];
+
+// avatars for players and ai:s
+export const avatars = [
+  {name: 'bigDread', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713', desc: `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
+that makes you way more powerful than most of the creatures around the galaxy.`,
+  stats: null,
+  race: 'human' 
+  },
+  {name: 'Pontitos', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
+  desc: `You are one of the rare dogfolks. Physically they resemble earth dogs, but are about as intelligent as humans.`,
+  stats: null,
+  race: 'dogfolk'
+  }
 ];
