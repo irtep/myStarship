@@ -7,6 +7,9 @@ body {
   background-color: black;
   font-family: 'Audiowide', cursive;
 }
+.intro {
+  color: green;
+}
 #container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -78,6 +81,16 @@ input[type=button] {
 }
 .invis {
   display: none;
+}
+.avaImage {
+  width: 50px;
+  heigth: 50px;
+  margin: 10px;
+}
+.avaImage:hover {
+  border: solid;
+  border-color: gold;
+  cursor: pointer;
 }
 /* Animations */
 .fadingIn {
