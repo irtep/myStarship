@@ -45,8 +45,41 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
   race: 'human' 
   },
   {name: 'Pontitos', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
-  desc: `You are one of the rare dogfolks. Physically they resemble earth dogs, but are about as intelligent as humans.`,
+  desc: `You are a proud member of Pontitos folk. Physically they resemble earth dogs, but are about as intelligent as humans.`,
   stats: null,
   race: 'dogfolk'
   }
+];
+
+// systems:
+export const systems = [
+  {name: 'Sol', 
+  desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
+  security: 'Mostly safe, however has some dangerous areas.',
+  docks: ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost']
+  },
+  {name: 'Outlaw star', 
+  desc: 'Dangerous place.',
+  security: 'Dangerous.',
+  docks: ['outlow1', 'outlow2', 'outlaw3']
+  },
+  {name: 'Elf star', 
+  desc: 'safe place, lots of forests',
+  security: 'oke.',
+  docks: ['elf1', 'elf2', 'elf3', 'elf4', 'elf5']
+  },
+  {name: 'dark star', 
+  desc: 'Dangerous place.',
+  security: 'Dangerous.',
+  docks: ['dar1', 'dar2', 'dar3']
+  },
+  {name: 'Robotic star', 
+  desc: 'robotic place.',
+  security: 'okey i guess.',
+  docks: ['robt1', 'rob2', 'rob3', 'rob4', 'rob5']
+  },
+  {name: 'mixed star', 
+  desc: 'capitalist place.',
+  security: 'oke.',
+  docks: ['m1', 'm2', 'm3']}
 ];

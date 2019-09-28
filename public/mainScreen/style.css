@@ -1,0 +1,55 @@
+:root {
+  --bgColor: rgb(90,90,90);
+  --compuColor: chartreuse;
+  --compuColor2: deepskyblue;
+}
+body {
+  font-family: 'PT Sans Caption', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+#upPanel { 
+  height: 10vh;
+  width: 100vw;
+  color: var(--compuColor);
+  background-color: var(--bgColor);
+}
+#centerPanel { 
+  height: 60vh;
+  width: 100vw;
+  color: var(--compuColor);
+  background-color: black;
+}
+#bottomPanel { 
+  height: 30vh;
+  width: 100vw;
+  color: var(--compuColor2);
+  background-color: var(--bgColor);
+}
+.compu {
+  padding: 25px;
+}
+.starMap {
+  width: 100%;
+  height: 100%;
+}
+.systems {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  color: white;
+  font-size: 10px;
+  font-family: arial;
+}
+.systems2 {
+  font-size: 20px
+}
+.systems3 {
+  font-size: 10px
+}
+.systems:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-color: darkgreen;
+}
