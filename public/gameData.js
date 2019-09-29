@@ -52,33 +52,33 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
 ];
 
 // systems:
-export const systems = [
+export const systems = [ 
   {name: 'Sol', 
   desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
   security: 'Mostly safe, however has some dangerous areas.',
   docks: ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost']
   },
-  {name: 'Outlaw star', 
+  {name: 'El Agostin', 
   desc: 'Dangerous place.',
   security: 'Dangerous.',
   docks: ['outlow1', 'outlow2', 'outlaw3']
   },
-  {name: 'Elf star', 
-  desc: 'safe place, lots of forests',
+  {name: 'Tingomaria', 
+  desc: 'safe place, lots of forests. home of "elves"',
   security: 'oke.',
   docks: ['elf1', 'elf2', 'elf3', 'elf4', 'elf5']
   },
-  {name: 'dark star', 
+  {name: 'Drooklyn', 
   desc: 'Dangerous place.',
   security: 'Dangerous.',
   docks: ['dar1', 'dar2', 'dar3']
   },
-  {name: 'Robotic star', 
+  {name: 'Safe Haven', 
   desc: 'robotic place.',
   security: 'okey i guess.',
   docks: ['robt1', 'rob2', 'rob3', 'rob4', 'rob5']
   },
-  {name: 'mixed star', 
+  {name: 'The Liberty Star', 
   desc: 'capitalist place.',
   security: 'oke.',
   docks: ['m1', 'm2', 'm3']}
