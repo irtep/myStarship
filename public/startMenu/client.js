@@ -1,4 +1,3 @@
-
 const leftSection = document.getElementById('leftSection');
 const centerSection = document.getElementById('centerSection');
 const rightSection = document.getElementById('rightSection');

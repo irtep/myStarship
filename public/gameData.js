@@ -1,5 +1,5 @@
 /*  gameData of players, opponents, planets etc. */
-
+import { goods } from './classes.js';
 // gameObject that contains all player and planet data.
 export const gameObject = {
   player: {
@@ -13,6 +13,7 @@ export const gameObject = {
     reputation: null,
     avatar: null,
     psw: null,
+    location: null,
     
     ship: {
       name: null,
@@ -56,7 +57,8 @@ export const systems = [
   {name: 'Sol', 
   desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
   security: 'Mostly safe, however has some dangerous areas.',
-  docks: ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost']
+  docks: ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
+  map: `Sol system`
   },
   {name: 'El Agostin', 
   desc: 'Dangerous place.',
@@ -82,4 +84,49 @@ export const systems = [
   desc: 'capitalist place.',
   security: 'oke.',
   docks: ['m1', 'm2', 'm3']}
+];
+
+// Map of stars:
+export const starMap = `
+        <table class= "starMap">
+          <center>
+          <th> Systems on range: </th>
+          </center>
+          <tr>
+            <td class= "systems systems3"></td>
+            <td class= "systems">.</td>
+            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "Sol">.</div></td>
+            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "El Agostin">.</div></td>
+          </tr>
+          <tr>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "Tingomaria">.</div></td>
+            <td class= "systems"></td>
+            <td class= "systems">.</td>
+            <td class= "systems"></td>
+          </tr>
+          <tr>
+            <td class= "systems">.</td>
+            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "Drooklyn">.</div></td>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+          </tr>
+          <tr>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+            <td class= "systems">.</td>
+            <td class= "systems systems2"><div id= "Safe Haven">.</div></td>
+            <td class= "systems systems3">.</td>
+            <td class= "systems systems2"><div id= "The Liberty Star">.</div></td>
+          </tr>
+        </table>`;
+
+export const products = [
+  new Goods('common metals', 'metals sucks as steel, iron, copper etc. usefull for many stuff', 100, 'materials'),
+  new Goods('water', 'water is life! and life is precious. There might be huge price differences on this classis good as somewhere there can be plenty of this and somewhere none', 100, 'grocery')
 ];
