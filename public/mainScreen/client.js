@@ -1,5 +1,6 @@
 // imports:
 import {systems} from '../gameData.js';
+import {starMap} from '../gameData.js';
 
 function showDetails(system) {
   const foundSystem = systems.filter( syst => system.target.id === syst.name);
@@ -19,44 +20,6 @@ function hideDetails(system) {
 }
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
-  const starMap = `
-        <table class= "starMap">
-          <center>
-          <th> Systems on range: </th>
-          </center>
-          <tr>
-            <td class= "systems systems3"></td>
-            <td class= "systems">.</td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Sol">.</div></td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "El Agostin">.</div></td>
-          </tr>
-          <tr>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Tingomaria">.</div></td>
-            <td class= "systems"></td>
-            <td class= "systems">.</td>
-            <td class= "systems"></td>
-          </tr>
-          <tr>
-            <td class= "systems">.</td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Drooklyn">.</div></td>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-          </tr>
-          <tr>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-            <td class= "systems">.</td>
-            <td class= "systems systems2"><div id= "Safe Haven">.</div></td>
-            <td class= "systems systems3">.</td>
-            <td class= "systems systems2"><div id= "The Liberty Star">.</div></td>
-          </tr>
-        </table>`;
   
   // show starmap
   document.getElementById('centerPanel').innerHTML = starMap;
