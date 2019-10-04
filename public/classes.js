@@ -1,12 +1,12 @@
 // star systems
-/*
 
+/*
   {name: 'Sol', 
   desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
   security: 'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
   docks: ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
   map: `Sol system`
-  }
+  } */
   const sol = new StarSystem(Sol, 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
   'Pretty much safe place. However have some dangerous areas too. Strong police presence.',['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
   [  //          name, desc, dR, stations,missions,coords,color,visitable, size
@@ -33,14 +33,14 @@
   ['migrants', 'narcotics', 'slaves']
   )
   ], null, 4, 'blue', true, 15),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Sun', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Mars', 'The red planet.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Asteroid belt', 'Lots of asteroids.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Jupiter', 'Biggest planet around with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Saturnus', 'Big and beautiful with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Uranus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Neptunus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
   ]);
-*/ // name, desc, missions, buys, sells, illegals : stations
+ // name, desc, missions, buys, sells, illegals : stations
 // goods: (name, desc, baseValue, typeOfGood)
 export class StarSystem {
   constructor(name, desc, security, stations, locations){
