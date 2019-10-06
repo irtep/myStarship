@@ -1,7 +1,8 @@
 // imports:
 import {systems} from '../gameData.js';
 import {starMap} from '../gameData.js';
-
+import {sol} from '../gameData.js';
+console.log('sol: ', sol);
 function showDetails(system) {
   const foundSystem = systems.filter( syst => system.target.id === syst.name);
   
@@ -14,6 +15,7 @@ spacestations: ${foundSystem[0].docks.length}</span>`;
 }
 
 function hideDetails(system) {
+  
   const targetSystem = document.getElementById(system.target.id);
   
   targetSystem.innerHTML = '.';

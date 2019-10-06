@@ -1,5 +1,7 @@
 /*  gameData of players, opponents, planets etc. */
-import { goods } from './classes.js';
+
+import { Goods, Station, StarSystem, Location } from '/classes.js';
+
 // gameObject that contains all player and planet data.
 export const gameObject = {
   player: {
@@ -53,6 +55,7 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
 ];
 
 // systems:
+// This will be replaced with stuff that uses classes below...
 export const systems = [ 
   {name: 'Sol', 
   desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
@@ -126,8 +129,48 @@ export const starMap = `
           </tr>
         </table>`;
 
-export const products = [
+export const products = [  // name, desc, basePrice, type
   new Goods('common metals', 'metals sucks as steel, iron, copper etc. usefull for many stuff', 100, 'materials'),
   new Goods('water', 'water is life! and life is precious. There might be huge price differences on this classis good as somewhere there can be plenty of this and somewhere none', 100, 'grocery'),
   new Goods('military weapons', 'including heavy weapons like fighter jets and small deadly items like assault rifles, this item will be hot in very many places!', 300, 'weapons')
 ];
+
+// Star systems: this will replace one that is above
+// constructor: name, desc, security, stations, locations
+  // sol:
+export const sol = new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
+  'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
+  ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
+  [ 
+  new Location('Sun', 'Bright nice sun.',
+   0, null, 1, 'yellow', false, 50),
+  new Location('Mercury', 'Small planet near the sun. Good place to charge your solar power devices if nothing else.',
+   2, null, 2, 'brown', true, 10),
+  new Location('Venus', 'Hot nice planet. Not much going on here',
+  0, null, 3, 'orange', true, 15),
+  new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
+  1, [new Station(
+  'Earth Trading Center',
+  'Center of the Solar System. Major trading hub. As mining is banned in earth, metals and other minerals are always welcome here along some other goods.',
+  // missions:
+  null,
+  // buys:  // name, percentage of buying price of baseValue
+  [
+    ['common metals', 110],
+    ['water', 70]
+  ],
+  // sells:
+  [
+    ['water', 150],
+    ['military weapons', 100]],
+  // illegals:
+  ['migrants', 'narcotics', 'slaves']
+  )
+  ], null, 4, 'blue', true, 15),
+  new Location('Mars', 'The red planet.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Asteroid belt', 'Lots of asteroids.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Jupiter', 'Biggest planet around with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Saturnus', 'Big and beautiful with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Uranus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+  new Location('Neptunus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+  ]);
