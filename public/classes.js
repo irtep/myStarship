@@ -7,7 +7,10 @@ export class StarSystem {
     this.stations = stations;
     this.locations = locations;
   };
-  // should have get atleast...
+  
+  get showName() {
+    return this.name;
+  }
 }
 
 export class Location {
