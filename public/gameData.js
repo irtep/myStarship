@@ -15,7 +15,8 @@ export const gameObject = {
     reputation: null,
     avatar: null,
     psw: null,
-    location: null,
+    stationLocation: 'Earth Trading Center',
+    systemLocation: 'Sol',
     
     ship: {
       name: null,
@@ -56,7 +57,8 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
 
 // systems:
 // This will be replaced with stuff that uses classes below...
-export const systems = [ 
+// can be used as a reference to build the worlds
+export const systemsTemporal = [ 
   {name: 'Sol', 
   desc: 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
   security: 'Mostly safe, however has some dangerous areas.',
@@ -90,6 +92,10 @@ export const systems = [
 ];
 
 // Map of stars:
+/*
+<span class= "showFromMap">name: ${system.target.id}<br>
+spacestations: ${foundSystem[0].docks.length}</span>`;
+*/
 export const starMap = `
         <table class= "starMap">
           <center>
@@ -97,35 +103,36 @@ export const starMap = `
           </center>
           <tr>
             <td class= "systems systems3"></td>
-            <td class= "systems">.</td>
+            <td class= "systems systems2">. <div id= "Tingomaria">. <span class= "showFromMap">Tingomaria</span></div></td>
             <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Sol">.</div></td>
+            <td class= "systems systems2"><div id= "Sol">. <span class= "showFromMap">Sol</span></div>
+            </td>
             <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "El Agostin">.</div></td>
-          </tr>
-          <tr>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Tingomaria">.</div></td>
-            <td class= "systems"></td>
-            <td class= "systems">.</td>
-            <td class= "systems"></td>
-          </tr>
-          <tr>
-            <td class= "systems">.</td>
-            <td class= "systems"></td>
-            <td class= "systems systems2"><div id= "Drooklyn">.</div></td>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
-            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "El Agostin">. <span class= "showFromMap">El Agostin</span></div></td>
           </tr>
           <tr>
             <td class= "systems"></td>
             <td class= "systems"></td>
             <td class= "systems">.</td>
-            <td class= "systems systems2"><div id= "Safe Haven">.</div></td>
+            <td class= "systems"></td>
+            <td class= "systems">.</td>
+            <td class= "systems"></td>
+          </tr>
+          <tr>
+            <td class= "systems">.</td>
+            <td class= "systems"></td>
+            <td class= "systems systems2"><div id= "Drooklyn">. <span class= "showFromMap">Drooklyn</span></div></td>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+          </tr>
+          <tr>
+            <td class= "systems"></td>
+            <td class= "systems"></td>
+            <td class= "systems">.</td>
+            <td class= "systems systems2"><div id= "Safe Haven">. <span class= "showFromMap">Safe Haven</span></div></td>
             <td class= "systems systems3">.</td>
-            <td class= "systems systems2"><div id= "The Liberty Star">.</div></td>
+            <td class= "systems systems2"><div id= "The Liberty Star">. <span class= "showFromMap">Liberty Star</span></div></td>
           </tr>
         </table>`;
 
@@ -138,39 +145,42 @@ export const products = [  // name, desc, basePrice, type
 // Star systems: this will replace one that is above
 // constructor: name, desc, security, stations, locations
   // sol:
-export const sol = new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
-  'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
-  ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
-  [ 
-  new Location('Sun', 'Bright nice sun.',
-   0, null, 1, 'yellow', false, 50),
-  new Location('Mercury', 'Small planet near the sun. Good place to charge your solar power devices if nothing else.',
-   2, null, 2, 'brown', true, 10),
-  new Location('Venus', 'Hot nice planet. Not much going on here',
-  0, null, 3, 'orange', true, 15),
-  new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
-  1, [new Station(
-  'Earth Trading Center',
-  'Center of the Solar System. Major trading hub. As mining is banned in earth, metals and other minerals are always welcome here along some other goods.',
-  // missions:
-  null,
-  // buys:  // name, percentage of buying price of baseValue
-  [
-    ['common metals', 110],
-    ['water', 70]
-  ],
-  // sells:
-  [
-    ['water', 150],
-    ['military weapons', 100]],
-  // illegals:
-  ['migrants', 'narcotics', 'slaves']
-  )
-  ], null, 4, 'blue', true, 15),
-  new Location('Mars', 'The red planet.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Asteroid belt', 'Lots of asteroids.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Jupiter', 'Biggest planet around with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Saturnus', 'Big and beautiful with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Uranus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  new Location('Neptunus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-  ]);
+export const systems = [
+  
+  new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
+    'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
+    ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
+    [ 
+    new Location('Sun', 'Bright nice sun.',
+     0, null, 1, 'yellow', false, 50),
+    new Location('Mercury', 'Small planet near the sun. Good place to charge your solar power devices if nothing else.',
+     2, null, 2, 'brown', true, 10),
+    new Location('Venus', 'Hot nice planet. Not much going on here',
+    0, null, 3, 'orange', true, 15),
+    new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
+    1, [new Station(
+    'Earth Trading Center',
+    'Center of the Solar System. Major trading hub. As mining is banned in earth, metals and other minerals are always welcome here along some other goods.',
+    // missions:
+    null,
+    // buys:  // name, percentage of buying price of baseValue
+    [
+      ['common metals', 110],
+      ['water', 70]
+    ],
+    // sells:
+    [
+      ['water', 150],
+      ['military weapons', 100]],
+    // illegals:
+    ['migrants', 'narcotics', 'slaves']
+    )
+    ], null, 4, 'blue', true, 15),
+    new Location('Mars', 'The red planet.', 0, null, null, [1,2], 'yellow', false, 30),
+    new Location('Asteroid belt', 'Lots of asteroids.', 0, null, null, [1,2], 'yellow', false, 30),
+    new Location('Jupiter', 'Biggest planet around with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
+    new Location('Uranus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+    new Location('Neptunus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
+    ])
+  ];
