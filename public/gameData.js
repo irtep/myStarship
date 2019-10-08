@@ -99,7 +99,7 @@ spacestations: ${foundSystem[0].docks.length}</span>`;
 export const starMap = `
         <table class= "starMap">
           <center>
-          <th> Systems on range: </th>
+          <th class= "whiteText"> Systems on range: </th>
           </center>
           <tr>
             <td class= "systems systems3"></td>
@@ -142,21 +142,20 @@ export const products = [  // name, desc, basePrice, type
   new Goods('military weapons', 'including heavy weapons like fighter jets and small deadly items like assault rifles, this item will be hot in very many places!', 300, 'weapons')
 ];
 
-// Star systems: this will replace one that is above
-// constructor: name, desc, security, stations, locations
-  // sol:
+// Star systems:
+// constructor: name, desc, security, stations, locations, locatedAt
 export const systems = [
   
   new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
     'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
-    ['Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
-    [ 
+    ['Venus Battery Charging ltd.','Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
+    [  // name, desc, dangerRating, stations, coords, color, visitable, size
     new Location('Sun', 'Bright nice sun.',
-     0, null, 1, 'yellow', false, 50),
-    new Location('Mercury', 'Small planet near the sun. Good place to charge your solar power devices if nothing else.',
+     0, null, 1, 'yellow', false, 100),
+    new Location('Mercury', 'Small planet near the sun. Very hot, lots of radiation.',
      2, null, 2, 'brown', true, 10),
-    new Location('Venus', 'Hot nice planet. Not much going on here',
-    0, null, 3, 'orange', true, 15),
+    new Location('Venus', 'Hot nice planet. Not much going on here, except small battery charging plant',
+    2, null, 3, 'orange', true, 15),
     new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
     1, [new Station(
     'Earth Trading Center',
@@ -175,12 +174,16 @@ export const systems = [
     // illegals:
     ['migrants', 'narcotics', 'slaves']
     )
-    ], null, 4, 'blue', true, 15),
-    new Location('Mars', 'The red planet.', 0, null, null, [1,2], 'yellow', false, 30),
-    new Location('Asteroid belt', 'Lots of asteroids.', 0, null, null, [1,2], 'yellow', false, 30),
-    new Location('Jupiter', 'Biggest planet around with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
-    new Location('Saturnus', 'Big and beautiful with some moons.', 0, null, null, [1,2], 'yellow', false, 30),
-    new Location('Uranus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-    new Location('Neptunus', 'Bright nice sun.', 0, null, null, [1,2], 'yellow', false, 30),
-    ])
+    ], 4, 'blue', true, 15),
+    new Location('Mars', 'The red planet.', 2, null, 5, 'yellow', false, 15),
+    new Location('Asteroid belt', 'Lots of asteroids.', 4, null, 6, 'gray', false, 3),
+    new Location('Jupiter', 'Biggest planet around with some moons.', 2, null, 7, 'crimson', false, 40),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 2, null, 8, 'orange', false, 30),
+    new Location('Uranus', 'Big cold planet.', 3, null, 9, 'blue', false, 30),
+    new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, null, 10, 'gray', false, 30),
+    new Location('Pluto', 'Small rock in space.', 1, null, 11, 'gray', false, 5),
+    ],
+    // location in starmap:
+    51
+    )
   ];
