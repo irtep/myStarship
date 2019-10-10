@@ -175,7 +175,7 @@ export const systems = [
     ['migrants', 'narcotics', 'slaves']
     )
     ], 4, 'blue', true, 15),
-    new Location('Mars', 'The red planet.', 2, null, 5, 'yellow', false, 15),
+    new Location('Mars', 'The red planet.', 2, null, 5, 'red', false, 15),
     new Location('Asteroid belt', 'Lots of asteroids.', 4, null, 6, 'gray', false, 3),
     new Location('Jupiter', 'Biggest planet around with some moons.', 2, null, 7, 'crimson', false, 40),
     new Location('Saturnus', 'Big and beautiful with some moons.', 2, null, 8, 'orange', false, 30),
