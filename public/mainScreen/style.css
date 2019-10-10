@@ -1,6 +1,7 @@
 :root {
-  --bgColor: black;
-  --compuColor: chartreuse;
+  --bgColor: black; 
+  --hiColor: chartreuse;
+  --compuColor: darkgreen;
   --compuColor2: deepskyblue;
 }
 body {
@@ -14,6 +15,8 @@ body {
   width: 100vw;
   color: var(--compuColor);
   background-color: var(--bgColor);
+  border-bottom: solid;
+  border-color: blue;
 }
 #centerPanel { 
   height: 60vh;
@@ -26,6 +29,8 @@ body {
   width: 100vw;
   color: var(--compuColor2);
   background-color: var(--bgColor);
+  border-top: solid;
+  border-color: blue;
 }
 .compu {
   padding: 25px;
@@ -70,4 +75,12 @@ th {
 #systemMap {
   table-layout: fixed;
   width: 100%;
+}
+.locations:hover {
+  cursor: pointer;
+}
+.highlighted {
+  color: var(--hiColor);
+  border-style: solid;
+  border-color: var(--hiColor);
 }
