@@ -3,6 +3,11 @@ import {systems, starMap, gameObject} from '../gameData.js';
 console.log('sol: ', systems[0]);
 
 function hovering(system) {
+  const hoveredSystem = document.getElementById(system.target.id);
+  
+  hoveredSystem.classList.add('highlighted');
+  
+  // also add info box to show
   /*
   const foundSystem = systems.filter( syst => system.target.id === syst.name);
   
@@ -17,11 +22,9 @@ spacestations: ${foundSystem[0].docks.length}</span>`;
 console.log('show details of sol: ', systems[0].showName);
 
 function hoveringOut(system) {
-  /*
-  const targetSystem = document.getElementById(system.target.id);
+  const hoveredSystem = document.getElementById(system.target.id);
   
-  targetSystem.innerHTML = '.';
-  */
+  hoveredSystem.classList.remove('highlighted');
 }
 
 function loadStarMap() {
@@ -66,10 +69,13 @@ function loadSystemMap(system) {
   
   seS.locations.forEach( (sys) => {
     // add all locations:   
-    systemMap += `<td>
-     <span style= "color:${sys.color};font-size:${sys.size}" id= "${sys.name}"
-     class = "locations sysMap">.</span> ${sys.name}</td>`;     
+    systemMap += `<td class= "locations" id= "${sys.name}">
+     <span style= "color:${sys.color};font-size:${sys.size}"
+     class = "sysMap">.</span> ${sys.name}</td>`;     
+    
+    // here place to check location and paint it in map.
   });
+  
   // add end place:
   systemMap += `<td class= "locations sysMap"> Leave System </td></tr></table>`;
   
@@ -77,6 +83,22 @@ function loadSystemMap(system) {
   document.getElementById('descPlace').innerHTML = systemDesc;
   
   // hovering effects and click effects too.
+  // event listeners:
+  const allPlanets = document.querySelectorAll('.locations');
+  
+  allPlanets.forEach( (planet) => {
+    
+    planet.addEventListener("mouseover", hovering);
+    planet.addEventListener("mouseout", hoveringOut);
+    //console.log('sysy', planet.childNodes[0].id, gameObject.player.locationSystem);
+    // paint place where player is
+    if (planet.childNodes[0].id === gameObject.player.planetemLocation) {
+      const foundplanetem = planet.childNodes[0];
+      
+      foundplanetem.innerHTML += '<span class= "showFromMap"> (you are here) </span>';
+    }
+  });
+  
 }
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
