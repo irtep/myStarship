@@ -52,19 +52,37 @@ function loadStarMap() {
 }
 
 function loadSystemMap(system) {
-  const selectedSystem = systems.filter( (syst) => {
-    syst.name === system
-    console.log('looking: ', syst.name, system);
-  });
-  console.log('look ', );
+  const selectedSystem = systems.filter( syst => syst.name === system);
+  const seS = selectedSystem[0];
+  const systemDesc = `
+  ${seS.name}<br><br>
+  ${seS.desc}<br><br>
+  security report: ${seS.security}`;
   console.log('sS ', selectedSystem);
   // here so that makes map out of selected system
-  // it goes to 'centerPanel'.innerHTML
+  let systemMap = `<p class= "whiteText" id= "descPlace">
+</p><br><br><table id= "systemMap">
+<tr>`;
+  
+  seS.locations.forEach( (sys) => {
+    // add all locations:   
+    systemMap += `<td>
+     <span style= "color:${sys.color};font-size:${sys.size}" id= "${sys.name}"
+     class = "locations sysMap">.</span> ${sys.name}</td>`;     
+  });
+  // add end place:
+  systemMap += `<td class= "locations sysMap"> Leave System </td></tr></table>`;
+  
+  document.getElementById('centerPanel').innerHTML = systemMap;
+  document.getElementById('descPlace').innerHTML = systemDesc;
+  
   // hovering effects and click effects too.
 }
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
 
-  loadStarMap();
+  //loadStarMap(); // this would load whole star map with all systems
+  
+  //loads system map where you are
   loadSystemMap(gameObject.player.systemLocation);
 });

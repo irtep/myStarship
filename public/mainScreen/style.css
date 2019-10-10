@@ -1,5 +1,5 @@
 :root {
-  --bgColor: rgb(90,90,90);
+  --bgColor: black;
   --compuColor: chartreuse;
   --compuColor2: deepskyblue;
 }
@@ -66,4 +66,8 @@ th {
 }
 .whiteText {
   color: white;
+}
+#systemMap {
+  table-layout: fixed;
+  width: 100%;
 }
