@@ -76,6 +76,9 @@ th {
   table-layout: fixed;
   width: 100%;
 }
+.locations {
+  font-size: 70%;
+}
 .locations:hover {
   cursor: pointer;
 }

@@ -1,11 +1,21 @@
 // imports:
 import {systems, starMap, gameObject} from '../gameData.js'; 
 
-// if someone hovers over system or planet
-function hovering(system) {
-  const hoveredSystem = document.getElementById(system.target.id);
+// if someone hovers over planet
+function hovering(planet) { // continue here... not ready yet....
+  const hoveredPlanet = document.getElementById(planet.target.id);
+  const descPlace = document.getElementById('descPlace');
+  const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
+  console.log('sesy: ', selectedSystem[0].locations[0], hoveredPlanet);
+  const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredPlanet.id);
+  console.log('hopla: ', hoPla[0]);
+  /*
+  systemLocation
+  */
   
-  hoveredSystem.classList.add('highlighted');
+  descPlace.innerHTML = hoPla.desc;
+  
+  hoveredPlanet.classList.add('highlighted');
 }
 console.log('show details of sol: ', systems[0].showName);
 
@@ -17,6 +27,7 @@ function hoveringOut(system) {
 }
 
 // this is the map that shows all star systems
+// HOVER IN and HOVER OUT will need updated when this is used!
 function loadStarMap() {
    
   // show starmap
@@ -86,17 +97,18 @@ function loadSystemMap(system) {
       foundplanetem.innerHTML += '<span class= "showFromMap"> (you are here) </span>';
     } */
   });
-  
+   
   seS.locations.forEach( (planeta) => {
     
     planeta.stations.forEach( (station) => {
       
+      // search players location for highlight purpose
       if (station.name === gameObject.player.stationLocation) {
           
         document.getElementById(planeta.name).classList.add('playerHere');    
       }
     });
-  });
+  }); 
   
   // upper console update:
   document.getElementById('whereAreYou').innerHTML = `${gameObject.player.stationLocation} in ${gameObject.player.planetLocation}`;
