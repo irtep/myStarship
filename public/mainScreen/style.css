@@ -84,3 +84,7 @@ th {
   border-style: solid;
   border-color: var(--hiColor);
 }
+.playerHere {
+  border-style: solid;
+  border-color: yellow;
+}
