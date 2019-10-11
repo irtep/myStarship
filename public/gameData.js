@@ -16,6 +16,7 @@ export const gameObject = {
     avatar: null,
     psw: null,
     stationLocation: 'Earth Trading Center',
+    planetLocation: 'Earth',
     systemLocation: 'Sol',
     
     ship: {
@@ -51,7 +52,7 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
   {name: 'Pontitos', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
   desc: `You are a proud member of Pontitos folk. Physically they resemble earth dogs, but are about as intelligent as humans.`,
   stats: null,
-  race: 'dogfolk'
+  race: 'pontito'
   }
 ];
 
@@ -151,11 +152,11 @@ export const systems = [
     ['Venus Battery Charging ltd.','Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
     [  // name, desc, dangerRating, stations, coords, color, visitable, size
     new Location('Sun', 'Bright nice sun.',
-     0, null, 1, 'yellow', false, 100),
+     0, [], 1, 'yellow', false, 100),
     new Location('Mercury', 'Small planet near the sun. Very hot, lots of radiation.',
-     2, null, 2, 'brown', true, 10),
+     2, [], 2, 'brown', true, 10),
     new Location('Venus', 'Hot nice planet. Not much going on here, except small battery charging plant',
-    2, null, 3, 'orange', true, 15),
+    2, [], 3, 'orange', true, 15),
     new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
     1, [new Station(
     'Earth Trading Center',
@@ -175,13 +176,13 @@ export const systems = [
     ['migrants', 'narcotics', 'slaves']
     )
     ], 4, 'blue', true, 15),
-    new Location('Mars', 'The red planet.', 2, null, 5, 'red', false, 15),
-    new Location('Asteroid belt', 'Lots of asteroids.', 4, null, 6, 'gray', false, 3),
-    new Location('Jupiter', 'Biggest planet around with some moons.', 2, null, 7, 'crimson', false, 40),
-    new Location('Saturnus', 'Big and beautiful with some moons.', 2, null, 8, 'orange', false, 30),
-    new Location('Uranus', 'Big cold planet.', 3, null, 9, 'blue', false, 30),
-    new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, null, 10, 'gray', false, 30),
-    new Location('Pluto', 'Small rock in space.', 1, null, 11, 'gray', false, 5),
+    new Location('Mars', 'The red planet.', 2, [], 5, 'red', false, 15),
+    new Location('Asteroid belt', 'Lots of asteroids.', 4, [], 6, 'gray', false, 3),
+    new Location('Jupiter', 'Biggest planet around with some moons.', 2, [], 7, 'crimson', false, 40),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30),
+    new Location('Uranus', 'Big cold planet.', 3, [], 9, 'blue', false, 30),
+    new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, [], 10, 'gray', false, 30),
+    new Location('Pluto', 'Small rock in space.', 1,[], 11, 'gray', false, 5),
     ],
     // location in starmap:
     51
