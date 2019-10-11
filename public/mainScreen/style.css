@@ -13,7 +13,7 @@ body {
 #upPanel { 
   height: 10vh;
   width: 100vw;
-  color: var(--compuColor);
+  color: var(--compuColor2);
   background-color: var(--bgColor);
   border-bottom: solid;
   border-color: blue;
@@ -63,6 +63,9 @@ body {
   color: yellow;
   font-size: 10px;
 }
+table {
+  table-layout: fixed;
+}
 th {
   text-align: center;
 }
@@ -71,6 +74,9 @@ th {
 }
 .whiteText {
   color: white;
+}
+.yellowText {
+  color: yellow;
 }
 #systemMap {
   table-layout: fixed;
@@ -90,4 +96,7 @@ th {
 .playerHere {
   border-style: solid;
   border-color: yellow;
+}
+#descPlace {
+  height: 30%;
 }

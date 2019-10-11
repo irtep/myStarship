@@ -134,6 +134,9 @@ function buttonControl(ide) {
           centerSection.innerHTML += 'passwords not matching.';
         } else {
           centerSection.innerHTML += 'passwords ok!';
+          // save here gameObject.js to store
+          // go to main screen:
+          window.location = "https://my-starship.glitch.me/main";
         }
       break;  
       default: console.log('buttonControl didnt find id.');
