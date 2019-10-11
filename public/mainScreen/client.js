@@ -2,32 +2,35 @@
 import {systems, starMap, gameObject} from '../gameData.js'; 
 
 // if someone hovers over planet
-function hovering(planet) { // continue here... not ready yet....
-  const hoveredPlanet = document.getElementById(planet.target.id);
-  const descPlace = document.getElementById('descPlace');
-  const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
-  console.log('sesy: ', selectedSystem[0].locations[0], hoveredPlanet);
-  const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredPlanet.id);
-  console.log('hopla: ', hoPla[0]);
-  /*
-  systemLocation
-  */
+function hovering(planet) { 
+    const hoveredPlanet = document.getElementById(planet.target.id);
+    const descPlace = document.getElementById('descPlace');
+    const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
   
-  descPlace.innerHTML = hoPla.desc;
-  
-  hoveredPlanet.classList.add('highlighted');
+  if (hoveredPlanet !== null) {
+    const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredPlanet.id);
+    
+    if (hoPla[0] !== undefined) {
+      descPlace.innerHTML = `<span class= "yellowText">${hoPla[0].name} </span><br><br> ${hoPla[0].desc}`;
+    } else {
+      descPlace.innerHTML = `Leave the system.`;
+    }
+    hoveredPlanet.classList.add('highlighted');
+  }
 }
-console.log('show details of sol: ', systems[0].showName);
 
 // when not anymore hovering over system or planet
 function hoveringOut(system) {
   const hoveredSystem = document.getElementById(system.target.id);
   
-  hoveredSystem.classList.remove('highlighted');
+  if (hoveredSystem !== null) {
+  
+    hoveredSystem.classList.remove('highlighted');  
+  }
 }
 
 // this is the map that shows all star systems
-// HOVER IN and HOVER OUT will need updated when this is used!
+// HOVER IN and HOVER OUT will need updated when this is used as they are now optimized for system map use!
 function loadStarMap() {
    
   // show starmap
@@ -78,7 +81,7 @@ function loadSystemMap(system) {
   
   // add end place:
   // this need event listener too to be able to be clicked and hover effect
-  systemMap += `<td class= "locations sysMap"> Leave System </td></tr></table>`;
+  systemMap += `<td class= "locations sysMap" id= "leaveSystem"> Leave System </td></tr></table>`;
   
   document.getElementById('centerPanel').innerHTML = systemMap;
   document.getElementById('descPlace').innerHTML = systemDesc;
@@ -90,12 +93,6 @@ function loadSystemMap(system) {
     
     planet.addEventListener("mouseover", hovering);
     planet.addEventListener("mouseout", hoveringOut);
-    /*
-    if (planet.locations.id === gameObject.player.stationLocation) {
-      const foundplanetem = planet.childNodes[0];
-      
-      foundplanetem.innerHTML += '<span class= "showFromMap"> (you are here) </span>';
-    } */
   });
    
   seS.locations.forEach( (planeta) => {
@@ -115,9 +112,16 @@ function loadSystemMap(system) {
 }
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
-
+  const bottomPanel = document.querySelectorAll('.btn');
+  
+  // at this point should load gameObject from store
+  
   //loadStarMap(); // this would load whole star map with all systems
   
   //loads system map where you are
   loadSystemMap(gameObject.player.systemLocation);
+  
+  // functions for bottom console buttons:
+  // should have hover and click effects at least.
+  // could maybe use same hover and click effects as planets use... if i create some class for them or something...
 });
