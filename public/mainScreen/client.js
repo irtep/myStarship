@@ -1,32 +1,73 @@
 // imports:
 import {systems, starMap, gameObject} from '../gameData.js'; 
+import * as consoleScreens from './consoleScreens.js'; 
 
-// if someone hovers over planet
-function hovering(planet) { 
-    const hoveredPlanet = document.getElementById(planet.target.id);
+
+// if someone hovers over locations or btn element
+function hovering(elem) { 
+    const hoveredElem = document.getElementById(elem.target.id);
     const descPlace = document.getElementById('descPlace');
     const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
   
-  if (hoveredPlanet !== null) {
-    const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredPlanet.id);
+  if (hoveredElem !== null) {
+    const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredElem.id);
     
     if (hoPla[0] !== undefined) {
-      descPlace.innerHTML = `<span class= "yellowText">${hoPla[0].name} </span><br><br> ${hoPla[0].desc}`;
+      let travelInfo = 'Click for more info or to launch a voyage here.';
+      
+      if (hoPla[0].name === gameObject.player.planetLocation) {
+        travelInfo = 'You are here.';
+      }
+      
+      descPlace.innerHTML = `<span class= "yellowText">${hoPla[0].name} </span><br><br> ${hoPla[0].desc}<br><br>
+      Spacestations: ${hoPla[0].stations.length}<br><br>${travelInfo}`;
     } else {
-      descPlace.innerHTML = `Leave the system.`;
+      
+      if (hoveredElem.id === 'leaveSystem') {
+          
+        descPlace.innerHTML = `Leave the system.`;
+      } else {
+        
+        // here will be added stuff from consoleScreen.js
+        descPlace.innerHTML = 'something else...';
+      }
     }
-    hoveredPlanet.classList.add('highlighted');
+    // highlight
+    hoveredElem.classList.add('highlighted');
   }
 }
 
-// when not anymore hovering over system or planet
-function hoveringOut(system) {
-  const hoveredSystem = document.getElementById(system.target.id);
+// when not anymore hovering over planet
+function hoveringOut(elem) {
+  const hoveredSystem = document.getElementById(elem.target.id);
   
   if (hoveredSystem !== null) {
   
     hoveredSystem.classList.remove('highlighted');  
   }
+}
+
+// click of chosen element for locations and btn
+function clicked(elem) {
+  const centerPanel = document.getElementById('centerPanel');
+  // create a place... something like: header in center, then left: info, right: commands, footer: buttons for example travel here, back
+
+  // separator if planet click or console click.. later system clicks to be added...
+  switch (elem.target.className[0]) {
+  
+    // console buttons:  
+    case 'c':
+      
+      centerPanel.innerHTML = 'console button clicked:';
+    break;
+    
+    // planet clicked:
+    case 'l':
+      centerPanel.innerHTML = 'planet clicked!';
+    break;
+      
+    default: centerPanel.innerHTML = 'not found!';  
+  } 
 }
 
 // this is the map that shows all star systems
@@ -43,6 +84,8 @@ function loadStarMap() {
     
     syst.addEventListener("mouseover", hovering);
     syst.addEventListener("mouseout", hoveringOut);
+    syst.addEventListener("click", clicked);
+    
     //console.log('sysy', syst.childNodes[0].id, gameObject.player.locationSystem);
     // paint place where player is
     if (syst.childNodes[0].id === gameObject.player.systemLocation) {
@@ -93,6 +136,7 @@ function loadSystemMap(system) {
     
     planet.addEventListener("mouseover", hovering);
     planet.addEventListener("mouseout", hoveringOut);
+    planet.addEventListener("click", clicked);
   });
    
   seS.locations.forEach( (planeta) => {
@@ -118,10 +162,14 @@ window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven
   
   //loadStarMap(); // this would load whole star map with all systems
   
-  //loads system map where you are
+  //loads the system map, where you are
   loadSystemMap(gameObject.player.systemLocation);
   
   // functions for bottom console buttons:
-  // should have hover and click effects at least.
-  // could maybe use same hover and click effects as planets use... if i create some class for them or something...
+  bottomPanel.forEach( (btn) => {
+    
+    btn.addEventListener("mouseover", hovering);
+    btn.addEventListener("mouseout", hoveringOut);
+    btn.addEventListener("click", clicked);
+  });
 });
