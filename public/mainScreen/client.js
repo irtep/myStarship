@@ -51,10 +51,25 @@ function hoveringOut(elem) {
 function clicked(elem) {
   const centerPanel = document.getElementById('centerPanel');
   // create a place... something like: header in center, then left: info, right: commands, footer: buttons for example travel here, back
-
+  let thisPlace = null;
+  let goButton = 'You are here at this moment.';
+  // find the scanned place from systems file:
+  systems.forEach( (syst) => {
+    const allPlaces = syst.locationList;
+    
+    allPlaces.forEach( (place) => {
+      
+      if (place.name === elem.target.id) { thisPlace = place} else { console.log('notFound: ', place.name, elem.target.id);}
+    });
+  });
+  
+  // make go button if ship is not there at the moment:
+  if (gameObject.player.planetLocation !== thisPlace.name) { 
+    
+    goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns">` 
+  }
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
-  
     // console buttons:  
     case 'c':
       
@@ -63,7 +78,22 @@ function clicked(elem) {
     
     // planet clicked:
     case 'l':
-      centerPanel.innerHTML = 'planet clicked!';
+      /*
+      left: image, center: desc, right: buttons to travel and back....
+      */
+      centerPanel.innerHTML = `<div id= "container">
+        <div id= "leftySect" class= "sectors">
+          <img src= "${thisPlace.image}" class= "picOfPlanet">
+        </div>
+        <div id= "centerySect" class= "sectors">
+            ${thisPlace.name} <br> <br> ${thisPlace.desc}
+        </div>
+        <div id= "rightySect" class= "sectors">
+          ${goButton} <br><br>
+          <input type= "button" value= "Back to map" class= "coolBtns">
+          
+        </div>
+      </div>`;      
     break;
       
     default: centerPanel.innerHTML = 'not found!';  

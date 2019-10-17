@@ -150,13 +150,13 @@ export const systems = [
   new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
     'Pretty much safe place. However have some dangerous areas too. Strong police presence.',
     ['Venus Battery Charging ltd.','Earth Trading Center', 'Luna Station', 'Mars Docks', 'Saturnus Mining Center', 'Jupiter Mining Center', 'Uranus Outpost'],
-    [  // name, desc, dangerRating, stations, coords, color, visitable, size
+    [  // name, desc, dangerRating, stations, coords, color, visitable, size, image
     new Location('Sun', 'Bright nice sun.',
-     0, [], 1, 'yellow', false, 100),
+     0, [], 1, 'yellow', false, 100, null),
     new Location('Mercury', 'Small planet near the sun. Very hot, lots of radiation.',
-     2, [], 2, 'brown', true, 10),
+     2, [], 2, 'brown', true, 10, null),
     new Location('Venus', 'Hot nice planet. Not much going on here, except small battery charging plant',
-    2, [], 3, 'orange', true, 15),
+    2, [], 3, 'orange', true, 15, null),
     new Location('Earth', 'Legendary birth place of the human race. Center of the solar system. HQ of the Galatic Police Force is located here.',
     1, [new Station(
     'Earth Trading Center',
@@ -175,14 +175,15 @@ export const systems = [
     // illegals:
     ['migrants', 'narcotics', 'slaves']
     )
-    ], 4, 'blue', true, 15),
-    new Location('Mars', 'The red planet.', 2, [], 5, 'red', false, 15),
-    new Location('Asteroid belt', 'Lots of asteroids.', 4, [], 6, 'gray', false, 3),
-    new Location('Jupiter', 'Biggest planet around with some moons.', 2, [], 7, 'crimson', false, 40),
-    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30),
-    new Location('Uranus', 'Big cold planet.', 3, [], 9, 'blue', false, 30),
-    new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, [], 10, 'gray', false, 30),
-    new Location('Pluto', 'Small rock in space.', 1,[], 11, 'gray', false, 5),
+    ], 4, 'blue', true, 15, 
+    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231'),
+    new Location('Mars', 'The red planet.', 2, [], 5, 'red', false, 15, null),
+    new Location('Asteroid belt', 'Lots of asteroids.', 4, [], 6, 'gray', false, 3, null),
+    new Location('Jupiter', 'Biggest planet around with some moons.', 2, [], 7, 'crimson', false, 40, null),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30, null),
+    new Location('Uranus', 'Big cold planet.', 3, [], 9, 'blue', false, 30, null),
+    new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, [], 10, 'gray', false, 30, null),
+    new Location('Pluto', 'Small rock in space.', 1,[], 11, 'gray', false, 5, null),
     ],
     // location in starmap:
     51
