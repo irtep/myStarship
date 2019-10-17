@@ -12,10 +12,14 @@ export class StarSystem {
   get showName() {
     return this.name;
   }
+  
+  get locationList() {
+    return this.locations;
+  }
 }
 
 export class Location {
-  constructor(name, desc, dangerRating, stations, coords, color, visitable, size){
+  constructor(name, desc, dangerRating, stations, coords, color, visitable, size, image){
     this.name = name;
     this.desc = desc;
     this.dangerRating = dangerRating,
@@ -25,6 +29,7 @@ export class Location {
     this.color = color;
     this.visitable = visitable;
     this.size = size;
+    this.image = image;
   }
   // should have get atleast...
 }
