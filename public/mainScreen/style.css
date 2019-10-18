@@ -146,3 +146,6 @@ th {
   font-family: var(--mainFont);
   cursor: pointer;
 }
+.btn {
+  cursor: pointer;
+}

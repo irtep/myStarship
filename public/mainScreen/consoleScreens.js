@@ -1,12 +1,15 @@
 // screens that come when player selects from bottom console some other screen.
 // maps are not here, they are generated from gameData.js
+export const bottomConsoles = [
+{name: 'Map', desc: "Back to map.", structure: `back to map:`, btnId: 'mapNavi'},
+  
+{name: 'Trade', desc: "Make some trading in station you are at.", structure: `Trade:`, btnId: 'trade'},
 
-export const trade = {name: 'Trade', desc: "Make some trading in station you are at.", structure: `Trade:`};
+{name: 'Cargo', desc: "Check what you have in your cargo bays.", structure: `Cargo:`, btnId: 'cargo'},
 
-export const cargo = {name: 'Cargo', desc: "Check what you have in your cargo bays.", structure: `Cargo:`};
+{name: 'Marines', desc: "Your marines", structure: `Marines:`, btnId: 'marines'},
 
-export const marines = {name: 'Marines', desc: "Your marines", structure: `Marines:`};
+{name: 'Missions', desc: "Check done and undone known missions.", structure: `Missions:`, btnId: 'missions'},
 
-export const missions = {name: 'Missions', desc: "Check done and undone known missions.", structure: `Missions:`};
-
-export const ship = {name: 'Ship', desc: "Important information about your ship.", structure: `Ship:`};
+{name: 'Ship', desc: "Important information about your ship.", structure: `Ship:`, btnId: 'ship'}
+];
