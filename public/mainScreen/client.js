@@ -5,12 +5,12 @@ import * as consoleScreens from './consoleScreens.js';
 
 // if someone hovers over locations or btn element
 function hovering(elem) { 
-    const hoveredElem = document.getElementById(elem.target.id);
-    const descPlace = document.getElementById('descPlace');
-    const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
+  const hoveredElem = document.getElementById(elem.target.id);
+  const descPlace = document.getElementById('descPlace');
+  const selectedSystem = systems.filter( syst => syst.name === gameObject.player.systemLocation);
   
   if (hoveredElem !== null) {
-    const hoPla = selectedSystem[0].locations.filter( (loca) => loca.name === hoveredElem.id);
+    const hoPla = selectedSystem[0].locations.filter( loca => loca.name === hoveredElem.id);
     
     if (hoPla[0] !== undefined) {
       let travelInfo = 'Click for more info or to launch a voyage here.';
@@ -27,9 +27,11 @@ function hovering(elem) {
           
         descPlace.innerHTML = `Leave the system.`;
       } else {
-        
+  
         // here will be added stuff from consoleScreen.js
-        descPlace.innerHTML = 'something else...';
+        if (descPlace !== null) {
+          descPlace.innerHTML = 'something else...';   
+        }
       }
     }
     // highlight
@@ -59,21 +61,37 @@ function clicked(elem) {
     
     allPlaces.forEach( (place) => {
       
-      if (place.name === elem.target.id) { thisPlace = place} else { console.log('notFound: ', place.name, elem.target.id);}
+      if (place.name === elem.target.id) { thisPlace = place }
     });
   });
   
   // make go button if ship is not there at the moment:
-  if (gameObject.player.planetLocation !== thisPlace.name) { 
+  if (thisPlace !== null) {
+
+    if (gameObject.player.planetLocation !== thisPlace.name) { 
     
-    goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns">` 
+      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns">` 
+    }  
   }
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
     // console buttons:  
     case 'c':
-      
-      centerPanel.innerHTML = 'console button clicked:';
+      consoleScreens.bottomConsoles.forEach( cBu => {
+        
+        if (cBu.btnId === elem.target.id) { 
+          
+          // if map button:
+          if (elem.target.id === 'mapNavi') {
+  
+            window.location = "https://my-starship.glitch.me/main";  
+          } else {
+           
+            centerPanel.innerHTML = cBu.structure;
+            console.log('cb ele', cBu.btnId, elem.target.id);  
+          }
+        }
+      });
     break;
     
     // planet clicked:
@@ -90,8 +108,7 @@ function clicked(elem) {
         </div>
         <div id= "rightySect" class= "sectors">
           ${goButton} <br><br>
-          <input type= "button" value= "Back to map" class= "coolBtns">
-          
+          <input type= "button" value= "Back to map" class= "coolBtns">          
         </div>
       </div>`;      
     break;
