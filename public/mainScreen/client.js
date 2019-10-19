@@ -52,9 +52,9 @@ function hoveringOut(elem) {
 // click of chosen element for locations and btn
 function clicked(elem) {
   const centerPanel = document.getElementById('centerPanel');
-  // create a place... something like: header in center, then left: info, right: commands, footer: buttons for example travel here, back
   let thisPlace = null;
   let goButton = 'You are here at this moment.';
+
   // find the scanned place from systems file:
   systems.forEach( (syst) => {
     const allPlaces = syst.locationList;
@@ -73,20 +73,24 @@ function clicked(elem) {
       goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns">` 
     }  
   }
+  console.log('id ', elem.target.id);
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
-    // console buttons:  
+    // console buttons clicked:(_c_onsoles)  
     case 'c':
+  
       consoleScreens.bottomConsoles.forEach( cBu => {
         
         if (cBu.btnId === elem.target.id) { 
           
           // if map button:
           if (elem.target.id === 'mapNavi') {
-  
+            
+            // reload map
             window.location = "https://my-starship.glitch.me/main";  
           } else {
            
+            // show information
             centerPanel.innerHTML = cBu.structure;
             console.log('cb ele', cBu.btnId, elem.target.id);  
           }
@@ -94,23 +98,39 @@ function clicked(elem) {
       });
     break;
     
-    // planet clicked:
+    // planet clicked: (_l_ocations)
     case 'l':
       /*
       left: image, center: desc, right: buttons to travel and back....
       */
-      centerPanel.innerHTML = `<div id= "container">
-        <div id= "leftySect" class= "sectors">
-          <img src= "${thisPlace.image}" class= "picOfPlanet">
-        </div>
-        <div id= "centerySect" class= "sectors">
-            ${thisPlace.name} <br> <br> ${thisPlace.desc}
-        </div>
-        <div id= "rightySect" class= "sectors">
-          ${goButton} <br><br>
-          <input type= "button" value= "Back to map" class= "coolBtns">          
-        </div>
-      </div>`;      
+      // if leavesystem is clicked:
+      if (elem.target.id === 'leaveSystem') {
+      
+        loadStarMap(); // this would load whole star map with all systems
+      } else {
+        
+        centerPanel.innerHTML = `<div id= "container">
+          <div id= "leftySect" class= "sectors">
+            <img src= "${thisPlace.image}" class= "picOfPlanet">
+          </div>
+          <div id= "centerySect" class= "sectors">
+              ${thisPlace.name} <br> <br> ${thisPlace.desc}
+          </div>
+          <div id= "rightySect" class= "sectors">
+            ${goButton} <br><br>
+            <input type= "button" value= "Back to map" id= "backButton" class= "goBack coolBtns">          
+          </div>
+        </div>`;
+        // listener for Back to Map-button:
+        document.getElementById('backButton').addEventListener('click', clicked);
+      }
+    break;
+    
+    // go back (_g_oBack)  
+    case 'g':
+      
+      // reload map
+      window.location = "https://my-starship.glitch.me/main";
     break;
       
     default: centerPanel.innerHTML = 'not found!';  
@@ -143,7 +163,7 @@ function loadStarMap() {
   });
   
   // add location to control panel:
-  document.getElementById('whereAreYou').innerHTML = gameObject.player.stationLocation;
+  document.getElementById('whereAreYou').innerHTML = gameObject.player.systemLocation;
   
   // need still clicking effects for travel.
 }
@@ -206,8 +226,6 @@ window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven
   const bottomPanel = document.querySelectorAll('.btn');
   
   // at this point should load gameObject from store
-  
-  //loadStarMap(); // this would load whole star map with all systems
   
   //loads the system map, where you are
   loadSystemMap(gameObject.player.systemLocation);
