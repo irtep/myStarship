@@ -1,12 +1,13 @@
 
 export class StarSystem {
-  constructor(name, desc, security, stations, locations, locatedAt){
+  constructor(name, desc, security, stations, locations, locatedAt, image){
     this.name = name;
     this.desc = desc;
     this.security = security;
     this.stations = stations;
     this.locations = locations;
     this.locatedAt = locatedAt; // 5x5 coords system, for example tingomaria is 11, sol 51
+    this.image = image;
   };
   
   get showName() {
