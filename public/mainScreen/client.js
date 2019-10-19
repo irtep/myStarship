@@ -53,26 +53,37 @@ function hoveringOut(elem) {
 function clicked(elem) {
   const centerPanel = document.getElementById('centerPanel');
   let thisPlace = null;
+  // voyage to planet button:
   let goButton = 'You are here at this moment.';
+  // voyage to system button:
+  let goSystemButton = 'You are here at this moment.';
 
   // find the scanned place from systems file:
   systems.forEach( (syst) => {
     const allPlaces = syst.locationList;
-    
+    // continue from here as this bugs:
     allPlaces.forEach( (place) => {
       
       if (place.name === elem.target.id) { thisPlace = place }
     });
   });
   
-  // make go button if ship is not there at the moment:
+  // make go button if ship is not there at the moment in system map:
   if (thisPlace !== null) {
 
     if (gameObject.player.planetLocation !== thisPlace.name) { 
     
-      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns">` 
+      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>` 
     }  
   }
+  // make go button if ship is not there at the moment in star map:
+  //if (thisPlace !== null) {
+
+  if (gameObject.player.systemLocation !== elem.target.id) { 
+    
+    goSystemButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>` 
+  }  
+  //}
   console.log('id ', elem.target.id);
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
@@ -118,7 +129,7 @@ function clicked(elem) {
           </div>
           <div id= "rightySect" class= "sectors">
             ${goButton} <br><br>
-            <input type= "button" value= "Back to map" id= "backButton" class= "goBack coolBtns">          
+            <input type= "button" value= "Back to map" id= "backButtonSystem" class= "goBack coolBtns">          
           </div>
         </div>`;
         // listener for Back to Map-button:
@@ -131,6 +142,32 @@ function clicked(elem) {
       
       // reload map
       window.location = "https://my-starship.glitch.me/main";
+      /*
+      need to separate this later with id of clicked button, backButtonSystem and backButtonStars as latter would
+      ignite load starmap
+      */
+    break;
+      
+    // (_s_tarsystem)
+    case 's':
+      const scannedSystem = systems.filter( checked => checked.name === elem.target.id);
+      const thisSystem = scannedSystem[0];
+      console.log('s clicked', scannedSystem[0]);
+        
+        centerPanel.innerHTML = `<div id= "container">
+          <div id= "leftySect" class= "sectors">
+            <img src= "${thisSystem.image}" class= "picOfPlanet">
+          </div>
+          <div id= "centerySect" class= "sectors">
+              ${thisSystem.name} <br> <br> ${thisSystem.desc}
+          </div>
+          <div id= "rightySect" class= "sectors">
+            ${goButton} <br><br>
+            <input type= "button" value= "Back to map" id= "backButtonStars" class= "goBack coolBtns">          
+          </div>
+        </div>`;
+        // listener for Back to Map-button:
+        document.getElementById('backButton').addEventListener('click', clicked);
     break;
       
     default: centerPanel.innerHTML = 'not found!';  
@@ -224,7 +261,7 @@ function loadSystemMap(system) {
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
   const bottomPanel = document.querySelectorAll('.btn');
-  
+  console.log('systems: ', systems);
   // at this point should load gameObject from store
   
   //loads the system map, where you are
