@@ -61,30 +61,28 @@ function clicked(elem) {
   // find the scanned place from systems file:
   systems.forEach( (syst) => {
     const allPlaces = syst.locationList;
-    // continue from here as this bugs:
+    
     allPlaces.forEach( (place) => {
       
-      if (place.name === elem.target.id) { thisPlace = place }
+      if (place.name === elem.target.id) { thisPlace = place; }
     });
   });
   
   // make go button if ship is not there at the moment in system map:
   if (thisPlace !== null) {
-
-    if (gameObject.player.planetLocation !== thisPlace.name) { 
+    //console.log('comparing: ', gameObject.player.planetLocation, elem.target.id);
+    if (gameObject.player.planetLocation !== elem.target.id) { 
     
-      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>` 
+      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>`; 
     }  
   }
+  
   // make go button if ship is not there at the moment in star map:
-  //if (thisPlace !== null) {
-
   if (gameObject.player.systemLocation !== elem.target.id) { 
     
     goSystemButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>` 
   }  
-  //}
-  console.log('id ', elem.target.id);
+  
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
     // console buttons clicked:(_c_onsoles)  
@@ -117,7 +115,7 @@ function clicked(elem) {
       // if leavesystem is clicked:
       if (elem.target.id === 'leaveSystem') {
       
-        loadStarMap(); // this would load whole star map with all systems
+        loadStarMap(); // loads starmap
       } else {
         
         centerPanel.innerHTML = `<div id= "container">
@@ -133,7 +131,7 @@ function clicked(elem) {
           </div>
         </div>`;
         // listener for Back to Map-button:
-        document.getElementById('backButton').addEventListener('click', clicked);
+        document.getElementById('backButtonSystem').addEventListener('click', clicked);
       }
     break;
     
@@ -162,12 +160,12 @@ function clicked(elem) {
               ${thisSystem.name} <br> <br> ${thisSystem.desc}
           </div>
           <div id= "rightySect" class= "sectors">
-            ${goButton} <br><br>
+            ${goSystemButton} <br><br>
             <input type= "button" value= "Back to map" id= "backButtonStars" class= "goBack coolBtns">          
           </div>
         </div>`;
         // listener for Back to Map-button:
-        document.getElementById('backButton').addEventListener('click', clicked);
+        document.getElementById('backButtonStars').addEventListener('click', clicked);
     break;
       
     default: centerPanel.innerHTML = 'not found!';  

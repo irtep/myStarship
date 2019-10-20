@@ -190,7 +190,9 @@ export const systems = [
     // image:
     'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231'             
     ),  
+  
   new StarSystem('Tingomaria', 'Tingomaria has 4 fertile planets, populated by various races.',
+    'Can be pretty dangerous place as there are not much police presence.',
     ['station x','station y'],
     [  // name, desc, dangerRating, stations, coords, color, visitable, size, image
     new Location('Sun', 'Bright nice sun.',
