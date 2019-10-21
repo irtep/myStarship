@@ -57,6 +57,9 @@ function clicked(elem) {
   let goButton = 'You are here at this moment.';
   // voyage to system button:
   let goSystemButton = 'You are here at this moment.';
+  // set this as possible travelTarget
+  gameObject.player.travelTarget = elem.target.id;
+  console.log('travelTarget: ', gameObject.player.travelTarget);
 
   // find the scanned place from systems file:
   systems.forEach( (syst) => {
@@ -198,7 +201,7 @@ function loadStarMap() {
   });
   
   // add location to control panel:
-  document.getElementById('whereAreYou').innerHTML = gameObject.player.systemLocation;
+  document.getElementById('whereAreYou').innerHTML = ' '+ gameObject.player.travelStatus + ' at ' + gameObject.player.systemLocation;
   
   // need still clicking effects for travel.
 }
@@ -254,12 +257,13 @@ function loadSystemMap(system) {
   }); 
   
   // upper console update:
-  document.getElementById('whereAreYou').innerHTML = `${gameObject.player.stationLocation} in ${gameObject.player.planetLocation}`;
+  document.getElementById('whereAreYou').innerHTML = ` ${gameObject.player.travelStatus} at ${gameObject.player.stationLocation}
+  in ${gameObject.player.planetLocation}`;
 }
 // -- ON LOAD ---
 window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
   const bottomPanel = document.querySelectorAll('.btn');
-  console.log('systems: ', systems);
+  
   // at this point should load gameObject from store
   
   //loads the system map, where you are
