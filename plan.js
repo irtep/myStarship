@@ -55,25 +55,3 @@ Then to game:
      Planets(info about explored planets)
      
 */
-/*
-`<table class= "starMap">
-          <center>
-          <th> Sol System: </th>
-          </center>
-          
-          <tr>
-          </tr>
-          
-          <tr>
-          </tr>
-          
-          <tr>
-          </tr>
-          
-          <tr>
-          </tr>
-          
-        </table>`;
-        
-      
-*/
