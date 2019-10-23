@@ -1,5 +1,9 @@
 // space travel engine.
 
+import {gameObject, travelCanvas} from '../gameData.js'; 
+const canvas = document.getElementById('travelCanvas');
+const ctx = canvas.getContext("2d");
+p
 // this is where all happens:
 const centerPanel = document.getElementbyId('centerPanel');
 
@@ -12,3 +16,13 @@ export function travel(from, to) {
     // set travelSpeed according to motor that is used to this kind of travel.
   
 }
+
+export function drawStarLoc(from, where) {
+  
+  
+}
+
+/*
+  const canvas = document.getElementById('travelCanvas');
+  const ctx = canvas.getContext("2d");
+*/

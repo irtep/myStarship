@@ -235,3 +235,6 @@ export const systems = [
     'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231'             
     )
   ];
+
+// canvas for travel:
+export const travelCanvas = `<canvas id= "travelCanvas"></canvas>`;

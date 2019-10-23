@@ -1,5 +1,5 @@
 // imports:
-import {systems, starMap, gameObject} from '../gameData.js'; 
+import {systems, starMap, gameObject, travelCanvas} from '../gameData.js'; 
 import * as consoleScreens from './consoleScreens.js'; 
 
 
