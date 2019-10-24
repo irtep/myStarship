@@ -1,7 +1,7 @@
 // imports:
 import {systems, starMap, gameObject, travelCanvases } from '../gameData.js'; 
 import * as consoleScreens from './consoleScreens.js'; 
-import { drawTravel } from '../spaceTravel/engine.js';
+import { travelMovement } from '../spaceTravel/engine.js';
 
 
 // if someone hovers over locations or btn element
@@ -188,7 +188,7 @@ function clicked(elem) {
       // status update:
       gameObject.player.travelStatus = 'cruising';
       // draw:
-      drawTravel(gameObject, systems);
+      travelMovement(gameObject, systems);
       // animate here?
     break;
       

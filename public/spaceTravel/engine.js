@@ -1,12 +1,6 @@
 // space travel engine.
 
 import {travelCanvases} from '../gameData.js'; 
-
-// this is where all happens:
-const centerPanel = document.getElementById('centerPanel');
-
-// create a view that shows one element
-  // something like paint one element on left side, something on right side, then point that is at point a
   
 export function travel(from, to) {
   let travelSpeed = null;
@@ -15,33 +9,8 @@ export function travel(from, to) {
   
 }
 
-export function moveShip() {
-  
-  
-}
-
-export function drawTravel(gameObject, systems) {
-  // CONTINUE FROM HERE!!!
-  const canvas = document.getElementById('travelCanvas');
-  const ctx = canvas.getContext("2d");
-  const systemFrom = systems.filter( syst => syst.name === gameObject.player.systemLocation);
-  let insideSystem = true;
-  let distance = null;
-  let to = null;
-  
-  // check if inside or outside system travel:
-  const systemCheck = systems.filter( syst => gameObject.player.travelTarget === syst.name);
-  
-  if (systemCheck.length === 1) { insideSystem = false; }
-  
-  // check distance:
-  if (insideSystem === true) {
-    //this.place.coords === targetin coordit.
-    const fromPlanetCoords = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.planetLocation );
-    console.log('fPC', );
-    //distance = Math.abs(fromPlanetCoords[0].coords - .coords);
-    console.log(distance);
-  }
+export function drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX) {
+  console.log('nM ', newMovementRadar);
   /*
   
     stationLocation: 'Earth Trading Center',
@@ -51,21 +20,75 @@ export function drawTravel(gameObject, systems) {
     travelTarget: null,
   */
   
+  ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
   // from:
   ctx.beginPath();
-  ctx.strokeStyle = 'yellow';
+  ctx.fillStyle = 'yellow';
   ctx.arc(canvas.width / 6, canvas.height / 2, 5, 0, 2 * Math.PI);
-  ctx.stroke();
+  ctx.fill();
   
   // to:
   ctx.beginPath();
-  ctx.strokeStyle = 'orange';
-  ctx.arc(200, canvas.height / 2, 5, 0, 2 * Math.PI);
-  ctx.stroke();
+  ctx.fillStyle = 'orange';
+  ctx.arc(targetX, canvas.height / 2, 5, 0, 2 * Math.PI);
+  ctx.fill();
   
   // ship:
   ctx.beginPath();
   ctx.strokeStyle = 'white';
-  ctx.arc(canvas.width / 6, canvas.height / 2, 2, 0, 2 * Math.PI);
+  ctx.arc(newMovementRadar.x, newMovementRadar.y, 2, 0, 2 * Math.PI);
   ctx.stroke();
+}
+
+export function travelMovement(gameObject, systems) {
+  const canvas = document.getElementById('travelCanvas');
+  const ctx = canvas.getContext("2d");
+  let newMovementRadar = {x: canvas.width / 6, y: canvas.height / 2};
+  const systemFrom = systems.filter( syst => syst.name === gameObject.player.systemLocation);
+  let insideSystem = true;
+  let distance = null;
+  let to = null;
+  const targetX = 200;
+  // check if inside or outside system travel:
+  const systemCheck = systems.filter( syst => gameObject.player.travelTarget === syst.name);
+  
+  if (systemCheck.length === 1) { insideSystem = false; }
+  
+  // check distance:
+  if (insideSystem === true) {
+    //check coords of target planet:
+    const targetPlanet = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.travelTarget);
+    const fromPlanetCoords = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.planetLocation );
+    //console.log('fPC', );
+    distance = Math.abs(fromPlanetCoords[0].coords - targetPlanet[0].coords);
+    console.log(distance);
+    // could maybe return distance... for radar screen use...
+  }
+  
+  // make travel round:
+  drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX);
+  
+  const travel = setInterval( () => {
+    
+    newMovementRadar.x++;
+    drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX);
+    
+    // check if something in scanners
+    
+    // stop interval if goal is reached:
+    if (newMovementRadar.x >= targetX) { 
+      
+      clearInterval(travel); 
+      console.log('reached!');}
+      // change location
+  }, 500);
+  
+  for (let i = 0; i < distance; i++ ) {
+    
+    setTimeout( () => {
+      
+      newMovementRadar.x++;
+      drawTravel(gameObject, systems, newMovementRadar, canvas, ctx);
+    }, distance*1000);
+  }
 }
