@@ -1,6 +1,7 @@
 // imports:
-import {systems, starMap, gameObject, travelCanvas} from '../gameData.js'; 
+import {systems, starMap, gameObject, travelCanvases } from '../gameData.js'; 
 import * as consoleScreens from './consoleScreens.js'; 
+import { drawTravel } from '../spaceTravel/engine.js';
 
 
 // if someone hovers over locations or btn element
@@ -58,9 +59,12 @@ function clicked(elem) {
   // voyage to system button:
   let goSystemButton = 'You are here at this moment.';
   // set this as possible travelTarget
-  gameObject.player.travelTarget = elem.target.id;
+  if (elem.target.id !== 'startTravel') {
+    gameObject.player.travelTarget = elem.target.id;    
+  }
   console.log('travelTarget: ', gameObject.player.travelTarget);
-
+  console.log('clicked: ', elem.target.id);
+  
   // find the scanned place from systems file:
   systems.forEach( (syst) => {
     const allPlaces = syst.locationList;
@@ -73,17 +77,17 @@ function clicked(elem) {
   
   // make go button if ship is not there at the moment in system map:
   if (thisPlace !== null) {
-    //console.log('comparing: ', gameObject.player.planetLocation, elem.target.id);
+    
     if (gameObject.player.planetLocation !== elem.target.id) { 
     
-      goButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>`; 
+      goButton = `<input type= "button" value= "Start voyage to here" class= "travels coolBtns" id= "startTravel">`;       
     }  
   }
   
   // make go button if ship is not there at the moment in star map:
   if (gameObject.player.systemLocation !== elem.target.id) { 
     
-    goSystemButton = `<input type= "button" value= "Start voyage to here" class= "coolBtns" id= ${elem.target.id}>` 
+    goSystemButton = `<input type= "button" value= "Start voyage to here" class= "travels coolBtns" id= "startTravel">`;
   }  
   
   // separator if planet click or console click.. later system clicks to be added...
@@ -104,7 +108,6 @@ function clicked(elem) {
            
             // show information
             centerPanel.innerHTML = cBu.structure;
-            console.log('cb ele', cBu.btnId, elem.target.id);  
           }
         }
       });
@@ -133,8 +136,11 @@ function clicked(elem) {
             <input type= "button" value= "Back to map" id= "backButtonSystem" class= "goBack coolBtns">          
           </div>
         </div>`;
-        // listener for Back to Map-button:
+        // listener for Back to Map-button and possible travel button:
         document.getElementById('backButtonSystem').addEventListener('click', clicked);
+        if (document.getElementById('startTravel') !== null) {
+          document.getElementById('startTravel').addEventListener('click', clicked);
+        }
       }
     break;
     
@@ -167,8 +173,20 @@ function clicked(elem) {
             <input type= "button" value= "Back to map" id= "backButtonStars" class= "goBack coolBtns">          
           </div>
         </div>`;
-        // listener for Back to Map-button:
+        // listener for Back to Map-button and possible travel button:
         document.getElementById('backButtonStars').addEventListener('click', clicked);
+        if (document.getElementById('startTravel') !== null) {
+          document.getElementById('startTravel').addEventListener('click', clicked);
+        }
+    break;
+    
+    // _t_ravels:
+    case 't':
+      
+      // travel map:
+      centerPanel.innerHTML = travelCanvases;
+      // draw:
+      drawTravel();
     break;
       
     default: centerPanel.innerHTML = 'not found!';  
