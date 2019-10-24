@@ -244,8 +244,9 @@ export const travelCanvases = `<div id= "travelContainer">
 <div id= "scanner">
   <p id= "scanners">
   Long distance scanner: <span id= "longResults" class= "redText"> nothing</span><br><br>
-  Short distance scanner: <span id= "shortResults" class= "redText"> nothing</span><br>
+  Short distance scanner: <span id= "shortResults" class= "redText"> nothing</span><br><br>
   Ship scan results: <span id= "shipScanResults" class= "redText"> n/a</span><br><br>
+  Distance to target: <span id= "distanceToTarget" class= "redText"></span>
   <div id= "commands"></div>
   </p>
 </div>
