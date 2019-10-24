@@ -89,7 +89,7 @@ function clicked(elem) {
     
     goSystemButton = `<input type= "button" value= "Start voyage to here" class= "travels coolBtns" id= "startTravel">`;
   }  
-  
+  console.log('this place: ', thisPlace);
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
     // console buttons clicked:(_c_onsoles)  
@@ -185,8 +185,11 @@ function clicked(elem) {
       
       // travel map:
       centerPanel.innerHTML = travelCanvases;
+      // status update:
+      gameObject.player.travelStatus = 'cruising';
       // draw:
-      drawTravel();
+      drawTravel(gameObject, systems);
+      // animate here?
     break;
       
     default: centerPanel.innerHTML = 'not found!';  

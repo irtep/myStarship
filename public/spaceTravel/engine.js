@@ -1,6 +1,6 @@
 // space travel engine.
 
-import {gameObject, travelCanvases} from '../gameData.js'; 
+import {travelCanvases} from '../gameData.js'; 
 
 // this is where all happens:
 const centerPanel = document.getElementById('centerPanel');
@@ -15,18 +15,57 @@ export function travel(from, to) {
   
 }
 
-export function drawTravel(from, where) {
+export function moveShip() {
+  
+  
+}
+
+export function drawTravel(gameObject, systems) {
+  // CONTINUE FROM HERE!!!
   const canvas = document.getElementById('travelCanvas');
   const ctx = canvas.getContext("2d");
-  console.log('drawing');
-  ctx.beginPath();
-  ctx.strokeStyle = 'white';
-  ctx.arc(200, 200, 300, 0, 2 * Math.PI);
-  ctx.stroke(); 
-  ctx.closePath();
+  const systemFrom = systems.filter( syst => syst.name === gameObject.player.systemLocation);
+  let insideSystem = true;
+  let distance = null;
+  let to = null;
   
+  // check if inside or outside system travel:
+  const systemCheck = systems.filter( syst => gameObject.player.travelTarget === syst.name);
+  
+  if (systemCheck.length === 1) { insideSystem = false; }
+  
+  // check distance:
+  if (insideSystem === true) {
+    //this.place.coords === targetin coordit.
+    const fromPlanetCoords = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.planetLocation );
+    console.log('fPC', );
+    //distance = Math.abs(fromPlanetCoords[0].coords - .coords);
+    console.log(distance);
+  }
+  /*
+  
+    stationLocation: 'Earth Trading Center',
+    planetLocation: 'Earth',
+    systemLocation: 'Sol',
+    travelStatus: 'docked',
+    travelTarget: null,
+  */
+  
+  // from:
   ctx.beginPath();
   ctx.strokeStyle = 'yellow';
-  ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+  ctx.arc(canvas.width / 6, canvas.height / 2, 5, 0, 2 * Math.PI);
+  ctx.stroke();
+  
+  // to:
+  ctx.beginPath();
+  ctx.strokeStyle = 'orange';
+  ctx.arc(200, canvas.height / 2, 5, 0, 2 * Math.PI);
+  ctx.stroke();
+  
+  // ship:
+  ctx.beginPath();
+  ctx.strokeStyle = 'white';
+  ctx.arc(canvas.width / 6, canvas.height / 2, 2, 0, 2 * Math.PI);
   ctx.stroke();
 }
