@@ -237,4 +237,16 @@ export const systems = [
   ];
 
 // canvas for travel:
-export const travelCanvas = `<canvas id= "travelCanvas"></canvas>`;
+export const travelCanvases = `<div id= "travelContainer">
+<div id= "canvasPlace">
+  <canvas id= "travelCanvas"></canvas>
+</div>
+<div id= "scanner">
+  <p id= "scanners">
+  Long distance scanner: <span id= "longResults" class= "redText"> nothing</span><br><br>
+  Short distance scanner: <span id= "shortResults" class= "redText"> nothing</span><br>
+  Ship scan results: <span id= "shipScanResults" class= "redText"> n/a</span><br><br>
+  <div id= "commands"></div>
+  </p>
+</div>
+</div>`;

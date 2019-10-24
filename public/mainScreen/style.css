@@ -149,8 +149,37 @@ th {
 .btn {
   cursor: pointer;
 }
-/* CANVASES: */
+/* travel screens: */
+#travelContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    'tCanvas scanner';
+  grid-gap: 1px;
+  height: 100%;
+}
 #travelCanvas {
+  grid-area: tCanvas;
   width: 100%;
   height: 100%;
 }
+#scanner {
+  grid-area: scanner;
+}
+.redText {
+  color: red;
+}
+
+/*
+travelCanvases = `<div id= "travelContainer">
+<div id= "canvasPlace">
+  <canvas id= "travelCanvas"></canvas>
+</div>
+<div id= "scanner">
+  <p id= "longScanner">
+  Long distance scanner: <span id= longResults> nothing</span>
+  </p>
+</div>
+</div>`;
+*/
