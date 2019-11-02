@@ -134,7 +134,11 @@ function buttonControl(ide) {
           centerSection.innerHTML += 'passwords not matching.';
         } else {
           centerSection.innerHTML += 'passwords ok!';
+          
+          // save password to database or somewhere
+          
           // save here gameObject.js to store
+          localStorage.setItem('Go', JSON.stringify(gameObject)); 
           // go to main screen:
           window.location = "https://my-starship.glitch.me/main";
         }

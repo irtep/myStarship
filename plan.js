@@ -55,3 +55,10 @@ Then to game:
      Planets(info about explored planets)
      
 */
+/*
+when ship comes to target:
+  - check for ambush
+  - check if this is new system or same system
+  - if same system, load planet info page, set gO.p.planet location, make button to dock
+  - if different system, load system map, set gO.p.planet to null, set systemlocation to target
+*/

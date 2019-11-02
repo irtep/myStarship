@@ -18,7 +18,7 @@ export const gameObject = {
     stationLocation: 'Earth Trading Center',
     planetLocation: 'Earth',
     systemLocation: 'Sol',
-    travelStatus: 'docked',
+    travelStatus: 'docked at',
     travelTarget: null,
     
     ship: {
@@ -182,7 +182,7 @@ export const systems = [
     new Location('Mars', 'The red planet.', 2, [], 5, 'red', false, 15, null),
     new Location('Asteroid belt', 'Lots of asteroids.', 4, [], 6, 'gray', false, 3, null),
     new Location('Jupiter', 'Biggest planet around with some moons.', 2, [], 7, 'crimson', false, 40, null),
-    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30, null),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30, 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fsaturnus.png?v=1572709893543'),
     new Location('Uranus', 'Big cold planet.', 3, [], 9, 'blue', false, 30, null),
     new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, [], 10, 'gray', false, 30, null),
     new Location('Pluto', 'Small rock in space.', 1,[], 11, 'gray', false, 5, null),
@@ -190,7 +190,7 @@ export const systems = [
     // location in starmap:
     51,
     // image:
-    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231'             
+    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fplanetas2.jpg?v=1572709487593'             
     ),  
   
   new StarSystem('Tingomaria', 'Tingomaria has 4 fertile planets, populated by various races.',

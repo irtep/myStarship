@@ -1,8 +1,11 @@
 // imports:
-import {systems, starMap, gameObject, travelCanvases } from '../gameData.js'; 
+import {systems, starMap, travelCanvases } from '../gameData.js'; 
 import * as consoleScreens from './consoleScreens.js'; 
 import { travelMovement } from '../spaceTravel/engine.js';
+import { showPlanet, findPlanet } from '../helpFunctions.js';
 
+// gameObject
+let gameObject = null;
 
 // if someone hovers over locations or btn element
 function hovering(elem) { 
@@ -51,7 +54,7 @@ function hoveringOut(elem) {
 }
 
 // click of chosen element for locations and btn
-function clicked(elem) {
+export function clicked(elem) {
   const centerPanel = document.getElementById('centerPanel');
   let thisPlace = null;
   // voyage to planet button:
@@ -62,18 +65,11 @@ function clicked(elem) {
   if (elem.target.id !== 'startTravel') {
     gameObject.player.travelTarget = elem.target.id;    
   }
-  console.log('travelTarget: ', gameObject.player.travelTarget);
-  console.log('clicked: ', elem.target.id);
+  //console.log('travelTarget: ', gameObject.player.travelTarget);
+  //console.log('clicked: ', elem.target.id);
   
   // find the scanned place from systems file:
-  systems.forEach( (syst) => {
-    const allPlaces = syst.locationList;
-    
-    allPlaces.forEach( (place) => {
-      
-      if (place.name === elem.target.id) { thisPlace = place; }
-    });
-  });
+  thisPlace = findPlanet(systems, elem.target.id);
   
   // make go button if ship is not there at the moment in system map:
   if (thisPlace !== null) {
@@ -124,18 +120,7 @@ function clicked(elem) {
         loadStarMap(); // loads starmap
       } else {
         
-        centerPanel.innerHTML = `<div id= "container">
-          <div id= "leftySect" class= "sectors">
-            <img src= "${thisPlace.image}" class= "picOfPlanet">
-          </div>
-          <div id= "centerySect" class= "sectors">
-              ${thisPlace.name} <br> <br> ${thisPlace.desc}
-          </div>
-          <div id= "rightySect" class= "sectors">
-            ${goButton} <br><br>
-            <input type= "button" value= "Back to map" id= "backButtonSystem" class= "goBack coolBtns">          
-          </div>
-        </div>`;
+        showPlanet(thisPlace, goButton);
         // listener for Back to Map-button and possible travel button:
         document.getElementById('backButtonSystem').addEventListener('click', clicked);
         if (document.getElementById('startTravel') !== null) {
@@ -186,7 +171,8 @@ function clicked(elem) {
       // travel map:
       centerPanel.innerHTML = travelCanvases;
       // status update:
-      gameObject.player.travelStatus = 'cruising';
+      gameObject.player.travelStatus = ' cruising at ';
+      document.getElementById('whereAreYou').innerHTML = gameObject.player.travelStatus + gameObject.player.systemLocation;
       // draw:
       travelMovement(gameObject, systems);
       // animate here?
@@ -222,7 +208,7 @@ function loadStarMap() {
   });
   
   // add location to control panel:
-  document.getElementById('whereAreYou').innerHTML = ' '+ gameObject.player.travelStatus + ' at ' + gameObject.player.systemLocation;
+  document.getElementById('whereAreYou').innerHTML = ' '+ gameObject.player.travelStatus + gameObject.player.systemLocation;
   
   // need still clicking effects for travel.
 }
@@ -278,14 +264,14 @@ function loadSystemMap(system) {
   }); 
   
   // upper console update:
-  document.getElementById('whereAreYou').innerHTML = ` ${gameObject.player.travelStatus} at ${gameObject.player.stationLocation}
-  in ${gameObject.player.planetLocation}`;
+  document.getElementById('whereAreYou').innerHTML = ` ${gameObject.player.travelStatus} ${gameObject.player.planetLocation}`;
 }
 // -- ON LOAD ---
-window.onload = (() => { // // Sol, El Agostin, Tingomaria, Drooklyn, Safe Haven, The Liberty Star
+window.onload = (() => { 
   const bottomPanel = document.querySelectorAll('.btn');
   
   // at this point should load gameObject from store
+  gameObject = JSON.parse(localStorage.getItem('Go'));
   
   //loads the system map, where you are
   loadSystemMap(gameObject.player.systemLocation);
