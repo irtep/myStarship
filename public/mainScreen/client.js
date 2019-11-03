@@ -148,7 +148,8 @@ export function clicked(elem) {
         
         centerPanel.innerHTML = `<div id= "container">
           <div id= "leftySect" class= "sectors">
-            <img src= "${thisSystem.image}" class= "picOfPlanet">
+            <img src= "${thisSystem.image}" class= "picOfPlanet"><br>
+            <span class= "smallText yellowText">art by: ${thisSystem.artBy}</span>
           </div>
           <div id= "centerySect" class= "sectors">
               ${thisSystem.name} <br> <br> ${thisSystem.desc}

@@ -80,6 +80,9 @@ th {
 .yellowText {
   color: yellow;
 }
+.smallText {
+  font-size: 8px;
+}
 #systemMap {
   table-layout: fixed;
   width: 100%;
