@@ -45,16 +45,19 @@ Maybe do some intergalactic trading or bounty hunting?`
 ];
 
 // avatars for players and ai:s
+// should maybe need to move to classes... need to think..
 export const avatars = [
   {name: 'bigDread', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713', desc: `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
 that makes you way more powerful than most of the creatures around the galaxy.`,
   stats: null,
-  race: 'human' 
+  race: 'human',
+  artBy: null
   },
   {name: 'Pontitos', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
   desc: `You are a proud member of Pontitos folk. Physically they resemble earth dogs, but are about as intelligent as humans.`,
   stats: null,
-  race: 'pontito'
+  race: 'pontito',
+  artBy: null
   }
 ];
 
@@ -146,7 +149,7 @@ export const products = [  // name, desc, basePrice, type
 ];
 
 // Star systems:
-// constructor: name, desc, security, stations, locations, locatedAt, image
+// constructor: name, desc, security, stations, locations, locatedAt, image, artBy
 export const systems = [
   
   new StarSystem('Sol', 'Birthplace of the human race. Nowadays well populated center of trading. Has 6 dockable ports.',
@@ -178,11 +181,12 @@ export const systems = [
     ['migrants', 'narcotics', 'slaves']
     )
     ], 4, 'blue', true, 15, 
-    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231'),
+    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Ftierra.jpg?v=1571323740231',
+    'amorcitos'),
     new Location('Mars', 'The red planet.', 2, [], 5, 'red', false, 15, null),
     new Location('Asteroid belt', 'Lots of asteroids.', 4, [], 6, 'gray', false, 3, null),
     new Location('Jupiter', 'Biggest planet around with some moons.', 2, [], 7, 'crimson', false, 40, null),
-    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30, 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fsaturnus.png?v=1572709893543'),
+    new Location('Saturnus', 'Big and beautiful with some moons.', 2, [], 8, 'orange', false, 30, 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fsaturnus.png?v=1572709893543', 'Grace M.'),
     new Location('Uranus', 'Big cold planet.', 3, [], 9, 'blue', false, 30, null),
     new Location('Neptunus', 'Other big cold planet. Good water supply with lots of ice mining on its moons', 3, [], 10, 'gray', false, 30, null),
     new Location('Pluto', 'Small rock in space.', 1,[], 11, 'gray', false, 5, null),
@@ -190,7 +194,8 @@ export const systems = [
     // location in starmap:
     51,
     // image:
-    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fplanetas2.jpg?v=1572709487593'             
+    'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fplanetas2.jpg?v=1572709487593',
+    'Grace M.'
     ),  
   
   new StarSystem('Tingomaria', 'Tingomaria has 4 fertile planets, populated by various races.',

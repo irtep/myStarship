@@ -1,6 +1,6 @@
 
 export class StarSystem {
-  constructor(name, desc, security, stations, locations, locatedAt, image){
+  constructor(name, desc, security, stations, locations, locatedAt, image, artBy){
     this.name = name;
     this.desc = desc;
     this.security = security;
@@ -8,6 +8,7 @@ export class StarSystem {
     this.locations = locations;
     this.locatedAt = locatedAt; // 5x5 coords system, for example tingomaria is 11, sol 51
     this.image = image;
+    this.artBy = artBy;
   };
   
   get showName() {
@@ -20,7 +21,7 @@ export class StarSystem {
 }
 
 export class Location {
-  constructor(name, desc, dangerRating, stations, coords, color, visitable, size, image){
+  constructor(name, desc, dangerRating, stations, coords, color, visitable, size, image, artBy){
     this.name = name;
     this.desc = desc;
     this.dangerRating = dangerRating,
@@ -31,6 +32,7 @@ export class Location {
     this.visitable = visitable;
     this.size = size;
     this.image = image;
+    this.artBy = artBy;
   }
   // should have get atleast...
 }

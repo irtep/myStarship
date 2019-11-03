@@ -27,7 +27,8 @@ export function showPlanet(thisPlace, goButton) {
         
   centerPanel.innerHTML = `<div id= "container">
     <div id= "leftySect" class= "sectors">
-    <img src= "${thisPlace.image}" class= "picOfPlanet">
+    <img src= "${thisPlace.image}" class= "picOfPlanet"><br>
+    <span class= "smallText yellowText">art by: ${thisPlace.artBy}</span>
     </div>
     <div id= "centerySect" class= "sectors">
     ${thisPlace.name} <br> <br> ${thisPlace.desc}
