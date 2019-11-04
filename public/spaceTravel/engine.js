@@ -70,21 +70,27 @@ export function travelMovement(gameObject, systems) {
     distance = Math.abs(fromPlanetCoords[0].coords - targetPlanet[0].coords);
     console.log(distance);
     // could maybe return distance... for radar screen use...
-    //travelSpeed = 
+    // from system to other system:
+  } else {
+    console.log('far distance');
+    distance = 30;
+    gameObject.player.systemLocation = 'hyperspace';
   }
+  
   
   // make travel round:
   drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX);
   // make station location to null
   
   const travel = setInterval( () => {
-    const travelSpeed = enginePower - distance;
-    // make random check if enemy/friendly ship would need to be added*
+    let travelSpeed = enginePower - distance;
+    if (travelSpeed <= 0) { travelSpeed = 1}
+    // make random check if enemy/friendly ship would need to be added or some other event.
+    // events: ship in interception course, neutral ship, space hulk, distress call, mutiny, prison break, tech problem, 
+    // problem between crew mates
     
     newMovementRadar.x += travelSpeed;
     drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX);
-    
-    // check if something in scanners*
     
     // stop interval if goal is reached:
     if (newMovementRadar.x >= targetX) { 
@@ -116,6 +122,9 @@ export function travelMovement(gameObject, systems) {
         // save gameObject:
         localStorage.setItem('Go', JSON.stringify(gameObject)); 
         console.log('game object: ', gameObject);
+      } else {
+        // traveled to another system:
+        // add target to players location
       }
       
         /*
