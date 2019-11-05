@@ -65,8 +65,6 @@ export function clicked(elem) {
   if (elem.target.id !== 'startTravel') {
     gameObject.player.travelTarget = elem.target.id;    
   }
-  //console.log('travelTarget: ', gameObject.player.travelTarget);
-  //console.log('clicked: ', elem.target.id);
   
   // find the scanned place from systems file:
   thisPlace = findPlanet(systems, elem.target.id);
@@ -85,7 +83,7 @@ export function clicked(elem) {
     
     goSystemButton = `<input type= "button" value= "Start voyage to here" class= "travels coolBtns" id= "startTravel">`;
   }  
-  console.log('this place: ', thisPlace);
+  
   // separator if planet click or console click.. later system clicks to be added...
   switch (elem.target.className[0]) {
     // console buttons clicked:(_c_onsoles)  
@@ -172,11 +170,13 @@ export function clicked(elem) {
       // travel map:
       centerPanel.innerHTML = travelCanvases;
       // status update:
+      // maybe this not should update status... testing:
+      /*
       gameObject.player.travelStatus = ' cruising at ';
       document.getElementById('whereAreYou').innerHTML = gameObject.player.travelStatus + gameObject.player.systemLocation;
-      // draw:
+      */
+      // travel:
       travelMovement(gameObject, systems);
-      // animate here?
     break;
       
     default: centerPanel.innerHTML = 'not found!';  
@@ -209,7 +209,7 @@ function loadStarMap() {
   });
   
   // add location to control panel:
-  document.getElementById('whereAreYou').innerHTML = ' '+ gameObject.player.travelStatus + gameObject.player.systemLocation;
+  document.getElementById('whereAreYou').innerHTML = ' ' + gameObject.player.systemLocation;
   
   // need still clicking effects for travel.
 }
@@ -271,7 +271,7 @@ export function loadSystemMap(system) {
 window.onload = (() => { 
   const bottomPanel = document.querySelectorAll('.btn');
   
-  // at this point should load gameObject from store
+  // load gameObject from store
   gameObject = JSON.parse(localStorage.getItem('Go'));
   
   //loads the system map, where you are
