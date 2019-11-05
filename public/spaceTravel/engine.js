@@ -42,13 +42,15 @@ export function drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, t
 
 export function travelMovement(gameObject, systems) {
   //temporal stats on test purposes before ship is made:
-  const enginePower = 10;
+  // enginePower 10 is good, but as testing, speeding it up
+  const enginePower = 50;
   const radarPower = 1;
   
   const canvas = document.getElementById('travelCanvas');
   const ctx = canvas.getContext("2d");
   let newMovementRadar = {x: canvas.width / 6, y: canvas.height / 2};
   const systemFrom = systems.filter( syst => syst.name === gameObject.player.systemLocation);
+  console.log('systemFrom: ', JSON.parse(JSON.stringify(systemFrom)));
   let insideSystem = true;
   let distance = null;
   let to = null;
@@ -59,21 +61,28 @@ export function travelMovement(gameObject, systems) {
   
   if (systemCheck.length === 1) { insideSystem = false; }
   
-  // check distance:
+    // update status:
+    gameObject.player.travelStatus = ' cruising at';
+  // check distance and add statuses:
   if (insideSystem === true) {
-    //check coords of target planet:
-    const targetPlanet = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.travelTarget);
-    const fromPlanetCoords = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.planetLocation );
-    //console.log('fPC', );
-    distance = Math.abs(fromPlanetCoords[0].coords - targetPlanet[0].coords);
-    console.log(distance);
-    // could maybe return distance... for radar screen use...
-    // from system to other system:
+    //check coords of target planet if already at some planet:
+    if (systemFrom[0] !== undefined) {
+      const targetPlanet = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.travelTarget);
+      const fromPlanetCoords = systemFrom[0].locations.filter( planet => planet.name === gameObject.player.planetLocation );
+      
+      distance = Math.abs(fromPlanetCoords[0].coords - targetPlanet[0].coords);  
+    } else {
+      // just arrived to system:
+      distance = 5;
+    }
   } else {
+    // from system to other system:
     distance = 30;
     gameObject.player.systemLocation = 'hyperspace';
   }
   
+  // show status:
+  document.getElementById('whereAreYou').innerHTML = `${gameObject.player.travelStatus} ${gameObject.player.systemLocation}`;
   
   // make travel round:
   drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX);
@@ -100,7 +109,7 @@ export function travelMovement(gameObject, systems) {
       gameObject.player.travelStatus = ' high orbit of ';
       // update upper panel:
       document.getElementById('whereAreYou').innerHTML = gameObject.player.travelStatus + gameObject.player.planetLocation;
-      
+
       // check if space ambush
       
       // check if new system or same system
@@ -131,6 +140,7 @@ export function travelMovement(gameObject, systems) {
         loadSystemMap(gameObject.player.systemLocation);
         // save gameObject:
         localStorage.setItem('Go', JSON.stringify(gameObject)); 
+        console.log('saved go: ', gameObject);
       }
       
         /*

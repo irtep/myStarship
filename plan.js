@@ -2,6 +2,14 @@
 
 NEXT: WhereAreYou -> are bugging at some place: atleast when traveling between systems...
 
+bugs:
+  majors:
+    when arriving to tingomaria
+    when arriving comes drifting at null
+    when at TM choice planet z, it doesnt find coords... prolly coords of start point..
+  minors:
+    that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
+
 remember: export, import, get, set
 STARTSCREEN ------------------------------
  pretty much ok.
