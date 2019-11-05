@@ -2,7 +2,7 @@
 
 import { travelCanvases } from '../gameData.js'; 
 import { showPlanet, findPlanet } from '../helpFunctions.js';
-import { clicked} from '/mainScreen/client.js';
+import { clicked, loadSystemMap } from '/mainScreen/client.js';
 /*
 export function travel(from, to) {
   let travelSpeed = null;
@@ -12,9 +12,7 @@ export function travel(from, to) {
 }
 */
 export function drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX) {
-  console.log('nM ', newMovementRadar);
-  /*
-  
+  /* reference of gameObject.player..  
     stationLocation: 'Earth Trading Center',
     planetLocation: 'Earth',
     systemLocation: 'Sol',
@@ -72,7 +70,6 @@ export function travelMovement(gameObject, systems) {
     // could maybe return distance... for radar screen use...
     // from system to other system:
   } else {
-    console.log('far distance');
     distance = 30;
     gameObject.player.systemLocation = 'hyperspace';
   }
@@ -85,7 +82,8 @@ export function travelMovement(gameObject, systems) {
   const travel = setInterval( () => {
     let travelSpeed = enginePower - distance;
     if (travelSpeed <= 0) { travelSpeed = 1}
-    // make random check if enemy/friendly ship would need to be added or some other event.
+    
+    // make random check for possible event
     // events: ship in interception course, neutral ship, space hulk, distress call, mutiny, prison break, tech problem, 
     // problem between crew mates
     
@@ -96,7 +94,6 @@ export function travelMovement(gameObject, systems) {
     if (newMovementRadar.x >= targetX) { 
       const travelTarget = JSON.parse(JSON.stringify(gameObject.player.travelTarget));
       clearInterval(travel); 
-      console.log('reached!');
       // set new location:
       gameObject.player.stationLocation = null;
       gameObject.player.planetLocation = travelTarget;
@@ -105,7 +102,7 @@ export function travelMovement(gameObject, systems) {
       document.getElementById('whereAreYou').innerHTML = gameObject.player.travelStatus + gameObject.player.planetLocation;
       
       // check if space ambush
-      console.log('inside system: ', insideSystem);
+      
       // check if new system or same system
       if (insideSystem) {
         // load planet info page, set gO.p.planet location, make button to dock
@@ -121,10 +118,19 @@ export function travelMovement(gameObject, systems) {
         }
         // save gameObject:
         localStorage.setItem('Go', JSON.stringify(gameObject)); 
-        console.log('game object: ', gameObject);
       } else {
         // traveled to another system:
-        // add target to players location
+        gameObject.player.travelStatus = 'drifting at';
+        // station and planet locations to null
+        gameObject.player.planetLocation = null; 
+        gameObject.player.stationLocation = null;
+        // add target to players location of system
+        gameObject.player.systemLocation = gameObject.player.travelTarget;
+        // show system that is target
+        document.getElementById('whereAreYou').innerHTML = ` ${gameObject.player.travelStatus} ${gameObject.player.systemLocation}`;
+        loadSystemMap(gameObject.player.systemLocation);
+        // save gameObject:
+        localStorage.setItem('Go', JSON.stringify(gameObject)); 
       }
       
         /*
