@@ -215,7 +215,7 @@ function loadStarMap() {
 }
 
 // loading system map
-function loadSystemMap(system) {
+export function loadSystemMap(system) {
   const selectedSystem = systems.filter( syst => syst.name === system);
   const seS = selectedSystem[0];
   const systemDesc = `
