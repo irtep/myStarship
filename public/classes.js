@@ -1,3 +1,6 @@
+/*
+  Classes for game.. excluding classes of space battle and close combat that are in their own archives.
+*/
 
 export class StarSystem {
   constructor(name, desc, security, stations, locations, locatedAt, image, artBy){
