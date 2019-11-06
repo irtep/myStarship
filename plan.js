@@ -66,3 +66,8 @@ Then to game:
      Planets(info about explored planets)
      
 */
+/*
+chars:
+  laukaaKK, kuokkalaYA, kauppis, eurom, kd, family, cats, dogs, finse, predators, 
+  jefu, cork, peru, malta, batmud
+*/
