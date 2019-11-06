@@ -96,6 +96,10 @@ export function clicked(elem) {
           // if map button:
           if (elem.target.id === 'mapNavi') {
             
+            // save gameObject:
+            localStorage.setItem('Go', JSON.stringify(gameObject)); 
+            console.log('saved go: ', gameObject);
+            
             // reload map
             window.location = "https://my-starship.glitch.me/main";  
           } else {
@@ -109,9 +113,6 @@ export function clicked(elem) {
     
     // planet clicked: (_l_ocations)
     case 'l':
-      /*
-      left: image, center: desc, right: buttons to travel and back....
-      */
       // if leavesystem is clicked:
       if (elem.target.id === 'leaveSystem') {
       
@@ -130,8 +131,12 @@ export function clicked(elem) {
     // go back (_g_oBack)  
     case 'g':
       
+      // save gameObject:
+      localStorage.setItem('Go', JSON.stringify(gameObject)); 
+      console.log('saved go: ', gameObject);
+            
       // reload map
-      window.location = "https://my-starship.glitch.me/main";
+      window.location = "https://my-starship.glitch.me/main";  
       /*
       need to separate this later with id of clicked button, backButtonSystem and backButtonStars as latter would
       ignite load starmap
@@ -142,7 +147,6 @@ export function clicked(elem) {
     case 's':
       const scannedSystem = systems.filter( checked => checked.name === elem.target.id);
       const thisSystem = scannedSystem[0];
-      console.log('s clicked', scannedSystem[0]);
         
         centerPanel.innerHTML = `<div id= "container">
           <div id= "leftySect" class= "sectors">
@@ -284,4 +288,13 @@ window.onload = (() => {
     btn.addEventListener("mouseout", hoveringOut);
     btn.addEventListener("click", clicked);
   });
+  
+  // temporary gameObject checker:
+  /*
+  const showGo = setInterval( () => {
+    
+    document.getElementById('rep').innerHTML = ` ${gameObject.player.travelStatus} / ${gameObject.player.systemLocation} 
+    / ${gameObject.player.planetLocation} / ${gameObject.player.stationLocation}`;
+  }, 1000);
+  */
 });
