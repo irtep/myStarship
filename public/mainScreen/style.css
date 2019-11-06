@@ -174,15 +174,41 @@ th {
   color: red;
 }
 
-/*
-travelCanvases = `<div id= "travelContainer">
-<div id= "canvasPlace">
-  <canvas id= "travelCanvas"></canvas>
-</div>
-<div id= "scanner">
-  <p id= "longScanner">
-  Long distance scanner: <span id= longResults> nothing</span>
-  </p>
-</div>
-</div>`;
-*/
+/* Animations */
+.slowly {
+   -moz-animation: showSlow 6s; /* Firefox */
+   -webkit-animation: showSlow 6s; /* Safari      and Chrome */
+   -o-animation: showSlow 6s; /* Opera */
+}
+@keyframes showSlow {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+@-moz-keyframes showSlow { /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity:  100;
+    }
+}
+@-webkit-keyframes showSlow { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity:  100;
+    }
+}
+@-o-keyframes showSlow { /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity:  100;
+    }
+}
