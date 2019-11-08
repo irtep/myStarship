@@ -64,7 +64,7 @@ export class Goods {
  
 // this is for all rect shaped things in space battle.. so for about almost for everything.
 // they get from here some stuff that they can be located, regardless of their angle
-class AllRects {
+export class AllRects {
   
   // this is needed to check "real position" to get collision detect.
   // calculates and sets corners of rotated angles.
@@ -160,7 +160,7 @@ class AllRects {
   };
 }
 
-class Starship extends AllRects {
+export class Starship extends AllRects {
   constructor(name, hull, motor, modules, weapons){
     super();
     this.name = name;
@@ -172,24 +172,25 @@ class Starship extends AllRects {
   // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort  
 }
 
-class Hull {
-  constructor(name, width, height, armours, color, maxModules) {
+export class Hull {
+  constructor(name, width, height, armours, color, maxModules, gunMounts) {
     this.name = name;
     this.width = width;
     this.height = height;
     this.armours = armours;
     this.color = color;
     this.maxModules = maxModules;
+    this.gunMounts = gunMounts;
   }
 }
 
-class Motor {
-  constructor(name, size, power, energyUsage) {
-    this.name = name; this.size = size; this.power = power; this.energyUsage = energyUsage;
+export class Motor {
+  constructor(name, size, power) {
+    this.name = name; this.size = size; this.power = power;
   }
 }
 
-class ShipGun {
+export class ShipGun {
   constructor(name, reloadTime, energyUsage, power, armourPiercing, color, speed){
     this.name = name;
     this.reloadTime = reloadTime;
@@ -198,5 +199,11 @@ class ShipGun {
     this.armourPiercing = armourPiercing;
     this.color = color;
     this.speed = speed;
+  }
+}
+
+export class ShipModule {
+  constructor(name, size, energyUsage, power) {
+    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power;
   }
 }
