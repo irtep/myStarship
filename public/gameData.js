@@ -51,13 +51,13 @@ export const avatars = [
 that makes you way more powerful than most of the creatures around the galaxy.`,
   stats: null,
   race: 'human',
-  artBy: null
+  artBy: 'amorcitos'
   },
   {name: 'Pontitos', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
   desc: `You are a proud member of Pontitos folk. Physically they resemble earth dogs, but are about as intelligent as humans.`,
   stats: null,
   race: 'pontito',
-  artBy: null
+  artBy: 'Yuko R'
   }
 ];
 
@@ -256,3 +256,7 @@ export const travelCanvases = `<div id= "travelContainer">
   </p>
 </div>
 </div>`;
+
+/*
+   SHIP DATA:
+*/
