@@ -161,19 +161,21 @@ export class AllRects {
 }
 
 export class Starship extends AllRects {
-  constructor(name, hull, motor, modules, weapons){
+  constructor(name, hull, motor, modules, weapons, value, desc){
     super();
     this.name = name;
     this.parts = hull;
     this.stats = motor;
     this.modules = modules;
     this.weapons = weapons;
+    this.value = value;
+    this.desc = desc;
   }
   // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort  
 }
 
 export class Hull {
-  constructor(name, width, height, armours, color, maxModules, gunMounts) {
+  constructor(name, width, height, armours, color, maxModules, gunMounts, value, desc) {
     this.name = name;
     this.width = width;
     this.height = height;
@@ -181,29 +183,34 @@ export class Hull {
     this.color = color;
     this.maxModules = maxModules;
     this.gunMounts = gunMounts;
+    this.value = value;
+    this.desc = desc;
   }
 }
 
 export class Motor {
-  constructor(name, size, power) {
-    this.name = name; this.size = size; this.power = power;
+  constructor(name, size, power, durability, value, desc) {
+    this.name = name; this.size = size; this.power = power, this.durability = durability, this.value = value; this.desc = desc;
   }
 }
 
 export class ShipGun {
-  constructor(name, reloadTime, energyUsage, power, armourPiercing, color, speed){
+  constructor(name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc){
     this.name = name;
     this.reloadTime = reloadTime;
     this.energyUsage = energyUsage;
     this.power = power;
-    this.armourPiercing = armourPiercing;
+    this.shieldPiercing = shieldPiercing;
     this.color = color;
     this.speed = speed;
+    this.range = range;
+    this.value = value;
+    this.desc = desc;
   }
 }
 
 export class ShipModule {
-  constructor(name, size, energyUsage, power) {
-    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power;
+  constructor(name, size, energyUsage, power, desc) {
+    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; this.desc = desc;
   }
 }

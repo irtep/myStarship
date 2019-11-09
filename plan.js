@@ -69,5 +69,5 @@ Then to game:
 /*
 chars:
   laukaaKK, kuokkalaYA, kauppis, eurom, kd, family, cats, dogs, finse, predators, 
-  jefu, cork, peru, malta, batmud, happee, lätkä
+  jefu, cork, peru, malta, batmud, happee, lätkä, poke, 
 */
