@@ -159,13 +159,18 @@ export class AllRects {
       this.leftBottomCorner];
   };
 }
+/*
 
+name, hull, motor, modules, weapons, value, desc
+const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
+                              {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
+*/
 export class Starship extends AllRects {
   constructor(name, hull, motor, modules, weapons, value, desc){
     super();
     this.name = name;
-    this.parts = hull;
-    this.stats = motor;
+    this.hull = hull;
+    this.motor = motor;
     this.modules = modules;
     this.weapons = weapons;
     this.value = value;
@@ -175,12 +180,11 @@ export class Starship extends AllRects {
 }
 
 export class Hull {
-  constructor(name, width, height, armours, color, maxModules, gunMounts, value, desc) {
+  constructor(name, width, height, armours, maxModules, gunMounts, value, desc) {
     this.name = name;
     this.width = width;
     this.height = height;
     this.armours = armours;
-    this.color = color;
     this.maxModules = maxModules;
     this.gunMounts = gunMounts;
     this.value = value;
@@ -189,8 +193,9 @@ export class Hull {
 }
 
 export class Motor {
-  constructor(name, size, power, durability, value, desc) {
-    this.name = name; this.size = size; this.power = power, this.durability = durability, this.value = value; this.desc = desc;
+  constructor(name, size, power, durability, value, refresh, desc) {
+    this.name = name; this.size = size; this.power = power, this.durability = durability, 
+    this.value = value; this.refresh = refresh; this.desc = desc;
   }
 }
 
