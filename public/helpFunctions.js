@@ -4,24 +4,37 @@ import { hulls, motors, shipGuns, shipModules } from './gameData.js';
 import { Hull, Motor, ShipGun, ShipModule } from './classes.js';
 
 /*
-
+name, hull, motor, modules, weapons, value, desc
 const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 */
 /*
                    maxModules,   guns, value, desc  
-  new Hull('Zaab 01', 40, 100, {front: 16, sides: 16, back: 11}, 10, {front: 1, starboad: 2, port: 2}, 1000,
+  new Hull('Zaab 01', 40, 100, {front: 16, sides: 16, back: 11}, 10, {front: 1, star: 2, port: 2}, 1000,
           'Reliable classic starship hull.')
 */
 export function shipGenerator(ship, startPlace, colors){
+  // find parts:
+  const parts = {
+    hull : hulls.filter( hull => ship.hull),
+    motor : motors.filter( motor => ship.motor),
+    frontGuns : shipGuns.filter( gun => ship.weapons.front ),
+    starGuns: shipGuns.filter( gun => ship.weapons.star ),
+    portGuns: shipGuns.filter( gun => ship.weapons.port )
+  };
+  
   // start places:
-  const startPlaces = [[200, 200], [700, 200], [200, 700], [700, 700]];
+  const startPlaces = [[200, 200], [400, 200], [200, 400], [400, 400]];
   // ship placeholder:
-  let ship1 = {name: ship.name, x: startPlaces[startPlace][0], y: startPlaces[startPlace][0]};
+  let ship1 = {name: ship.name, x: startPlaces[startPlace][0], y: startPlaces[startPlace][1], 
+               frontGuns : [], starGuns : [], portGuns : []};
   
   // ships width and height
-  
+  ship1.w = parts.hull[0].width; ship1.h = parts.hull[0].height;
   // ships speed and energy
+  ship1.speed = parts.motor[0].power;
+  ship1.energy = parts.motor[0].power;
+  ship1.refresh = parts.motor[0].refresh;
   
   // modules... from here atleast shield power, shield regen, autorepair etc....
   
@@ -29,8 +42,31 @@ export function shipGenerator(ship, startPlace, colors){
   ship1.color1 = colors[0]; ship1.color2 = colors[1];
   
   //set guns stats
+    // front:
+  for (let i = 0; i < parts.hull[0].gunMounts.front; i++ ) {
+    
+    ship1.frontGuns.push(parts.frontGuns[0]);
+  }
+    // sides:
+  for (let i = 0; i < parts.hull[0].gunMounts.star; i++ ) {
+    ship1.starGuns.push(parts.starGuns[0]);
+  }
+  for (let i = 0; i < parts.hull[0].gunMounts.port; i++ ) {
+    ship1.portGuns.push(parts.portGuns[0]);
+  }
   
-  // set ships armour
+  // set ships armour, hit points and shield points
+  ship1.armour = parts.hull[0].armours;
+  ship1.hitPoints = parts.hull[0].armours.front + parts.hull[0].armours.sides + parts.hull[0].armours.back;
+  
+  // if one of modules is shield, then shield points, if not, shieldPoints = 0:
+  ship1.shieldPoints = 0;
+  
+  
+  // headings temporarily to 0: 
+  ship1.heading = 0;
+  
+  // update of "corners" for rotation etc.
   
   return ship1;
 }
