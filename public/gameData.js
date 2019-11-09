@@ -1,6 +1,6 @@
 /*  gameData of players, opponents, planets etc. */
 
-import { Goods, Station, StarSystem, Location } from '/classes.js';
+import { Goods, Station, StarSystem, Location, Starship, Hull, Motor, ShipGun, Module } from '/classes.js';
 
 // gameObject that contains all player and planet data.
 export const gameObject = {
@@ -260,3 +260,19 @@ export const travelCanvases = `<div id= "travelContainer">
 /*
    SHIP DATA:
 */
+
+export const hulls = [
+  //         name,    w,  h,  armours                            maxModules,   guns, value, desc  
+  new Hull('Zaab 01', 40, 100, {front: 16, sides: 16, back: 11}, 10, {front: 1, starboad: 2, port: 2}, 1000,
+          'Reliable classic starship hull.')
+];
+// name, size, power, durability, value, desc
+export const motors = [
+  new Motor('Vartzila Space 1', 1, 10, 95, 1000, 'Reliable but not very powerful engine.')
+];
+// name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc
+export const shipGuns = [
+  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence beam gun.')
+];
+
+export const shipModules = [];
