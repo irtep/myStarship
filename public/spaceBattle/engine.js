@@ -9,6 +9,53 @@ import { draw } from './draw.js';
 // place for gameObject
 let gameObject = null;
 
+function shipActions(battleObject) {
+  
+  battleObject.ships.forEach( (ship) => {
+    
+    if (ship.disabled === false) {
+        
+      // accelerate
+      
+      // break
+
+      // turnLeft
+
+      // turnRight
+
+      // fireFront
+
+      // fireStar
+
+      // firePort   
+    }
+  });
+  
+}
+
+
+function animate(battleObject){
+  
+  if (battleObject.pause) {
+    // game on pause
+    
+    // draw pause menu, that has atleast option to continue game...
+    
+  } else {
+    
+    // ai decisions:
+    
+    // x and y updates of ships
+    
+    // x and y updated of bullets
+    
+    // draw
+    draw(battleObject);
+  }
+
+  window.requestAnimationFrame(animate);
+}
+
 window.onload = ( () => {
   // load gameObject from store
   gameObject = JSON.parse(localStorage.getItem('Go'));
@@ -28,14 +75,16 @@ const ship2 = shipGenerator(testShip2, 3, ['red', 'cyan']);
 // make battle object.
 const battleObject = {
   ships: [],
-  bullets: []
+  bullets: [],
+  pause: false
 };
 // add ships to battle objects
 battleObject.ships.push(ship1);
 battleObject.ships.push(ship2);
   
 // draw with battle object
-draw(battleObject);  
+//draw(battleObject);  
+animate(battleObject);
 });
 
 /*
@@ -60,4 +109,9 @@ export class ShipGun {
   }
 }
 ShipModule: name, size, energyUsage, power
+*/
+
+/*
+Note: When you call fill(), any open shapes are closed automatically, 
+so you don't have to call closePath(). This is not the case when you call stroke().
 */
