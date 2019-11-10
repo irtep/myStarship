@@ -176,7 +176,51 @@ export class Starship extends AllRects {
     this.value = value;
     this.desc = desc;
   }
-  // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort  
+  // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort 
+  accelerate() {
+    //console.log(`${this.name} accelerates.`);
+      /*
+    if (this.statuses.maxSpeed > this.statuses.speed && this.hitPoints > 0){
+      
+      this.statuses.speed += this.statuses.power;
+    }
+    */
+  }
+  
+  brake() {
+    /*
+    this.statuses.friction = this.statuses.brakingValue;
+    */
+  }
+  
+  reverse() {
+  
+  }
+  turnLeft() {
+    /*
+    if (this.statuses.isMoving === true) {
+      
+      if (this.statuses.speed < this.statuses.grip) {
+        this.statuses.heading -= this.statuses.turnRate - (this.statuses.speed/7);
+      } else {
+        this.statuses.heading -= this.statuses.turnRate - (this.statuses.speed/7) - (this.statuses.grip/4);
+      }
+    }
+    */
+  }
+  
+  turnRight() {
+    /*
+    if (this.statuses.isMoving === true) {
+      
+      if (this.statuses.speed < this.statuses.grip) {
+        this.statuses.heading += this.statuses.turnRate - (this.statuses.speed/7);
+      } else {
+        this.statuses.heading += this.statuses.turnRate - (this.statuses.speed/7) + (this.statuses.grip/4);
+      }
+    }
+    */
+  }
 }
 
 export class Hull {

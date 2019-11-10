@@ -32,7 +32,7 @@ export function shipGenerator(ship, startPlace, colors){
   // ships width and height
   ship1.w = parts.hull[0].width; ship1.h = parts.hull[0].height;
   // ships speed and energy
-  ship1.speed = parts.motor[0].power;
+  ship1.power = parts.motor[0].power;
   ship1.energy = parts.motor[0].power;
   ship1.refresh = parts.motor[0].refresh;
   
@@ -67,6 +67,16 @@ export function shipGenerator(ship, startPlace, colors){
   ship1.heading = 0;
   
   // update of "corners" for rotation etc.
+  
+  // ships control variables:
+  ship1.accelerate = false;
+  ship1.brake = false;
+  ship1.turnLeft = false;
+  ship1.turnRight = false;
+  ship1.fireFront = false;
+  ship1.fireStar = false;
+  ship1.firePort = false;
+  ship1.disabled = false;
   
   return ship1;
 }
