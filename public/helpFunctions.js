@@ -63,20 +63,10 @@ export function shipGenerator(ship, startPlace, colors){
   ship1.shieldPoints = 0;
   
   
-  // headings temporarily to 0: 
+  // headings and speed temporarily to 0: 
   ship1.heading = 0;
-  
+  ship1.speed = 0;
   // update of "corners" for rotation etc.
-  
-  // ships control variables:
-  ship1.accelerate = false;
-  ship1.brake = false;
-  ship1.turnLeft = false;
-  ship1.turnRight = false;
-  ship1.fireFront = false;
-  ship1.fireStar = false;
-  ship1.firePort = false;
-  ship1.disabled = false;
   
   return ship1;
 }

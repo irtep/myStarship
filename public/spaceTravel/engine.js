@@ -12,18 +12,6 @@ export function travel(from, to) {
 }
 */
 export function drawTravel(gameObject, systems, newMovementRadar, canvas, ctx, targetX) {
-  /* reference of gameObject.player..  
-    stationLocation: 'Earth Trading Center',
-    planetLocation: 'Earth',
-    systemLocation: 'Sol',
-    travelStatus: 'docked',
-    travelTarget: null,
-  */
-  /*
-  
-ctx.font = "30px Arial";
-ctx.fillText("Hello World",10,50);
-  */
   
   ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
   
