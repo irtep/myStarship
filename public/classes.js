@@ -175,6 +175,17 @@ export class Starship extends AllRects {
     this.weapons = weapons;
     this.value = value;
     this.desc = desc;
+    this.speed = 0;
+    this.heading = 0;
+    // ships control variables:
+    this.accelerate = false;
+    this.braking = false;
+    this.turnLeft = false;
+    this.turnRight = false;
+    this.fireFront = false;
+    this.fireStar = false;
+    this.firePort = false;
+    this.disabled = false;
   }
   // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort 
   accelerate() {
