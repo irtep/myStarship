@@ -5,36 +5,38 @@ function clearCanvas(canvas, ctx){
 export function draw(battleObject) {
   const canvas = document.getElementById('space');
   const ctx = canvas.getContext("2d");
-  
+  //console.log('bo ', battleObject)
   // clear canvas
   clearCanvas(canvas, ctx);
   
   battleObject.ships.forEach( ship => {
-    console.log('ship: ', ship.color1, ship.x, ship.y, ship.w, ship.h, ship.name);
+    //console.log('ship: ', ship.color1, ship.x, ship.y, ship.w, ship.h, ship.name);
     // paint hull of the ship:
     ctx.beginPath();
     ctx.fillStyle = ship.color1; 
     // later these:
-    /*
+    
     ctx.save(); // save coords system
-    if (unit.leftTopCorner !== undefined) {
-      ctx.translate(unit.leftTopCorner.x, unit.leftTopCorner.y);}
-    else {
+    //if (unit.leftTopCorner !== undefined) {
+    ctx.translate(ship.leftTopCorner.x, ship.leftTopCorner.y);
+     //}
+    //else {
       //ctx.translate(partsToPaint.hull.x, partsToPaint.hull.y);} // go here
-      ctx.translate(unit.x, unit.y);} // go here
-    ctx.rotate(degrees * Math.PI / 180);
-    */
-    ctx.rect(ship.x, ship.y, ship.w, ship.h);
+    ctx.translate(ship.x, ship.y);
+    //}// go here
+    ctx.rotate(ship.heading * Math.PI / 180);
+    
+    ctx.rect(0, 0, ship.w, ship.h);
     ctx.fill();
     ctx.closePath();
           
     ctx.beginPath();
     ctx.fillStyle = 'white';
-      ctx.fillText (ship.name, ship.x, ship.y);
+      ctx.fillText (ship.name, 10, -10);
       //ctx.fillText (unit.nextCheckPoint, drawPoint.x, drawPoint.y);
       ctx.fill();  
     // other parts then and restore coords.
-    
+    ctx.restore();
   });
   
  // ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
