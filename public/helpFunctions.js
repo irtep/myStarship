@@ -1,8 +1,7 @@
 
 // need these for shipGenerator:
 import { hulls, motors, shipGuns, shipModules } from './gameData.js';
-import { Hull, Motor, ShipGun, ShipModule } from './classes.js';
-
+import { Hull, Motor, ShipGun, ShipModule, ShipInCombat } from './classes.js';
 /*
 name, hull, motor, modules, weapons, value, desc
 const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
@@ -24,15 +23,16 @@ export function shipGenerator(ship, startPlace, colors){
   };
   
   // start places:
-  const startPlaces = [[200, 200], [400, 200], [200, 400], [400, 400]];
+  // full grid seems to be 500, 250 about...
+  const startPlaces = [[20, 20], [400, 200], [200, 400], [400, 250]];
   // ship placeholder:
-  let ship1 = {name: ship.name, x: startPlaces[startPlace][0], y: startPlaces[startPlace][1], 
-               frontGuns : [], starGuns : [], portGuns : []};
+  let ship1 = new ShipInCombat(ship.name, startPlaces[startPlace][0], startPlaces[startPlace][1], 
+               [], [], []);
   
   // ships width and height
   ship1.w = parts.hull[0].width; ship1.h = parts.hull[0].height;
   // ships speed and energy
-  ship1.power = parts.motor[0].power;
+  ship1.power = parts.motor[0].power / 10;
   ship1.energy = parts.motor[0].power;
   ship1.refresh = parts.motor[0].refresh;
   
@@ -66,7 +66,9 @@ export function shipGenerator(ship, startPlace, colors){
   // headings and speed temporarily to 0: 
   ship1.heading = 0;
   ship1.speed = 0;
-  // update of "corners" for rotation etc.
+  // not disabled:
+  ship1.disabled = false;
+  ship1.setCorners(ship1.heading);
   
   return ship1;
 }

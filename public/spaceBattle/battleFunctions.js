@@ -1,6 +1,8 @@
 import { gameObject } from './engine.js';
+import { Starship, AllRects } from '../classes.js';
 
-export function getSpeeds (rotation, speed) { console.log('rota, speeds', rotation, speed);
+export function getSpeeds (rotation, speed) { 
+  //console.log('rota, speeds', rotation, speed);
   const to_angles = Math.PI/180;
   
   return {

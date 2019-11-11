@@ -2,7 +2,7 @@
   propably lots of experimental stuff first...
 */
 import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
-import { Starship } from '../classes.js';
+import { Starship, AllRects } from '../classes.js';
 import { shipGenerator } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
 import { getSpeeds, checkKeyPressed, checkKeyReleased } from './battleFunctions.js';
@@ -13,30 +13,34 @@ const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false)
 export var gameObject = null;
 
 function shipActions(ship) {
-  console.log('ship: ', ship);
-  // something messes ship.speed... need to investigate, but temporary fix:
-  if (ship.speed == NaN) { ship.speed = 0}
+  // need to set max and min speeds....
   
-  if (ship.disabled === false) {
-        
+if (ship.disabled === false) {
     // accelerate
-    if (ship.accelerate) { ship.speed++; }
+    if (ship.accelerate) { ship.speed += 0.1 }
     // break
-    if (ship.braking) { ship.speed--; }
+    if (ship.braking) { ship.speed -= 0.03 }
     // turnLeft
-    if (ship.turnLeft) { ship.heading--; }
+    if (ship.turnLeft) { ship.heading -= 4;}
     // turnRight
-    if (ship.turnRight) { ship.heading++; }
+    if (ship.turnRight) { ship.heading += 4;}
     // fireFront
 
     // fireStar
 
     // firePort   
   }
+  /*
+    carInTurn.angle = carInTurn.statuses.heading;
+    carInTurn.setCorners(carInTurn.angle);
+  */
   const speeds = getSpeeds(ship.heading, ship.speed);
-  console.log('speeds', speeds);  
+  //console.log('speeds', speeds);  
   ship.x += -speeds.x;
   ship.y += speeds.y;
+  
+  // update x and y for collision test purpose
+  ship.setCorners(ship.heading);
   /*
     
   car.x += -speeds.x;
@@ -66,40 +70,10 @@ function animate(){
     // draw
     draw(gameObject.battleObject);
   }
-  const showStats = new Promise( (resolve, reject) => {
     
-    if (gameObject.battleObject.ships[0] !== undefined) { resolve();}
-  });
+  document.getElementById('infoPlace').innerHTML = `${gameObject.battleObject.ships[0].x} ${gameObject.battleObject.ships[0].y} 
+  ${gameObject.battleObject.ships[1].x} ${gameObject.battleObject.ships[1].y}`;
   
-  showStats.then( () => {
-    
-    document.getElementById('infoPlace').innerHTML = `${gameObject.battleObject.ships[0].accelerate} ${gameObject.battleObject.ships[0].braking} 
-  ${gameObject.battleObject.ships[0].turnLeft} ${gameObject.battleObject.ships[0].turnRight} s2: 
-  ${gameObject.battleObject.ships[1].accelerate} ${gameObject.battleObject.ships[1].braking}`;
-  });
-  /*
-  
-      const newDbConnect = new Promise( (resolve, reject) => {
-      
-        champsModel.find((err, results) => {
-          
-          if (results !== null) {
-            
-            resolve(results);
-          } 
-        });  
-      });
-      
-      newDbConnect.then( (results) => {
-        
-        responding = results;
-        const sending = JSON.stringify(responding);
-        console.log("responding with data ");
-        console.log('lists now: ', responding);
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.end(sending); 
-      });
-  */
   window.requestAnimationFrame(animate);
 }
 
@@ -130,10 +104,15 @@ const battleObject = {
 battleObject.ships.push(ship1);
 battleObject.ships.push(ship2);
   
+battleObject.ships.forEach( ship => {
+  // update of "corners" for rotation etc.
+  ship.setCorners(ship.heading);
+});
+
 // draw with battle object
 //draw(battleObject); 
 gameObject.battleObject = battleObject;
-animate();
+animate();  
 });
 
 /**

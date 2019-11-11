@@ -70,7 +70,7 @@ export class AllRects {
   // calculates and sets corners of rotated angles.
   // this was used as reference: https://stackoverflow.com/questions/41489627/collision-between-two-elements-with-rotating/41513341#41513341
   setCorners(angle) {
-    
+   
     function getRotatedTopLeftCornerOfRect(x, y, width, height, angle, rType) {
       //console.log('gRtLCOR ', x, y, width, height, angle);
   
@@ -165,9 +165,20 @@ name, hull, motor, modules, weapons, value, desc
 const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 */
-export class Starship extends AllRects {
-  constructor(name, hull, motor, modules, weapons, value, desc){
+/*
+ let ship1 = {name: ship.name, x: startPlaces[startPlace][0], y: startPlaces[startPlace][1], 
+               frontGuns : [], starGuns : [], portGuns : []};
+
+*/
+export class ShipInCombat extends AllRects {
+  constructor(name, x, y, frontGuns, starGuns, portGuns) {
     super();
+    this.name = name; this.x = x; this.y = y; this.frontGuns = frontGuns;
+    this.starGuns = starGuns; this.portGuns = portGuns;
+  }
+}
+export class Starship {
+  constructor(name, hull, motor, modules, weapons, value, desc){
     this.name = name;
     this.hull = hull;
     this.motor = motor;
@@ -186,51 +197,6 @@ export class Starship extends AllRects {
     this.fireStar = false;
     this.firePort = false;
     this.disabled = false;
-  }
-  // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort 
-  accelerate() {
-    //console.log(`${this.name} accelerates.`);
-      /*
-    if (this.statuses.maxSpeed > this.statuses.speed && this.hitPoints > 0){
-      
-      this.statuses.speed += this.statuses.power;
-    }
-    */
-  }
-  
-  brake() {
-    /*
-    this.statuses.friction = this.statuses.brakingValue;
-    */
-  }
-  
-  reverse() {
-  
-  }
-  turnLeft() {
-    /*
-    if (this.statuses.isMoving === true) {
-      
-      if (this.statuses.speed < this.statuses.grip) {
-        this.statuses.heading -= this.statuses.turnRate - (this.statuses.speed/7);
-      } else {
-        this.statuses.heading -= this.statuses.turnRate - (this.statuses.speed/7) - (this.statuses.grip/4);
-      }
-    }
-    */
-  }
-  
-  turnRight() {
-    /*
-    if (this.statuses.isMoving === true) {
-      
-      if (this.statuses.speed < this.statuses.grip) {
-        this.statuses.heading += this.statuses.turnRate - (this.statuses.speed/7);
-      } else {
-        this.statuses.heading += this.statuses.turnRate - (this.statuses.speed/7) + (this.statuses.grip/4);
-      }
-    }
-    */
   }
 }
 
