@@ -5,7 +5,7 @@ import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects } from '../classes.js';
 import { shipGenerator } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
-import { getSpeeds, checkKeyPressed, checkKeyReleased } from './battleFunctions.js';
+import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation } from './battleFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -14,8 +14,8 @@ export var gameObject = null;
 
 function shipActions(ship) {
   // need to set max and min speeds....
-  
-if (ship.disabled === false) {
+  // also collision detects..
+  if (ship.disabled === false) {
     // accelerate
     if (ship.accelerate) { ship.speed += 0.1 }
     // break
@@ -25,7 +25,25 @@ if (ship.disabled === false) {
     // turnRight
     if (ship.turnRight) { ship.heading += 4;}
     // fireFront
-
+    for (let i = 0; i < ship.frontGuns.length; i++) {
+      const gunLocation = getGunLocation(i+1, ship.frontGuns.length, true, ship);
+      
+      if (ship.energy >= ship.frontGuns[i].energyUsage) {
+        ship.frontGuns[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets);  
+      }
+    }
+    if (ship.energy >= ship) {
+        
+    }
+/*
+fontGuns
+export class ShipGun {
+  constructor(name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc){
+  shoot(shooter, x, y, heading, pool){
+    const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
+                                this.speed, this.color);
+    pool.push(newBullet);
+*/
     // fireStar
 
     // firePort   
@@ -70,10 +88,14 @@ function animate(){
     // draw
     draw(gameObject.battleObject);
   }
-    
-  document.getElementById('infoPlace').innerHTML = `${gameObject.battleObject.ships[0].x} ${gameObject.battleObject.ships[0].y} 
-  ${gameObject.battleObject.ships[1].x} ${gameObject.battleObject.ships[1].y}`;
+  //battleData [this.hitPoints, this.shieldPoints, this.energy, this.refresh];  
+  document.getElementById('infoPlace').innerHTML = `hp: ${gameObject.battleObject.ships[0].showBattleData[0]}
+ sp: ${gameObject.battleObject.ships[0].showBattleData[1]} e: ${gameObject.battleObject.ships[0].showBattleData[2]}`;
   
+    /*  
+  `${gameObject.battleObject.ships[0].x} ${gameObject.battleObject.ships[0].y} 
+  ${gameObject.battleObject.ships[1].x} ${gameObject.battleObject.ships[1].y}`;
+  */
   window.requestAnimationFrame(animate);
 }
 
@@ -112,6 +134,7 @@ battleObject.ships.forEach( ship => {
 // draw with battle object
 //draw(battleObject); 
 gameObject.battleObject = battleObject;
+console.log('gameObject.battleObject',gameObject.battleObject);
 animate();  
 });
 

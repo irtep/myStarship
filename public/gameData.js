@@ -273,7 +273,7 @@ export const motors = [
 ];
 // name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc
 export const shipGuns = [
-  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence beam gun.')
+  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence gun.')
 ];
 
 export const shipModules = [];

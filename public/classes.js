@@ -176,6 +176,13 @@ export class ShipInCombat extends AllRects {
     this.name = name; this.x = x; this.y = y; this.frontGuns = frontGuns;
     this.starGuns = starGuns; this.portGuns = portGuns;
   }
+  
+  get showBattleData() {
+    const battleData = [this.hitPoints, this.shieldPoints, this.energy, this.refresh];
+    
+    return battleData;
+  }
+  
 }
 export class Starship {
   constructor(name, hull, motor, modules, weapons, value, desc){
@@ -233,10 +240,40 @@ export class ShipGun {
     this.value = value;
     this.desc = desc;
   }
+  
+  shoot(shooter, x, y, heading, pool){
+    const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
+                                this.speed, this.color);
+    pool.push(newBullet);
+  }
 }
 
 export class ShipModule {
   constructor(name, size, energyUsage, power, desc) {
     this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; this.desc = desc;
+  }
+}
+
+// name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc
+export class Bullet extends AllRects{
+  constructor(name, from, x, y, heading, power, shieldPiercing, range, speed, color) {
+    super();
+    this.name = name; this.from = from; this.x = x; this.y = y; this.heading = heading; this.power = power; 
+    this.shieldPiercing = shieldPiercing; this.range = range; this.travelled = 0; this.live = true;
+  }
+  
+  set setXandY(newXandY) {
+    this.x = newXandY.x;
+    this.y = newXandY.y;
+  }
+  
+  set travel(moved) {
+    this.travelled += moved;
+  }
+  
+  destroy() {
+    this.live = false;
+    this.x = null;
+    this.y = null;
   }
 }

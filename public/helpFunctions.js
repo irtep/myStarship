@@ -34,6 +34,8 @@ export function shipGenerator(ship, startPlace, colors){
   // ships speed and energy
   ship1.power = parts.motor[0].power / 10;
   ship1.energy = parts.motor[0].power;
+  ship1.maxEnergy = parts.motor[0].power;
+  // energy regen rate
   ship1.refresh = parts.motor[0].refresh;
   
   // modules... from here atleast shield power, shield regen, autorepair etc....
