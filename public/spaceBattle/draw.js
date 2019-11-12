@@ -9,6 +9,7 @@ export function draw(battleObject) {
   // clear canvas
   clearCanvas(canvas, ctx);
   
+  // draw ships:
   battleObject.ships.forEach( ship => {
     //console.log('ship: ', ship.color1, ship.x, ship.y, ship.w, ship.h, ship.name);
     // paint hull of the ship:
@@ -38,6 +39,9 @@ export function draw(battleObject) {
     // other parts then and restore coords.
     ctx.restore();
   });
+  
+  // draw bullets:
+  
   
  // ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
   
