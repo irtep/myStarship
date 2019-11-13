@@ -244,6 +244,8 @@ export class ShipGun {
   shoot(shooter, x, y, heading, pool){
     const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
                                 this.speed, this.color);
+    
+    newBullet.setCorners(newBullet.heading);
     pool.push(newBullet);
   }
 }
@@ -260,8 +262,9 @@ export class Bullet extends AllRects{
     super();
     this.name = name; this.from = from; this.x = x; this.y = y; this.heading = heading; this.power = power; 
     this.shieldPiercing = shieldPiercing; this.range = range; this.travelled = 0; this.live = true;
+    this.speed = speed;
   }
-  
+  /*
   set setXandY(newXandY) {
     this.x = newXandY.x;
     this.y = newXandY.y;
@@ -270,7 +273,7 @@ export class Bullet extends AllRects{
   set travel(moved) {
     this.travelled += moved;
   }
-  
+  */
   destroy() {
     this.live = false;
     this.x = null;

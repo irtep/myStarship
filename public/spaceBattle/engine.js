@@ -3,7 +3,7 @@
 */
 import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects } from '../classes.js';
-import { shipGenerator } from '../helpFunctions.js'; 
+import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
 import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation } from './battleFunctions.js';
 
@@ -17,23 +17,34 @@ function shipActions(ship) {
   // also collision detects..
   if (ship.disabled === false) {
     // accelerate
-    if (ship.accelerate) { ship.speed += 0.1 }
+    if (ship.accelerate) { 
+      if (ship.power > ship.speed) {ship.speed += 0.1} 
+    }
     // break
-    if (ship.braking) { ship.speed -= 0.03 }
+    if (ship.braking) { 
+      if (ship.speed > -1) {ship.speed -= 0.03} 
+    }
     // turnLeft
     if (ship.turnLeft) { ship.heading -= 4;}
     // turnRight
     if (ship.turnRight) { ship.heading += 4;}
+    
     // fireFront
-    for (let i = 0; i < ship.frontGuns.length; i++) {
-      const gunLocation = getGunLocation(i+1, ship.frontGuns.length, true, ship);
+    if (ship.fireFront) {
+     
+      for (let i = 0; i < ship.frontGuns.length; i++) {
+        const gunLocation = getGunLocation(i+1, ship.frontGuns.length, 'front', ship);
       
-      if (ship.energy >= ship.frontGuns[i].energyUsage) {
-        ship.frontGuns[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets);  
-      }
-    }
-    if (ship.energy >= ship) {
-        
+        if (ship.energy >= ship.frontGuns[i].energyUsage && ship.frontGuns[i].coolDown !== true) {
+          
+          // shoot, deduct energy, set cool down and start counting it down.
+          ship.frontGuns[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets); 
+          console.log('shipxy, gunxy', freezeCopy(ship.x), freezeCopy(ship.y), freezeCopy(gunLocation.x), freezeCopy(gunLocation.y));
+          ship.energy -= ship.frontGuns[i].energyUsage;
+          ship.frontGuns[i].coolDown = true;
+          setTimeout( () => { ship.frontGuns[i].coolDown = false }, ship.frontGuns[i].reloadTime*100);
+        }
+      } 
     }
 /*
 fontGuns
@@ -66,6 +77,27 @@ export class ShipGun {
   */
 }
 
+function bulletActions(bullet) {
+  
+  for (let i = 0; i < bullet.speed; i++) {
+    
+    // move bullet 1 px
+    const speeds = getSpeeds(bullet.heading, 1);
+    // add travel
+    bullet.travelled++;
+    
+    bullet.x += -speeds.x;
+    bullet.y += speeds.y;
+    bullet.setCorners(bullet.heading);
+    //console.log(JSON.parse(JSON.stringify(bullet.x)), bullet.y);
+    // check collision
+    
+    // if range is full
+    if (bullet.travelled >= bullet.range) {bullet.destroy();}
+  }
+  
+}
+
 
 function animate(){
   
@@ -78,13 +110,24 @@ function animate(){
     
     // ai decisions:
     
-    // x and y updates of ships
+    // actions of ships
     gameObject.battleObject.ships.forEach( ship => {
       
       shipActions(ship);
     });
-    // x and y updated of bullets
     
+    // actions of bullets
+    gameObject.battleObject.bullets.forEach( bullet => {
+      
+      if (bullet.live) {
+        bulletActions(bullet);   
+      }
+    });
+    
+    // clean dead bullets
+    if (gameObject.battleObject.bullets.length > 20) {
+      gameObject.battleObject.bullets.shift();
+    }
     // draw
     draw(gameObject.battleObject);
   }

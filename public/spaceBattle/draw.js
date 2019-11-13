@@ -1,3 +1,5 @@
+import { freezeCopy } from '../helpFunctions.js';
+
 function clearCanvas(canvas, ctx){
   ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
 }
@@ -15,25 +17,17 @@ export function draw(battleObject) {
     // paint hull of the ship:
     ctx.beginPath();
     ctx.fillStyle = ship.color1; 
-    // later these:
-    
     ctx.save(); // save coords system
-    //if (unit.leftTopCorner !== undefined) {
     ctx.translate(ship.leftTopCorner.x, ship.leftTopCorner.y);
-     //}
-    //else {
-      //ctx.translate(partsToPaint.hull.x, partsToPaint.hull.y);} // go here
-    ctx.translate(ship.x, ship.y);
-    //}// go here
+    //ctx.translate(ship.x, ship.y);
     ctx.rotate(ship.heading * Math.PI / 180);
-    
     ctx.rect(0, 0, ship.w, ship.h);
     ctx.fill();
     ctx.closePath();
           
     ctx.beginPath();
     ctx.fillStyle = 'white';
-      ctx.fillText (ship.name, 10, -10);
+      ctx.fillText (ship.name, 0, -10);
       //ctx.fillText (unit.nextCheckPoint, drawPoint.x, drawPoint.y);
       ctx.fill();  
     // other parts then and restore coords.
@@ -41,7 +35,34 @@ export function draw(battleObject) {
   });
   
   // draw bullets:
-  
+  battleObject.bullets.forEach( bullet => {
+    if (bullet.live) {
+     
+      ctx.beginPath();
+      /*
+      
+    ctx.save(); // save coords system
+    ctx.translate(bullet.leftTopCorner.x, bullet.leftTopCorner.y);
+    ctx.translate(bullet.x, bullet.y);
+    ctx.rotate(bullet.heading * Math.PI / 180);
+    ctx.rect(0, 0, bullet.w, bullet.h);
+    ctx.fill();
+    ctx.closePath();
+      */
+      ctx.fillStyle = bullet.color;
+      ctx.rect(bullet.x, bullet.y, 3, 3); // x and y are not there where i want...
+      console.log('gunxy', freezeCopy(bullet.x), freezeCopy(bullet.y));
+      ctx.fill();
+      ctx.closePath();   
+     
+      /*
+      ctx.beginPath();
+      ctx.strokeStyle = 'green';
+      ctx.arc(bullet.x, bullet.y, 5, 0, 2 * Math.PI);
+      ctx.stroke();
+      */
+    }
+  });
   
  // ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all 
   

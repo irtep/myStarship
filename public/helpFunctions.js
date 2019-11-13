@@ -12,6 +12,12 @@ const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [],
   new Hull('Zaab 01', 40, 100, {front: 16, sides: 16, back: 11}, 10, {front: 1, star: 2, port: 2}, 1000,
           'Reliable classic starship hull.')
 */
+
+// copy variable as it was at the moment
+export function freezeCopy(target){
+  return JSON.parse(JSON.stringify(target));
+}
+
 export function shipGenerator(ship, startPlace, colors){
   // find parts:
   const parts = {
