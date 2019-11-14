@@ -2,14 +2,19 @@ import { gameObject } from './engine.js';
 import { Starship, AllRects } from '../classes.js';
 
 export function getGunLocation(gunNbr, slots, battery, ship) {
-  const frontBatteryX = ship.x + ship.w;
+  // midway of ships front:
+  const midX=ship.rightTopCorner.x+(ship.rightBottomCorner.x-ship.rightTopCorner.x)*0.50;
+  const midY=ship.rightTopCorner.y+(ship.rightBottomCorner.y-ship.rightTopCorner.y)*0.50;
+  
+  //const frontBatteryX = midX + midY;
   
   if (battery === 'front') {
     // if only cannon in front. shoot from middle
     if (slots === gunNbr) {
-      return {x: frontBatteryX, y: ship.y + (ship.h / 2)}
+      return {x: midX, y: midY}
     // if several cannons in front
     } else {
+      /* THIS NEEDS MODIFICATIONS
       const gunSlotY = ship.y - ship.h / slots
       const divisionY = ship.h / slots;
       let chosenDivisionY = divisionY;
@@ -19,11 +24,12 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
       }
       
       return {x: frontBatteryX, y: chosenDivisionY}
+      */
     }
     // 2
     
     // 3
-  }
+  } // front battery ends.
   
 }
 
