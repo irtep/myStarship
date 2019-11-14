@@ -39,7 +39,7 @@ function shipActions(ship) {
           
           // shoot, deduct energy, set cool down and start counting it down.
           ship.frontGuns[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets); 
-          console.log('shipxy, gunxy', freezeCopy(ship.x), freezeCopy(ship.y), freezeCopy(gunLocation.x), freezeCopy(gunLocation.y));
+          //console.log('shipxy, gunxy', freezeCopy(ship.x), freezeCopy(ship.y), freezeCopy(gunLocation.x), freezeCopy(gunLocation.y));
           ship.energy -= ship.frontGuns[i].energyUsage;
           ship.frontGuns[i].coolDown = true;
           setTimeout( () => { ship.frontGuns[i].coolDown = false }, ship.frontGuns[i].reloadTime*100);
@@ -95,7 +95,6 @@ function bulletActions(bullet) {
     // if range is full
     if (bullet.travelled >= bullet.range) {bullet.destroy();}
   }
-  
 }
 
 
@@ -172,6 +171,16 @@ battleObject.ships.push(ship2);
 battleObject.ships.forEach( ship => {
   // update of "corners" for rotation etc.
   ship.setCorners(ship.heading);
+  // set timer for energy regen
+  setInterval( () => {
+    
+    if (ship.energy < ship.maxEnergy) {
+      ship.energy += ship.power;
+      if (ship.energy > ship.maxEnergy) {
+        ship.energy = ship.maxEnergy;
+      }
+    }
+  }, 3000);
 });
 
 // draw with battle object
