@@ -32,6 +32,35 @@ export function draw(battleObject) {
       ctx.fill();  
     // other parts then and restore coords.
     ctx.restore();
+      /* ships front center
+      var midX=ship.rightTopCorner.x+(ship.rightBottomCorner.x-ship.rightTopCorner.x)*0.50;
+      var midY=ship.rightTopCorner.y+(ship.rightBottomCorner.y-ship.rightTopCorner.y)*0.50;
+      */
+      // frontbattery, center
+      /*
+      ctx.beginPath();
+      ctx.strokeStyle = 'white';
+      //ctx.arc(ship.x, ship.y, 5, 0, 2 * Math.PI); ctx.arc(ship.leftTopCorner.x, ship.leftTopCorner.y, 5, 0, 2 * Math.PI);
+      ctx.arc(midX, midY, 5, 0, 2 * Math.PI);
+      ctx.stroke();
+        */
+      // lines from corners to canvas corners:
+      // this is used to see where corners of car are in collision test purpose
+      // disabled if game is online.
+    /*
+      const specialArray = [ship.leftBottomCorner, ship.leftTopCorner, ship.rightBottomCorner, ship.rightTopCorner];
+      const specialArray2 = [{x: 0, y: canvas.height},{x: 0, y: 0},{x: canvas.width, y: canvas.height},{x: canvas.width, y: 0}];
+      let indicator = 0;
+      const drawLines = specialArray.map( (lines) => {
+        ctx.beginPath();
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(lines.x, lines.y);
+        ctx.lineTo(specialArray2[indicator].x, specialArray2[indicator].y);
+        ctx.stroke();
+        indicator++;
+      });
+      */
+    
   });
   
   // draw bullets:
