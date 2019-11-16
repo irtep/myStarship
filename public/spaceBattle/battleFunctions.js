@@ -1,34 +1,47 @@
 import { gameObject } from './engine.js';
 import { Starship, AllRects } from '../classes.js';
+    
+export function firingSolutions(ship, battery, gLocation) {
+      
+  for (let i = 0; i < battery.length; i++) {
+    const gunLocation = getGunLocation(i+1, battery.length, gLocation, ship);
+      
+    if (ship.energy >= battery[i].energyUsage && battery[i].coolDown !== true) {
+          
+      // shoot, deduct energy, set cool down and start counting it down.
+      battery[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets); 
+      ship.energy -= battery[i].energyUsage;
+      battery[i].coolDown = true;
+      setTimeout( () => { battery[i].coolDown = false }, battery[i].reloadTime*100);
+    }
+  }         
+}
+// gets x and y from point to another, 1 is full distance
+function getXY(from, to, distance) {
+  const newX = from + (to - from) * distance;
+  const newY = from + (to - from) * distance;
+  
+  return { x: newX, y: newY };
+}
 
 export function getGunLocation(gunNbr, slots, battery, ship) {
-  // midway of ships front:
-  const midX=ship.rightTopCorner.x+(ship.rightBottomCorner.x-ship.rightTopCorner.x)*0.50;
-  const midY=ship.rightTopCorner.y+(ship.rightBottomCorner.y-ship.rightTopCorner.y)*0.50;
-  
-  //const frontBatteryX = midX + midY;
   
   if (battery === 'front') {
     // if only cannon in front. shoot from middle
-    if (slots === gunNbr) {
-      return {x: midX, y: midY}
-    // if several cannons in front
-    } else {
-      /* THIS NEEDS MODIFICATIONS
-      const gunSlotY = ship.y - ship.h / slots
-      const divisionY = ship.h / slots;
-      let chosenDivisionY = divisionY;
+    if (slots === gunNbr) {    
+      const midX = getXY(ship.rightTopCorner.x, ship.rightBottomCorner.x, 0.50).x;
+      const midY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, 0.50).y;
       
-      for (let i = 0; i < gunNbr; i++) {
-        chosenDivisionY += chosenDivisionY;
-      }
-      
-      return {x: frontBatteryX, y: chosenDivisionY}
-      */
-    }
-    // 2
+      return {x: midX, y: midY} } 
     
-    // 3
+    // if several cannons in front
+    else {
+      const multiplier = (1 / (slots + 1)) * gunNbr;
+      const gunSlotX = getXY(ship.rightTopCorner.x, ship.rightBottomCorner.x, multiplier).x;
+      const gunSlotY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, multiplier).y;
+      
+      return {x: gunSlotX, y: gunSlotY};
+    }
   } // front battery ends.
   
 }

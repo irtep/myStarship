@@ -265,7 +265,9 @@ export const hulls = [
   // name, width, height, armours, maxModules, gunMounts, value, desc
   //         name,    w,  h,  armours                            maxModules,   guns, value, desc  
   new Hull('Zaab 01', 20, 8, {front: 16, sides: 16, back: 11}, 10, {front: 1, starboad: 2, port: 2}, 1000,
-          'Reliable classic starship hull.')
+          'Reliable classic starship hull.'),
+  new Hull('Zaab 02', 25, 11, {front: 16, sides: 16, back: 11}, 13, {front: 2, starboad: 3, port: 3}, 1500,
+          'Extended version of classic Zaab 01.')
 ];
 // name, size, power, durability, value, refreshrate, desc
 export const motors = [
