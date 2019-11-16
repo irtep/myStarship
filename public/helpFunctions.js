@@ -21,13 +21,13 @@ export function freezeCopy(target){
 export function shipGenerator(ship, startPlace, colors){
   // find parts:
   const parts = {
-    hull : hulls.filter( hull => ship.hull),
-    motor : motors.filter( motor => ship.motor),
-    frontGuns : shipGuns.filter( gun => ship.weapons.front ),
-    starGuns: shipGuns.filter( gun => ship.weapons.star ),
-    portGuns: shipGuns.filter( gun => ship.weapons.port )
+    hull : hulls.filter( hull => hull.name === ship.hull),
+    motor : motors.filter( motor => motor.name === ship.motor),
+    frontGuns : shipGuns.filter( gun => gun.name === ship.weapons.front ),
+    starGuns: shipGuns.filter( gun => gun.name === ship.weapons.star ),
+    portGuns: shipGuns.filter( gun => gun.name === ship.weapons.port )
   };
-  
+  console.log('parts ', parts);
   // start places:
   // full grid seems to be 500, 250 about...
   const startPlaces = [[20, 20], [400, 200], [200, 400], [400, 250]];

@@ -7,6 +7,7 @@ bugs:
   
   minors:
     that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
+    blurry screen at travel. should set width and height at html file
 
 remember: export, import, get, set
 STARTSCREEN ------------------------------

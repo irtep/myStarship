@@ -263,6 +263,8 @@ export class Bullet extends AllRects{
     this.name = name; this.from = from; this.x = x; this.y = y; this.heading = heading; this.power = power; 
     this.shieldPiercing = shieldPiercing; this.range = range; this.travelled = 0; this.live = true;
     this.speed = speed;
+    this.w = 3;
+    this.h = 3;
   }
   /*
   set setXandY(newXandY) {

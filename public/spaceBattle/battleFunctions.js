@@ -1,18 +1,29 @@
 import { gameObject } from './engine.js';
 import { Starship, AllRects } from '../classes.js';
     
-export function firingSolutions(ship, battery, gLocation) {
-      
+export function firingSolutions(ship, battery, gLocation, heading) {
+  
   for (let i = 0; i < battery.length; i++) {
-    const gunLocation = getGunLocation(i+1, battery.length, gLocation, ship);
       
     if (ship.energy >= battery[i].energyUsage && battery[i].coolDown !== true) {
+      const gunLocation = getGunLocation(i+1, battery.length, gLocation, ship);
           
-      // shoot, deduct energy, set cool down and start counting it down.
-      battery[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets); 
+      // shoot
+      battery[i].shoot(ship.name, gunLocation.x, gunLocation.y, heading, gameObject.battleObject.bullets); 
+      // deduct energy
       ship.energy -= battery[i].energyUsage;
-      battery[i].coolDown = true;
-      setTimeout( () => { battery[i].coolDown = false }, battery[i].reloadTime*100);
+      // set cooldown if this was the last shot
+      if (i + 1 === battery.length) {
+        console.log('last shot, cD');
+        battery[i].coolDown = true;
+        // start to count cooldown down
+        setTimeout( () => { battery[i].coolDown = false }, battery[i].reloadTime*100);  
+      }
+      // push gun location to mark it to draw as to test
+      /*
+      const guns = {x: gunLocation.x, y: gunLocation.y};
+      gameObject.battleObject.guns.push(guns);
+     */    
     }
   }         
 }
@@ -27,21 +38,30 @@ function getXY(from, to, distance) {
 export function getGunLocation(gunNbr, slots, battery, ship) {
   
   if (battery === 'front') {
-    // if only cannon in front. shoot from middle
-    if (slots === gunNbr) {    
-      const midX = getXY(ship.rightTopCorner.x, ship.rightBottomCorner.x, 0.50).x;
-      const midY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, 0.50).y;
-      
-      return {x: midX, y: midY} } 
-    
-    // if several cannons in front
-    else {
-      const multiplier = (1 / (slots + 1)) * gunNbr;
+      const multiplier = (1 / (slots + 1)) * gunNbr; 
+      console.log('m ', gunNbr, multiplier);
       const gunSlotX = getXY(ship.rightTopCorner.x, ship.rightBottomCorner.x, multiplier).x;
       const gunSlotY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, multiplier).y;
       
       return {x: gunSlotX, y: gunSlotY};
-    }
+  } // front battery ends.
+  
+  if (battery === 'star') { // right
+      const multiplier = (1 / (slots + 1)) * gunNbr; 
+      console.log('m ', gunNbr, multiplier);
+      const gunSlotX = getXY(ship.rightBottomCorner.x, ship.leftBottomCorner.x, multiplier).x;
+      const gunSlotY = getXY(ship.rightBottomCorner.y, ship.leftBottomCorner.y, multiplier).y;
+      
+      return {x: gunSlotX, y: gunSlotY};
+  } // front battery ends.
+  
+  if (battery === 'port') { // left
+      const multiplier = (1 / (slots + 1)) * gunNbr; 
+      console.log('m ', gunNbr, multiplier);
+      const gunSlotX = getXY(ship.leftTopCorner.x, ship.rightTopCorner.x, multiplier).x;
+      const gunSlotY = getXY(ship.leftTopCorner.y, ship.rightTopCorner.y, multiplier).y;
+      
+      return {x: gunSlotX, y: gunSlotY};
   } // front battery ends.
   
 }
@@ -150,4 +170,64 @@ export function checkKeyReleased(released){
       
     default: console.log('not found this key(released) ');  
   }
+}
+
+
+/*  
+  RECTANGLE BASED COLLISION TEST: 
+*/
+function pointInPoly(verties, testx, testy) { 
+  var i;
+  var j;
+  var c = 0;
+  var nvert = verties.length;
+  
+  for (i = 0, j = nvert - 1; i < nvert; j = i++) {
+  
+    if (((verties[i].y > testy) != (verties[j].y > testy)) && (testx < (verties[j].x - verties[i].x) * (testy - verties[i].y) / (verties[j].y - verties[i].y) + verties[i].x))
+                    c = !c;
+  }
+  return c;
+}
+
+function testCollision(rectangle) {
+  var collision = false;
+  //console.log('testC ', rectangle);
+  this.getCorners().forEach((corner) => {
+    var isCollided = pointInPoly(rectangle.getCorners(), corner.x, corner.y);
+                
+    if (isCollided) collision = true;
+  });
+  return collision;
+}
+
+// bring "full objects" like car or gameObject.race.track[0].obstacles[0]
+// example: checkRectangleCollision(car, gameObject.race.track[0].obstacles[0]);
+function checkRectangleCollision(rect, rect2) {
+  //console.log('cRC ', rect, rect2);
+  if (testCollision.call(rect, rect2)) return true;
+  else if (testCollision.call(rect2, rect)) return true;
+  return false;
+}
+
+// collision test starts here
+export function collisionTest(object, isShip) {
+  const noCollision = false;
+  let compareName = object.name;
+  
+  // if bullet can't use objects name to check if same
+  if (isShip === false) { compareName = object.from };
+  // check if collision with ships
+  for (let i = 0; i < gameObject.battleObject.ships.length; i++) {
+    // lets not compare with same ship.
+    if (compareName !== gameObject.battleObject.ships[i].name) {
+      if (isShip === false) {console.log('testing: ', object.name, gameObject.battleObject.ships[i].name);}
+      const testResult = checkRectangleCollision(object, gameObject.battleObject.ships[i]);
+      //console.log('test: ', gameObject.battleObject.ships[i]);
+      if (testResult) { return gameObject.battleObject.ships[i]; }   
+    }  
+  }
+  
+  // if no collisions:
+  return noCollision;
 }
