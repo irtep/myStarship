@@ -5,7 +5,7 @@ import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
-import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation } from './battleFunctions.js';
+import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions } from './battleFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -29,40 +29,12 @@ function shipActions(ship) {
     // turnRight
     if (ship.turnRight) { ship.heading += 4;}
     
-    // fireFront
-    if (ship.fireFront) {
-     
-      for (let i = 0; i < ship.frontGuns.length; i++) {
-        const gunLocation = getGunLocation(i+1, ship.frontGuns.length, 'front', ship);
-      
-        if (ship.energy >= ship.frontGuns[i].energyUsage && ship.frontGuns[i].coolDown !== true) {
-          
-          // shoot, deduct energy, set cool down and start counting it down.
-          ship.frontGuns[i].shoot(ship.name, gunLocation.x, gunLocation.y, ship.heading, gameObject.battleObject.bullets); 
-          //console.log('shipxy, gunxy', freezeCopy(ship.x), freezeCopy(ship.y), freezeCopy(gunLocation.x), freezeCopy(gunLocation.y));
-          ship.energy -= ship.frontGuns[i].energyUsage;
-          ship.frontGuns[i].coolDown = true;
-          setTimeout( () => { ship.frontGuns[i].coolDown = false }, ship.frontGuns[i].reloadTime*100);
-        }
-      } 
-    }
-/*
-fontGuns
-export class ShipGun {
-  constructor(name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc){
-  shoot(shooter, x, y, heading, pool){
-    const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
-                                this.speed, this.color);
-    pool.push(newBullet);
-*/
-    // fireStar
-
-    // firePort   
+    // fire, star = right, port = left
+    if (ship.fireFront) { firingSolutions(ship, ship.frontGuns, 'front'); }
+    if (ship.fireStar) { firingSolutions(ship, ship.starGuns, 'star'); }
+    if (ship.firePort) { firingSolutions(ship, ship.portGuns, 'port'); }
   }
-  /*
-    carInTurn.angle = carInTurn.statuses.heading;
-    carInTurn.setCorners(carInTurn.angle);
-  */
+  
   const speeds = getSpeeds(ship.heading, ship.speed);
   //console.log('speeds', speeds);  
   ship.x += -speeds.x;
