@@ -264,10 +264,12 @@ export const travelCanvases = `<div id= "travelContainer">
 export const hulls = [
   // name, width, height, armours, maxModules, gunMounts, value, desc
   //         name,    w,  h,  armours                            maxModules,   guns, value, desc  
-  new Hull('Zaab 01', 20, 8, {front: 16, sides: 16, back: 11}, 10, {front: 1, starboad: 2, port: 2}, 1000,
+  new Hull('Zaab 01', 20, 8, {front: 16, sides: 16, back: 11}, 10, {front: 1, star: 2, port: 2}, 1000,
           'Reliable classic starship hull.'),
-  new Hull('Zaab 02', 25, 11, {front: 16, sides: 16, back: 11}, 13, {front: 2, starboad: 3, port: 3}, 1500,
-          'Extended version of classic Zaab 01.')
+  new Hull('Zaab 02', 30, 15, {front: 16, sides: 16, back: 11}, 13, {front: 2, star: 3, port: 3}, 2500,
+          'Extended version of classic Zaab 01.'),
+  new Hull('Juggernaut', 45, 25, {front: 18, sides: 16, back: 15}, 23, {front: 3, star: 4, port: 4}, 4500,
+          'Huge starship hull capable to hold lots of cannons and modules.')
 ];
 // name, size, power, durability, value, refreshrate, desc
 export const motors = [

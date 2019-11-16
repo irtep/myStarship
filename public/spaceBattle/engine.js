@@ -5,7 +5,7 @@ import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
-import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions } from './battleFunctions.js';
+import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions, collisionTest } from './battleFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -14,7 +14,7 @@ export var gameObject = null;
 
 function shipActions(ship) {
   // need to set max and min speeds....
-  // also collision detects..
+  
   if (ship.disabled === false) {
     // accelerate
     if (ship.accelerate) { 
@@ -30,9 +30,9 @@ function shipActions(ship) {
     if (ship.turnRight) { ship.heading += 4;}
     
     // fire, star = right, port = left
-    if (ship.fireFront) { firingSolutions(ship, ship.frontGuns, 'front'); }
-    if (ship.fireStar) { firingSolutions(ship, ship.starGuns, 'star'); }
-    if (ship.firePort) { firingSolutions(ship, ship.portGuns, 'port'); }
+    if (ship.fireFront) { firingSolutions(ship, ship.frontGuns, 'front', ship.heading); }
+    if (ship.fireStar) { firingSolutions(ship, ship.starGuns, 'star', ship.heading + 90); }
+    if (ship.firePort) { firingSolutions(ship, ship.portGuns, 'port', ship.heading - 90); }
   }
   
   const speeds = getSpeeds(ship.heading, ship.speed);
@@ -42,30 +42,46 @@ function shipActions(ship) {
   
   // update x and y for collision test purpose
   ship.setCorners(ship.heading);
-  /*
-    
-  car.x += -speeds.x;
-  car.y += speeds.y;
-  */
+  
+  const checkCollision = collisionTest(ship, true);
+  
+  // collision!
+  if (checkCollision !== false) { 
+    // make collision damages based on masses or something etc.
+    // maybe should not move either... gotta think
+    //console.log('collision with: ', checkCollision);
+  }
 }
 
 function bulletActions(bullet) {
   
   for (let i = 0; i < bullet.speed; i++) {
     
-    // move bullet 1 px
-    const speeds = getSpeeds(bullet.heading, 1);
-    // add travel
-    bullet.travelled++;
+    if (bullet.live) {
+      // move bullet 1 px
+      const speeds = getSpeeds(bullet.heading, 1);
+      // add travel
+      bullet.travelled++;
     
-    bullet.x += -speeds.x;
-    bullet.y += speeds.y;
-    bullet.setCorners(bullet.heading);
-    //console.log(JSON.parse(JSON.stringify(bullet.x)), bullet.y);
-    // check collision
+      bullet.x += -speeds.x;
+      bullet.y += speeds.y;
+      bullet.setCorners(bullet.heading);
+      //console.log(JSON.parse(JSON.stringify(bullet.x)), bullet.y);
+      // check collision
+      const checkCollision = collisionTest(bullet, false);
     
-    // if range is full
-    if (bullet.travelled >= bullet.range) {bullet.destroy();}
+      // hit!
+      if (checkCollision !== false){
+        console.log('bullet hit! ', checkCollision.name);
+        // make damage
+      
+        // destroy bullet
+        bullet.destroy();
+      }
+      // if range is full
+      if (bullet.travelled >= bullet.range) {bullet.destroy();}
+    }
+        
   }
 }
 
@@ -120,12 +136,12 @@ window.onload = ( () => {
 // test ships:
 // this could be at gameObject at players ship place for player 1...
 // for ai pilots this would be generated here
-const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
+const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Space 1', [], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', [], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 
-// generate ships by parts:
+// generate ships by parts. target, startlocation, colors, pilot
 const ship1 = shipGenerator(testShip, 0, ['white', 'blue'], gameObject.player.name);
 const ship2 = shipGenerator(testShip2, 3, ['red', 'cyan'], 'mister compu');
 
@@ -133,6 +149,7 @@ const ship2 = shipGenerator(testShip2, 3, ['red', 'cyan'], 'mister compu');
 const battleObject = {
   ships: [],
   bullets: [],
+  //guns: [], // temporal to check gun placings
   pause: false
 };
 // add ships to battle objects
