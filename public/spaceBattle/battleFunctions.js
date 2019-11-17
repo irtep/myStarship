@@ -7,7 +7,7 @@ export function dealDamage(power, armour, modificators) {
   
   // hits always "to front armor".. i might later add something that ids actual armor that was hit
   // other armours have also values, but they add hit points so they are not completely without use.
-  return (power + callDice(12) + modificators) - armour;
+  return (power + callDice(16) + modificators) - armour;
 }
 
 export function firingSolutions(ship, battery, gLocation, heading) {

@@ -63,13 +63,15 @@ export function shipGenerator(ship, startPlace, colors){
     ship1.portGuns.push(parts.portGuns[0]);
   }
   
-  // set ships armour, hit points and shield points
+  // set ships armour, hit points, shield points and mass
   ship1.armour = parts.hull[0].armours;
   ship1.hitPoints = parts.hull[0].armours.front + parts.hull[0].armours.sides + parts.hull[0].armours.back;
-  
+  ship1.mass = ship1.hitPoints + parts.hull[0].maxModules;
   // if one of modules is shield, then shield points, if not, shieldPoints = 0:
   ship1.shieldPoints = 0;
   
+  // ram cooldown or every ram ends the battle:
+  ship1.ramCoolDown = false;
   
   // headings and speed temporarily to 0: 
   ship1.heading = 0;

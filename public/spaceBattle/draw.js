@@ -54,7 +54,7 @@ export function draw(battleObject) {
   // draw bullets:
   battleObject.bullets.forEach( bullet => {
     if (bullet.live) {
-     
+      
       ctx.beginPath();
       ctx.fillStyle = bullet.color;
       ctx.rect(bullet.x, bullet.y, 3, 3); // x and y are not there where i want...
