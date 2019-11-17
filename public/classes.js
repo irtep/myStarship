@@ -159,17 +159,7 @@ export class AllRects {
       this.leftBottomCorner];
   };
 }
-/*
 
-name, hull, motor, modules, weapons, value, desc
-const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
-                              {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
-*/
-/*
- let ship1 = {name: ship.name, x: startPlaces[startPlace][0], y: startPlaces[startPlace][1], 
-               frontGuns : [], starGuns : [], portGuns : []};
-
-*/
 export class ShipInCombat extends AllRects {
   constructor(name, x, y, frontGuns, starGuns, portGuns) {
     super();
@@ -272,7 +262,7 @@ export class Bullet extends AllRects{
     super();
     this.name = name; this.from = from; this.x = x; this.y = y; this.heading = heading; this.power = power; 
     this.shieldPiercing = shieldPiercing; this.range = range; this.travelled = 0; this.live = true;
-    this.speed = speed;
+    this.speed = speed; this.color = color;
     this.w = 3;
     this.h = 3;
   }

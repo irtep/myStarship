@@ -36,9 +36,6 @@ function shipActions(ship) {
   }
   
   const speeds = getSpeeds(ship.heading, ship.speed);
-  //console.log('speeds', speeds);  
-  ship.x += -speeds.x;
-  ship.y += speeds.y;
   
   // update x and y for collision test purpose
   ship.setCorners(ship.heading);
@@ -48,8 +45,29 @@ function shipActions(ship) {
   // collision!
   if (checkCollision !== false) { 
     // make collision damages based on masses or something etc.
+    const ramDamage = ship.mass - checkCollision.mass;
+    console.log('ramDamage ', ramDamage);
+    
+    // need to have a cooldown to ram damage or this would make 20x damage..
+    if (ship.ramCoolDown === false) {
+    
+      ship.ramCoolDown = true;
+      setTimeout( () => {
+        ship.ramCoolDown = false;
+      }, 1000);
+      
+      // ram damage:
+      if (ramDamage > 0) { } else {}
+      // jugge at zaab 1 = 19 ramdamage
+    }
     // maybe should not move either... gotta think
+    
     //console.log('collision with: ', checkCollision);
+  } else {
+    
+    // if no collision, move the ship 
+    ship.x += -speeds.x;
+    ship.y += speeds.y;  
   }
 }
 
