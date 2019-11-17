@@ -5,7 +5,7 @@ import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
-import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions, collisionTest } from './battleFunctions.js';
+import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions, collisionTest, dealDamage } from './battleFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -72,9 +72,44 @@ function bulletActions(bullet) {
     
       // hit!
       if (checkCollision !== false){
-        console.log('bullet hit! ', checkCollision.name);
         // make damage
-      
+        let damageDealt = dealDamage(bullet.power, checkCollision.armour.front, 0);
+        if (damageDealt < 0) { damageDealt = 0 }
+        // check hit points and shield points
+        console.log('damage dealt: ', freezeCopy(damageDealt));
+        let oldData = checkCollision.showBattleData;
+        console.log('old data: ', freezeCopy(oldData));
+        // shields absorbing
+        for (; oldData[1] > 0 && damageDealt > 0 ;) {
+          oldData[1]--;
+          damageDealt--;
+          console.log('shields absorbing 1');
+        }
+        console.log('after shields: ', damageDealt, oldData);
+        
+        // make damage
+        oldData[0] -= damageDealt;
+        console.log('oldData after dmg dealt: ', freezeCopy(oldData));
+        checkCollision.updateBattleData(oldData);
+        
+        // destroy if 0 hit points
+        if (oldData[0] <= 0) {
+          checkCollision.destroy();
+          console.log('ship destroyed!', gameObject.battleObject);
+        }
+        /*
+          get showBattleData() {
+    const battleData = [this.hitPoints, this.shieldPoints, this.energy, this.refresh];
+    
+    return battleData;
+    
+  set updateBattleData(newData) {
+    
+    this.hitPoints = newData[0];
+    this.shieldPoints = newData[1];
+  }
+  }
+        */
         // destroy bullet
         bullet.destroy();
       }
@@ -136,8 +171,8 @@ window.onload = ( () => {
 // test ships:
 // this could be at gameObject at players ship place for player 1...
 // for ai pilots this would be generated here
-const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Space 1', [], 
-                              {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
+const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Military', [], 
+                              {front: 'Spaceviper', star: 'Spaceviper', port: 'Spaceviper'});
 const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', [], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 
