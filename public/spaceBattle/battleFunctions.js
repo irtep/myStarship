@@ -1,6 +1,15 @@
 import { gameObject } from './engine.js';
 import { Starship, AllRects } from '../classes.js';
-    
+import { callDice } from '../helpFunctions.js';
+
+export function dealDamage(power, armour, modificators) {
+  let hitAt = null;
+  
+  // hits always "to front armor".. i might later add something that ids actual armor that was hit
+  // other armours have also values, but they add hit points so they are not completely without use.
+  return (power + callDice(12) + modificators) - armour;
+}
+
 export function firingSolutions(ship, battery, gLocation, heading) {
   
   for (let i = 0; i < battery.length; i++) {
@@ -14,7 +23,7 @@ export function firingSolutions(ship, battery, gLocation, heading) {
       ship.energy -= battery[i].energyUsage;
       // set cooldown if this was the last shot
       if (i + 1 === battery.length) {
-        console.log('last shot, cD');
+        
         battery[i].coolDown = true;
         // start to count cooldown down
         setTimeout( () => { battery[i].coolDown = false }, battery[i].reloadTime*100);  
@@ -39,7 +48,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
   
   if (battery === 'front') {
       const multiplier = (1 / (slots + 1)) * gunNbr; 
-      console.log('m ', gunNbr, multiplier);
+    
       const gunSlotX = getXY(ship.rightTopCorner.x, ship.rightBottomCorner.x, multiplier).x;
       const gunSlotY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, multiplier).y;
       
@@ -48,7 +57,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
   
   if (battery === 'star') { // right
       const multiplier = (1 / (slots + 1)) * gunNbr; 
-      console.log('m ', gunNbr, multiplier);
+    
       const gunSlotX = getXY(ship.rightBottomCorner.x, ship.leftBottomCorner.x, multiplier).x;
       const gunSlotY = getXY(ship.rightBottomCorner.y, ship.leftBottomCorner.y, multiplier).y;
       
@@ -57,7 +66,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
   
   if (battery === 'port') { // left
       const multiplier = (1 / (slots + 1)) * gunNbr; 
-      console.log('m ', gunNbr, multiplier);
+    
       const gunSlotX = getXY(ship.leftTopCorner.x, ship.rightTopCorner.x, multiplier).x;
       const gunSlotY = getXY(ship.leftTopCorner.y, ship.rightTopCorner.y, multiplier).y;
       
@@ -221,7 +230,7 @@ export function collisionTest(object, isShip) {
   for (let i = 0; i < gameObject.battleObject.ships.length; i++) {
     // lets not compare with same ship.
     if (compareName !== gameObject.battleObject.ships[i].name) {
-      if (isShip === false) {console.log('testing: ', object.name, gameObject.battleObject.ships[i].name);}
+      
       const testResult = checkRectangleCollision(object, gameObject.battleObject.ships[i]);
       //console.log('test: ', gameObject.battleObject.ships[i]);
       if (testResult) { return gameObject.battleObject.ships[i]; }   

@@ -273,11 +273,13 @@ export const hulls = [
 ];
 // name, size, power, durability, value, refreshrate, desc
 export const motors = [
-  new Motor('Vartzila Space 1', 1, 10, 95, 1000, 1, 'Reliable but not very powerful engine.')
+  new Motor('Vartzila Space 1', 1, 10, 95, 1000, 1, 'Reliable but not very powerful engine.'),
+  new Motor('Vartzila Military', 2, 20, 95, 4000, 3, 'Great military class motor.')
 ];
 // name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc
 export const shipGuns = [
-  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence gun.')
+  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence gun.'),
+  new ShipGun('Spaceviper', 15, 4, 16, 1, 'cyan', 20, 400, 1000, 'great gun.')
 ];
 
 export const shipModules = [];

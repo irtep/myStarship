@@ -183,6 +183,16 @@ export class ShipInCombat extends AllRects {
     return battleData;
   }
   
+  updateBattleData(newData) {
+    
+    this.hitPoints = newData[0];
+    this.shieldPoints = newData[1];
+  }
+  
+  destroy() {
+    this.disabled = true;
+    this.speed = 0;
+  }
 }
 export class Starship {
   constructor(name, hull, motor, modules, weapons, value, desc){
