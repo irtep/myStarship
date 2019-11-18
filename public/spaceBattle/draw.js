@@ -27,9 +27,18 @@ export function draw(battleObject) {
           
     ctx.beginPath();
     ctx.fillStyle = 'white';
-      ctx.fillText (ship.name, 0, -10);
+    ctx.fillText (ship.name, 0, -30);
+    ctx.fill();  
+    ctx.fillStyle = 'yellow';
+    ctx.fillText ('hp: '+ ship.hitPoints, 0, -20);
+    ctx.fill();
+    ctx.fillStyle = 'cyan';
+    ctx.fillText ('sp: ' + ship.shieldPoints, 0, -10);
+    ctx.fill();
+    ctx.fillStyle = 'orange';
+    ctx.fillText ('ep: ' + ship.energy, 40, -20);
+    ctx.fill();
       //ctx.fillText (unit.nextCheckPoint, drawPoint.x, drawPoint.y);
-      ctx.fill();  
     // other parts then and restore coords.
     ctx.restore();
       // lines from corners to canvas corners:

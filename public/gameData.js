@@ -281,5 +281,10 @@ export const shipGuns = [
   new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence gun.'),
   new ShipGun('Spaceviper', 15, 4, 16, 1, 'cyan', 20, 400, 1000, 'great gun.')
 ];
-
-export const shipModules = [];
+/*
+    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; moduleType, value, this.desc = desc;
+}
+*/
+export const shipModules = [
+  new ShipModule('Arcanis Shield', 1, 0, 10, 'shield', 1000, 'Basic energy shield. Protects pretty ok damage')
+];

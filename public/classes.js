@@ -251,8 +251,9 @@ export class ShipGun {
 }
 
 export class ShipModule {
-  constructor(name, size, energyUsage, power, desc) {
-    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; this.desc = desc;
+  constructor(name, size, energyUsage, power, moduleType, value, desc) {
+    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; 
+    this.moduleType = moduleType; this.value = value; this.desc = desc;
   }
 }
 
@@ -280,5 +281,22 @@ export class Bullet extends AllRects{
     this.live = false;
     this.x = null;
     this.y = null;
+  }
+}
+
+export class RectObstacle extends AllRects {
+  constructor(x, y, w, h, color, angle, name) {
+    super(); // to get setCorners from allRects
+    this.x = x;
+    this.y = y;
+    this.w = w,
+    this.h = h;
+    this.color = color;
+    this.weight = 50; // default weight
+    this.angle = angle;
+    this.name = name;
+    this.rType = 'building';
+    this.hitPoints = 1000;
+    this.maxHitPoints = 1000;
   }
 }

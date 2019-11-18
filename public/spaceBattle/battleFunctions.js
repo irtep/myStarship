@@ -226,6 +226,7 @@ export function collisionTest(object, isShip) {
   
   // if bullet can't use objects name to check if same
   if (isShip === false) { compareName = object.from };
+  
   // check if collision with ships
   for (let i = 0; i < gameObject.battleObject.ships.length; i++) {
     // lets not compare with same ship.
@@ -236,6 +237,14 @@ export function collisionTest(object, isShip) {
       if (testResult) { return gameObject.battleObject.ships[i]; }   
     }  
   }
+  
+  // check collision with walls:
+  for (let i = 0; i < gameObject.battleObject.obstacles.length; i++) {
+      
+      const testResult = checkRectangleCollision(object, gameObject.battleObject.obstacles[i]);
+      //console.log('test: ', gameObject.battleObject.obstacles[i]);
+      if (testResult) { return 'obstacle!' }   
+  }  
   
   // if no collisions:
   return noCollision;
