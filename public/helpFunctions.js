@@ -25,9 +25,10 @@ export function shipGenerator(ship, startPlace, colors){
     motor : motors.filter( motor => motor.name === ship.motor),
     frontGuns : shipGuns.filter( gun => gun.name === ship.weapons.front ),
     starGuns: shipGuns.filter( gun => gun.name === ship.weapons.star ),
-    portGuns: shipGuns.filter( gun => gun.name === ship.weapons.port )
+    portGuns: shipGuns.filter( gun => gun.name === ship.weapons.port ),
+    shipModules: []
   };
-  console.log('parts ', parts);
+  
   // start places:
   // full grid seems to be 500, 250 about...
   const startPlaces = [[20, 20], [400, 200], [200, 400], [400, 250]];
@@ -43,8 +44,6 @@ export function shipGenerator(ship, startPlace, colors){
   ship1.maxEnergy = parts.motor[0].power;
   // energy regen rate
   ship1.refresh = parts.motor[0].refresh;
-  
-  // modules... from here atleast shield power, shield regen, autorepair etc....
   
   // colors
   ship1.color1 = colors[0]; ship1.color2 = colors[1];
@@ -69,6 +68,17 @@ export function shipGenerator(ship, startPlace, colors){
   ship1.mass = ship1.hitPoints + parts.hull[0].maxModules;
   // if one of modules is shield, then shield points, if not, shieldPoints = 0:
   ship1.shieldPoints = 0;
+  
+  // add modules:
+  ship.modules.forEach( module => { 
+    
+    parts.shipModules.push(module);
+    const foundMod = shipModules.filter( mod => mod.name === module );
+    console.log('fm sm ', foundMod, shipModules)
+    if ( foundMod[0].moduleType === 'shield') {
+      ship1.shieldPoints = foundMod[0].power;
+    }
+  });
   
   // ram cooldown or every ram ends the battle:
   ship1.ramCoolDown = false;

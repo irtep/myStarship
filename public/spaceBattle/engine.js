@@ -2,7 +2,7 @@
   propably lots of experimental stuff first...
 */
 import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
-import { Starship, AllRects } from '../classes.js';
+import { Starship, AllRects, RectObstacle } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
 import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions, collisionTest, dealDamage } from './battleFunctions.js';
@@ -43,26 +43,35 @@ function shipActions(ship) {
   const checkCollision = collisionTest(ship, true);
   
   // collision!
-  if (checkCollision !== false) { 
-    // make collision damages based on masses or something etc.
-    const ramDamage = ship.mass - checkCollision.mass;
-    console.log('ramDamage ', ramDamage);
-    
-    // need to have a cooldown to ram damage or this would make 20x damage..
-    if (ship.ramCoolDown === false) {
-    
-      ship.ramCoolDown = true;
-      setTimeout( () => {
-        ship.ramCoolDown = false;
-      }, 1000);
+  if (checkCollision !== false) {
+    // if not a wall
+    if (checkCollision !== 'obstacle!') {
       
-      // ram damage:
-      if (ramDamage > 0) { } else {}
-      // jugge at zaab 1 = 19 ramdamage
+      // make collision damages based on masses or something etc.
+      const ramDamage = ship.mass - checkCollision.mass;
+      //console.log('ramDamage ', ramDamage);
+
+      // need to have a cooldown to ram damage or this would make 20x damage..
+      if (ship.ramCoolDown === false) {
+
+        ship.ramCoolDown = true;
+        setTimeout( () => {
+          ship.ramCoolDown = false;
+        }, 1000);
+
+        // ram damage:
+        if (ramDamage >= 0) { 
+          checkCollision.hitPoints -= ramDamage; 
+          console.log('made ram damage: ', ramDamage, checkCollision.hitPoints);
+        } else {
+          ship.hitPoints += ramDamage;
+          console.log('made ram damage: ', ramDamage, ship.hitPoints);
+        }
+
+        if (checkCollision.hitPonts < 1) { checkCollision.destroy();}
+        if (ship.hitPonts < 1) { ship.destroy();}
+      }
     }
-    // maybe should not move either... gotta think
-    
-    //console.log('collision with: ', checkCollision);
   } else {
     
     // if no collision, move the ship 
@@ -90,44 +99,34 @@ function bulletActions(bullet) {
     
       // hit!
       if (checkCollision !== false){
-        // make damage
-        let damageDealt = dealDamage(bullet.power, checkCollision.armour.front, 0);
-        if (damageDealt < 0) { damageDealt = 0 }
-        // check hit points and shield points
-        console.log('damage dealt: ', freezeCopy(damageDealt));
-        let oldData = checkCollision.showBattleData;
-        console.log('old data: ', freezeCopy(oldData));
-        // shields absorbing
-        for (; oldData[1] > 0 && damageDealt > 0 ;) {
-          oldData[1]--;
-          damageDealt--;
-          console.log('shields absorbing 1');
-        }
-        console.log('after shields: ', damageDealt, oldData);
         
-        // make damage
-        oldData[0] -= damageDealt;
-        console.log('oldData after dmg dealt: ', freezeCopy(oldData));
-        checkCollision.updateBattleData(oldData);
-        
-        // destroy if 0 hit points
-        if (oldData[0] <= 0) {
-          checkCollision.destroy();
-          console.log('ship destroyed!', gameObject.battleObject);
+        if (checkCollision !== 'obstacle!') {
+          // make damage
+          let damageDealt = dealDamage(bullet.power, checkCollision.armour.front, 0);
+          if (damageDealt < 0) { damageDealt = 0 }
+          // check hit points and shield points
+          console.log('damage dealt: ', freezeCopy(damageDealt));
+          let oldData = checkCollision.showBattleData;
+          console.log('old data: ', freezeCopy(oldData));
+          // shields absorbing
+          for (; oldData[1] > 0 && damageDealt > 0 ;) {
+            oldData[1]--;
+            damageDealt--;
+            console.log('shields absorbing 1');
+          }
+          console.log('after shields: ', damageDealt, oldData);
+
+          // make damage
+          oldData[0] -= damageDealt;
+          console.log('oldData after dmg dealt: ', freezeCopy(oldData));
+          checkCollision.updateBattleData(oldData);
+
+          // destroy if 0 hit points
+          if (oldData[0] <= 0) {
+            checkCollision.destroy();
+            console.log('ship destroyed!', gameObject.battleObject);
+          }  
         }
-        /*
-          get showBattleData() {
-    const battleData = [this.hitPoints, this.shieldPoints, this.energy, this.refresh];
-    
-    return battleData;
-    
-  set updateBattleData(newData) {
-    
-    this.hitPoints = newData[0];
-    this.shieldPoints = newData[1];
-  }
-  }
-        */
         // destroy bullet
         bullet.destroy();
       }
@@ -189,9 +188,9 @@ window.onload = ( () => {
 // test ships:
 // this could be at gameObject at players ship place for player 1...
 // for ai pilots this would be generated here
-const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Military', [], 
+const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Military', ['Arcanis Shield'], 
                               {front: 'Spaceviper', star: 'Spaceviper', port: 'Spaceviper'});
-const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', [], 
+const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', ['Arcanis Shield'], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 
 // generate ships by parts. target, startlocation, colors, pilot
@@ -203,6 +202,12 @@ const battleObject = {
   ships: [],
   bullets: [],
   //guns: [], // temporal to check gun placings
+  obstacles: [
+    // borders: RectObstacles: x, y, w, h, color, angle, name
+    new RectObstacle(0, -55, 1200, 60, 'black', 0, 'borderUp'),
+    new RectObstacle(0, 600 -5, 1200, 30, 'black', 0, 'borderBottom'),
+    new RectObstacle(-25, 0, 30, 600, 'black', 0, 'borderLeft'),
+    new RectObstacle(1200-5, 0, 30, 600, 'black', 0, 'borderRight'),],
   pause: false
 };
 // add ships to battle objects
@@ -224,6 +229,12 @@ battleObject.ships.forEach( ship => {
     }
   }, 3000);
 });
+  
+// corners for obstacles (for example area walls)
+battleObject.obstacles.forEach( obs => {
+  
+  obs.setCorners(obs.angle);
+});  
 
 // draw with battle object
 //draw(battleObject); 
