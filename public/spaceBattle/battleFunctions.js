@@ -2,6 +2,28 @@ import { gameObject } from './engine.js';
 import { Starship, AllRects } from '../classes.js';
 import { callDice } from '../helpFunctions.js';
 
+export function checkGunStatuses(ship){
+  const statuses = {frontGuns : {totalEnergy: 0, totalCoolDown: false},
+  starGuns : {totalEnergy: 0, totalCoolDown: false},
+  portGuns : {totalEnergy: 0, totalCoolDown: false}
+  };
+  
+  ship.frontGuns.forEach( gun => { 
+    statuses.frontGuns.totalEnergy += gun.energyUsage 
+    if (gun.coolDown === true) { statuses.frontGuns.totalCoolDown = true}
+  });
+  ship.portGuns.forEach( gun => { 
+    statuses.portGuns.totalEnergy += gun.energyUsage 
+    if (gun.coolDown === true) { statuses.portGuns.totalCoolDown = true}
+  });
+  ship.starGuns.forEach( gun => { 
+    statuses.starGuns.totalEnergy += gun.energyUsage 
+    if (gun.coolDown === true) { statuses.starGuns.totalCoolDown = true}
+  });
+  
+  return statuses;
+}
+
 export function dealDamage(power, armour, modificators) {
   let hitAt = null;
   
