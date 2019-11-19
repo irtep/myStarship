@@ -5,7 +5,8 @@ import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
 import { Starship, AllRects, RectObstacle } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';
-import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions, collisionTest, dealDamage } from './battleFunctions.js';
+import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions,
+        checkGunStatuses, collisionTest, dealDamage } from './battleFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -62,10 +63,10 @@ function shipActions(ship) {
         // ram damage:
         if (ramDamage >= 0) { 
           checkCollision.hitPoints -= ramDamage; 
-          console.log('made ram damage: ', ramDamage, checkCollision.hitPoints);
+          ship.hitPoints -= ramDamage / 4;
         } else {
           ship.hitPoints += ramDamage;
-          console.log('made ram damage: ', ramDamage, ship.hitPoints);
+          checkCollision.hitPoints += ramDamage / 4;
         }
 
         if (checkCollision.hitPonts < 1) { checkCollision.destroy();}
@@ -78,6 +79,20 @@ function shipActions(ship) {
     ship.x += -speeds.x;
     ship.y += speeds.y;  
   }
+  
+  // set statuses of cannon batteries:
+  const cannonStatuses = checkGunStatuses(ship);
+  
+  if (cannonStatuses.frontGuns.totalEnergy <= ship.energy && cannonStatuses.frontGuns.totalCoolDown === false) {
+    ship.frontStatus = 'aquamarine';
+  } else { ship.frontStatus = 'crimson'; }
+  if (cannonStatuses.starGuns.totalEnergy <= ship.energy && cannonStatuses.starGuns.totalCoolDown === false) {
+    ship.starStatus = 'aquamarine';
+  } else { ship.starStatus = 'crimson'; }
+  if (cannonStatuses.portGuns.totalEnergy <= ship.energy && cannonStatuses.portGuns.totalCoolDown === false) {
+    ship.portStatus = 'aquamarine';
+  } else { ship.portStatus = 'crimson'; }
+  
 }
 
 function bulletActions(bullet) {
@@ -143,6 +158,9 @@ function animate(){
   if (gameObject.battleObject.pause) {
     // game on pause
     
+    // if battle has ended, end the battle:
+    if (gameObject.battleObject.finished) { console.log('battle finished');}
+    
     // draw pause menu, that has atleast option to continue game...
     
   } else {
@@ -170,14 +188,29 @@ function animate(){
     // draw
     draw(gameObject.battleObject);
   }
-  //battleData [this.hitPoints, this.shieldPoints, this.energy, this.refresh];  
+  
+  // check if battle is over:
+  gameObject.battleObject.ships.forEach( ship => {
+    
+    if ( ship.hitPoints < 1) { ship.destroy(); }
+    
+    if (ship.disabled === true) {
+      
+      gameObject.battleObject.pause = true;
+      gameObject.battleObject.finished = true;
+    }
+  });
+  
+  //battleData only on bugfix purposes:
+  /*
   document.getElementById('infoPlace').innerHTML = `hp: ${gameObject.battleObject.ships[0].showBattleData[0]}
  sp: ${gameObject.battleObject.ships[0].showBattleData[1]} e: ${gameObject.battleObject.ships[0].showBattleData[2]}`;
-  
+  */
     /*  
   `${gameObject.battleObject.ships[0].x} ${gameObject.battleObject.ships[0].y} 
   ${gameObject.battleObject.ships[1].x} ${gameObject.battleObject.ships[1].y}`;
   */
+  
   window.requestAnimationFrame(animate);
 }
 

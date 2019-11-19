@@ -1,19 +1,28 @@
 /*
 
-Continue with space combat
+startmenu: early version ready
+mainmenu: early version ready
+travelling: early version ready
+spacecombat: early version ready
+closecombat: not started
+events: not started
+missions: not started
+game saving and loading: not started
 
 bugs:
   majors:
   
   minors:
     that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
+    
     blurry screen at travel. should set width and height at html file
+    
+    in spacecombat near top right corner ship gets stuck
 
-remember: export, import, get, set
 STARTSCREEN ------------------------------
  pretty much ok.
   -------------------------------------
-Then to game:
+game could be something like this:
 
  Main screen:
  maybe metal grey screen with galaxy map at center.

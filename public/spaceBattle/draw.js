@@ -13,7 +13,7 @@ export function draw(battleObject) {
   
   // draw ships:
   battleObject.ships.forEach( ship => {
-    //console.log('ship: ', ship.color1, ship.x, ship.y, ship.w, ship.h, ship.name);
+    
     // paint hull of the ship:
     ctx.beginPath();
     ctx.fillStyle = ship.color1; 
@@ -24,7 +24,8 @@ export function draw(battleObject) {
     ctx.rect(0, 0, ship.w, ship.h);
     ctx.fill();
     ctx.closePath();
-          
+    
+    // info texts
     ctx.beginPath();
     ctx.fillStyle = 'white';
     ctx.fillText (ship.name, 0, -30);
@@ -38,11 +39,22 @@ export function draw(battleObject) {
     ctx.fillStyle = 'orange';
     ctx.fillText ('ep: ' + ship.energy, 40, -20);
     ctx.fill();
-      //ctx.fillText (unit.nextCheckPoint, drawPoint.x, drawPoint.y);
+    ctx.fillStyle = ship.portStatus;
+    ctx.fillText ('port', 40, -10);
+    ctx.fill();
+    ctx.fillStyle = ship.frontStatus;
+    ctx.fillText ('front', 60, -10);
+    ctx.fill();
+    ctx.fillStyle = ship.starStatus;
+    ctx.fillText ('star', 85, -10);
+    ctx.fill();
+    
     // other parts then and restore coords.
+    
     ctx.restore();
+    
       // lines from corners to canvas corners:
-      // this is used to see where corners of car are in collision test purpose
+      // this is used to see where corners of ship are in collision test purpose
       // disabled if game is online.
     /*
       const specialArray = [ship.leftBottomCorner, ship.leftTopCorner, ship.rightBottomCorner, ship.rightTopCorner];
@@ -86,55 +98,6 @@ export function draw(battleObject) {
   });  
   */
 }
-
-/*
-
-  // paints each car
-  race.cars.forEach((unit) => {
-    const partsToPaint = unit.pieces;
-    const drawPoint = partsToPaint.drawPoint;
-    const degrees = unit.statuses.heading;
-     
-    // paint hull of car
-    ctx.beginPath();
-    ctx.fillStyle = partsToPaint.hull.color;
-    ctx.save(); // save coords system
-    if (unit.leftTopCorner !== undefined) {
-      ctx.translate(unit.leftTopCorner.x, unit.leftTopCorner.y);}
-    else {
-      //ctx.translate(partsToPaint.hull.x, partsToPaint.hull.y);} // go here
-      ctx.translate(unit.x, unit.y);} // go here
-    ctx.rotate(degrees * Math.PI / 180);
-    ctx.rect(drawPoint.x, drawPoint.y, partsToPaint.hull.w, partsToPaint.hull.h);// time to paint it
-    ctx.fill();
-    ctx.closePath();
-    
-    // other parts: 
-    const paintIt = partsToPaint.parts.map((part) => {
-      
-      ctx.beginPath();
-      ctx.fillStyle = part.color;
-      ctx.rect(part.x, part.y, part.w, part.h);
-      ctx.fill();
-    }); 
-      // write drivers name or disabled if no hps
-    if (unit.hitPoints < 0.1 && unit.currentLap > 0) {
-      
-      ctx.beginPath();
-      ctx.fillStyle = 'red';
-      ctx.fillText ('DISABLED!', drawPoint.x, drawPoint.y);
-      ctx.fill; 
-    } else {
-    
-      ctx.beginPath();
-      ctx.fillStyle = 'black';
-      ctx.fillText (unit.driver, drawPoint.x, drawPoint.y);
-      //ctx.fillText (unit.nextCheckPoint, drawPoint.x, drawPoint.y);
-      ctx.fill;     
-    }
-    
-    ctx.restore(); // restore coords.
-*/
 
 /*
 triangle:

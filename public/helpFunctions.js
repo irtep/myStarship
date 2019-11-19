@@ -62,6 +62,10 @@ export function shipGenerator(ship, startPlace, colors){
     ship1.portGuns.push(parts.portGuns[0]);
   }
   
+  ship1.frontStatus = 'aquamarine';
+  ship1.portStatus = 'aquamarine';
+  ship1.starStatus = 'aquamarine';
+  
   // set ships armour, hit points, shield points and mass
   ship1.armour = parts.hull[0].armours;
   ship1.hitPoints = parts.hull[0].armours.front + parts.hull[0].armours.sides + parts.hull[0].armours.back;
