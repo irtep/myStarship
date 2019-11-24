@@ -15,6 +15,10 @@ export function spaceAiActions(ship, opponent) {
   const distanceToOpponent = distanceCheck(ship, opponent);
   const checkWhereIsOpponent = null;
   
+  // send radarpulses to all locations..
+  
+  // if any pulse hits, then say "opponent is there"
+  
 }
 
 /* ---------------- */
