@@ -267,16 +267,21 @@ export class Bullet extends AllRects{
     this.w = 3;
     this.h = 3;
   }
-  /*
-  set setXandY(newXandY) {
-    this.x = newXandY.x;
-    this.y = newXandY.y;
+  
+  destroy() {
+    this.live = false;
+    this.x = null;
+    this.y = null;
+  }
+}
+
+export class RadarWave extends AllRects{
+  constructor(x, y, heading, w, h) {
+    super();
+    this.x = x; this.y = y; this.heading = heading;
+    this.w = w; this.h = h; this.live = true;
   }
   
-  set travel(moved) {
-    this.travelled += moved;
-  }
-  */
   destroy() {
     this.live = false;
     this.x = null;

@@ -75,7 +75,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
       const gunSlotY = getXY(ship.rightTopCorner.y, ship.rightBottomCorner.y, multiplier).y;
       
       return {x: gunSlotX, y: gunSlotY};
-  } // front battery ends.
+  } 
   
   if (battery === 'star') { // right
       const multiplier = (1 / (slots + 1)) * gunNbr; 
@@ -84,7 +84,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
       const gunSlotY = getXY(ship.rightBottomCorner.y, ship.leftBottomCorner.y, multiplier).y;
       
       return {x: gunSlotX, y: gunSlotY};
-  } // front battery ends.
+  } 
   
   if (battery === 'port') { // left
       const multiplier = (1 / (slots + 1)) * gunNbr; 
@@ -93,7 +93,7 @@ export function getGunLocation(gunNbr, slots, battery, ship) {
       const gunSlotY = getXY(ship.leftTopCorner.y, ship.rightTopCorner.y, multiplier).y;
       
       return {x: gunSlotX, y: gunSlotY};
-  } // front battery ends.
+  } 
   
 }
 
@@ -107,7 +107,7 @@ export function getSpeeds (rotation, speed) {
 	};
 }
 
-// key Listeners, gameObject.battleObject.ships s car
+// key Listeners, gameObject.battleObject.ships[0] is players ship
 export function checkKeyPressed(pressed){ 
   // ref: https://keycode.info/
   switch (pressed.code) {
