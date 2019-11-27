@@ -276,10 +276,11 @@ export class Bullet extends AllRects{
 }
 
 export class RadarWave extends AllRects{
-  constructor(x, y, heading, w, h) {
+  constructor(x, y, heading, w, h, from) {
     super();
     this.x = x; this.y = y; this.heading = heading;
     this.w = w; this.h = h; this.live = true;
+    this.from = from;
   }
   
   destroy() {

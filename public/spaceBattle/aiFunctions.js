@@ -52,9 +52,24 @@ export function radarWaves(ship, opponent){
   
   // send radar waves:
     // front:
+  const newRadarWave = new RadarWave(ship.x + (ship.w/2), ship.y + (ship.h/2), ship.heading, ship.w, ship.h, ship.name);  
+  
+  // give corners for collision test purpose
+  newRadarWave.setCorners(newRadarWave.heading);
+  
+  // shoot the radarwave with for loop
+  
+  // if for loop hits the ship, shoot front cannons if they are green.... well shoot them anyways i think..
+  
+  // if hits the wall and wall is nearer than lets say 100, maybe go towards center of the battlezone
+  // i think this can be checked from car game how to go towards something...
+  
+  // repeat for port and star
   
   
   /*
+  
+  collisionTest(object, isShip)
     shoot(shooter, x, y, heading, pool){
     const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
                                 this.speed, this.color);
@@ -64,7 +79,7 @@ export function radarWaves(ship, opponent){
   }
   
   export class RadarWave extends AllRects{
-  constructor(x, y, heading, w, h) {
+  constructor(x, y, heading, w, h, from) {
     super();
     this.x = x; this.y = y; this.heading = heading;
     this.w = w; this.h = h; this.live = true;
