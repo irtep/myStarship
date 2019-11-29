@@ -1,33 +1,123 @@
 
 import { getSpeeds, collisionTest } from './battleFunctions.js';
 import { RadarWave, AllRects } from '../classes.js';
+import { callDice, freezeCopy } from '../helpFunctions.js';
 
-export function spaceAiActions(ship, opponent) {
-  /*
-  width= "1200" height= "600">
-  */    
-  /*
-  00 10 20
-  01 11 21
-  02 12 22
-  */
+export function spaceAiActions(ship, opponent, battleObject) {
+  
   // zones of cnv:nw ne c sw se
   const zones = [{},{},{},{},{}]
   const centerOfShip = {x: ship.leftTopCorner.x + (ship.w / 2), y: ship.leftTopCorner.y + (ship.h / 2)};
   const distanceToOpponent = distanceCheck(ship, opponent);
-  const checkWhereIsOpponent = null;
+  let opponentHorizontal = null;
+  let opponentVertical = null; 
+  let bestDirection = 'forward';
   
+  const centerOfNextCheckPoint = {
+    x: battleObject.chosenCp.x + 50, 
+    y: battleObject.chosenCp.y + 50
+  }  
+  
+  // distance checks to check points
+  const forwardTestSpeeds = radarCheck(centerOfShip, ship.heading, 4, 5, 'front');
+  const turnLeftTestSpeeds = radarCheck(centerOfShip, ship.heading, 4, 5, 'port');
+  const turnRightTestSpeeds = radarCheck(centerOfShip, ship.heading, 4, 5, 'star');
+  const distanceIfForward = distanceCheck(forwardTestSpeeds, centerOfNextCheckPoint);
+  const distanceIfLeft = distanceCheck(turnLeftTestSpeeds, centerOfNextCheckPoint);
+  const distanceIfRight = distanceCheck(turnRightTestSpeeds, centerOfNextCheckPoint);
+  
+  if (distanceIfForward > distanceIfLeft) { 
+    
+    bestDirection = 'turn left';
+  }
+  if (distanceIfForward > distanceIfRight) { 
+    
+    bestDirection = 'turn right';
+  }
+  // clear all commands, expect accelerate
+  ship.fireFront = false; ship.firePort = false; ship.fireStar = false; ship.accelerate = true; 
+  ship.braking = false; ship.turnLeft = false; ship.turnRight = false;
+  
+  // wheel turning:
+  switch (bestDirection) {
+  
+    case 'turn left': ship.turnLeft = true; break;
+    case 'turn right': ship.turnRight = true; break; 
+  }
   // check about where the opponent is for checkWhereIsOpponent by coordinates
+  // this also launches cannons
+  radarWaves(ship, opponent);
   
-  // make fake shootings from all cannons
+  // locate opponent
+  if (ship.x > opponent.x) { opponentHorizontal = 'w' } else { opponentHorizontal = 'e'}
+  if (ship.y < opponent.y) { opponentVertical = 's' } else { opponentVertical = 'n'}
   
-  // if fake shootings hits, shoot real cannons there
-  
+  // if reached checkPoint, need to choose a new one
+  if (distanceCheck(ship, battleObject.chosenCp) < 50) {
+    
+    battleObject.chosenCp = chooseCheckPoint(ship, battleObject.checkPoints);
+  }
 }
 
 /* ---------------- */
 // Help Functions:
 /* ---------------- */
+
+// check where ship would be if it would go front, left or right
+function radarCheck(centerOfShip, heading, turnRate, speed, toWhere) {
+  let direction = null;
+  
+  switch (toWhere) {
+    case 'front': direction = heading; break;
+    case 'star' : direction = heading += turnRate; break;
+    case 'port' : direction = heading -= turnRate; break;
+    default: console.log('cant find toWhere at radarCheck!');
+  }
+  const newSpeeds = getSpeeds(direction, speed);
+  
+  return {x: centerOfShip.x + -newSpeeds.x, y: centerOfShip.y + newSpeeds.y};
+}
+
+// choose a new checkPoint to fly towards
+export function chooseCheckPoint(ship, arr) {
+  const diceThrown = callDice(arr.length -1);
+  
+  return arr[diceThrown];
+  
+}
+// make radarwave send, param is to where (front, port, star)
+function sendWave(guns, ship) {
+  const wave = new RadarWave(ship.x + (ship.w/2), ship.y + (ship.h/2), ship.heading, ship.w, ship.h, ship.name);  
+  let battery = null;
+  let collision = false;
+  
+  // star = right, port = left
+  if (guns === 'front') { wave.heading = ship.heading; battery = ship.frontGuns[0] }
+  if (guns === 'port') { wave.heading = ship.heading - 90; battery = ship.portGuns[0]}
+  if (guns === 'star') { wave.heading = ship.heading + 90; battery = ship.starGuns[0]}
+  
+  // give corners for collision test purpose
+  wave.setCorners(wave.heading);
+  
+  // shoot the radarwave with for loop
+  for (let i = 0; i < battery.range; i++) {
+    
+    // move wave 1 px
+    const speeds = getSpeeds(wave.heading, 1);
+    
+    wave.x += -speeds.x;
+    wave.y += speeds.y;
+    wave.setCorners(wave.heading);
+    
+    // check collision
+    const checkCollision = collisionTest(wave, false);
+      
+    // if hits enemy ship:
+    if (checkCollision !== false && checkCollision !== 'obstacle!') { collision = true; }
+  }
+  
+  return collision;
+}
 
 // Distance check
 function distanceCheck(fromWhere, toWhere){
@@ -51,45 +141,11 @@ export function radarWaves(ship, opponent){
   };
   
   // send radar waves:
-    // front:
-  const newRadarWave = new RadarWave(ship.x + (ship.w/2), ship.y + (ship.h/2), ship.heading, ship.w, ship.h, ship.name);  
+  const frontSweep = sendWave('front', ship);
+  const portSweep = sendWave('port', ship);
+  const starSweep = sendWave('star', ship);
   
-  // give corners for collision test purpose
-  newRadarWave.setCorners(newRadarWave.heading);
-  
-  // shoot the radarwave with for loop
-  
-  // if for loop hits the ship, shoot front cannons if they are green.... well shoot them anyways i think..
-  
-  // if hits the wall and wall is nearer than lets say 100, maybe go towards center of the battlezone
-  // i think this can be checked from car game how to go towards something...
-  
-  // repeat for port and star
-  
-  
-  /*
-  
-  collisionTest(object, isShip)
-    shoot(shooter, x, y, heading, pool){
-    const newBullet = new Bullet(this.name, shooter, x, y, heading, this.power, this.shieldPiercing, this.range,
-                                this.speed, this.color);
-    
-    newBullet.setCorners(newBullet.heading);
-    pool.push(newBullet);
-  }
-  
-  export class RadarWave extends AllRects{
-  constructor(x, y, heading, w, h, from) {
-    super();
-    this.x = x; this.y = y; this.heading = heading;
-    this.w = w; this.h = h; this.live = true;
-  }
-  
-  destroy() {
-    this.live = false;
-    this.x = null;
-    this.y = null;
-  }
-}
-  */
+  if (frontSweep) { ship.fireFront = true; }
+  if (portSweep) { ship.firePort = true; }
+  if (starSweep) { ship.fireStar = true; }
 }
