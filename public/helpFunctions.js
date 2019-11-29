@@ -29,9 +29,8 @@ export function shipGenerator(ship, startPlace, colors){
     shipModules: []
   };
   
-  // start places:
-  // full grid seems to be 500, 250 about...
-  const startPlaces = [[20, 20], [400, 200], [200, 400], [400, 250]];
+  // start places: // 4 as i might add multiship combat at some points
+  const startPlaces = [[20, 50], [900, 500], [200, 400], [900, 500]];
   // ship placeholder:
   let ship1 = new ShipInCombat(ship.name, startPlaces[startPlace][0], startPlaces[startPlace][1], 
                [], [], []);
@@ -78,7 +77,7 @@ export function shipGenerator(ship, startPlace, colors){
     
     parts.shipModules.push(module);
     const foundMod = shipModules.filter( mod => mod.name === module );
-    console.log('fm sm ', foundMod, shipModules)
+    //console.log('fm sm ', foundMod, shipModules)
     if ( foundMod[0].moduleType === 'shield') {
       ship1.shieldPoints = foundMod[0].power;
     }
@@ -87,8 +86,11 @@ export function shipGenerator(ship, startPlace, colors){
   // ram cooldown or every ram ends the battle:
   ship1.ramCoolDown = false;
   
-  // headings and speed temporarily to 0: 
-  ship1.heading = 0;
+  // headings and speed
+  if (startPlace === 3) {
+    // for ai:
+    ship1.heading = 180;
+  } else { ship1.heading = 0; }
   ship1.speed = 0;
   // not disabled:
   ship1.disabled = false;

@@ -7,6 +7,7 @@ import { shipGenerator, freezeCopy } from '../helpFunctions.js';
 import { draw } from './draw.js';
 import { getSpeeds, checkKeyPressed, checkKeyReleased, getGunLocation, firingSolutions,
         checkGunStatuses, collisionTest, dealDamage } from './battleFunctions.js';
+import { spaceAiActions, chooseCheckPoint } from './aiFunctions.js';
 
 const keyDownListeners = window.addEventListener("keydown", checkKeyPressed, false); 
 const keyUpListeners = window.addEventListener("keyup", checkKeyReleased, false); 
@@ -15,7 +16,7 @@ export var gameObject = null;
 
 function shipActions(ship) {
   // need to set max and min speeds....
-  
+  //console.log('sA, ship', ship.name, freezeCopy(ship.x));
   if (ship.disabled === false) {
     // accelerate
     if (ship.accelerate) { 
@@ -35,12 +36,13 @@ function shipActions(ship) {
     if (ship.fireStar) { firingSolutions(ship, ship.starGuns, 'star', ship.heading + 90); }
     if (ship.firePort) { firingSolutions(ship, ship.portGuns, 'port', ship.heading - 90); }
   }
-  
+  //console.log('heading and speed: ', ship.heading, ship.speed);
   const speeds = getSpeeds(ship.heading, ship.speed);
   
   // update x and y for collision test purpose
   ship.setCorners(ship.heading);
   
+  //console.log('corners set', ship.name, freezeCopy(ship.x));
   const checkCollision = collisionTest(ship, true);
   
   // collision!
@@ -76,8 +78,13 @@ function shipActions(ship) {
   } else {
     
     // if no collision, move the ship 
+  //console.log('before move', ship.name, freezeCopy(ship.x));
+    //console.log('speeds: ', freezeCopy(speeds));
+    //console.log('speedsx: ', freezeCopy(speeds.x));
+    //console.log('speedsy: ', freezeCopy(speeds.y));
     ship.x += -speeds.x;
     ship.y += speeds.y;  
+  //console.log('after move', ship.name, freezeCopy(ship.x));
   }
   
   // set statuses of cannon batteries:
@@ -165,7 +172,8 @@ function animate(){
     
   } else {
     
-    // ai decisions:
+    // ai decisions:  (ai ship, opponent of ai)
+    spaceAiActions(gameObject.battleObject.ships[1], gameObject.battleObject.ships[0], gameObject.battleObject);
     
     // actions of ships
     gameObject.battleObject.ships.forEach( ship => {
@@ -269,6 +277,12 @@ battleObject.obstacles.forEach( obs => {
   obs.setCorners(obs.angle);
 });  
 
+// make checkPoints for ai navigation
+battleObject.checkPoints = [{x: 50, y: 90},{x: 850, y: 90},{x: 50, y: 450},{x: 850, y: 450}];  
+
+  // choose the first checkPoint for ai ship.  
+battleObject.chosenCp = chooseCheckPoint(battleObject.ships[1], battleObject.checkPoints);
+  // dont choose 
 // draw with battle object
 //draw(battleObject); 
 gameObject.battleObject = battleObject;
