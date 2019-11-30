@@ -3,7 +3,7 @@
 startmenu: early version ready
 mainmenu: early version ready
 travelling: early version ready
-spacecombat: early version ready
+spacecombat: early version ready.. maybe more speed to ships and power to guns?
 closecombat: not started
 events: not started
 missions: not started
