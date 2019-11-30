@@ -229,9 +229,14 @@ window.onload = ( () => {
 // test ships:
 // this could be at gameObject at players ship place for player 1...
 // for ai pilots this would be generated here
+
+const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', ['Arcanis Shield'], 
+                              {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
+  /* big ship:  
 const testShip = new Starship('TestShip1', 'Juggernaut', 'Vartzila Military', ['Arcanis Shield'], 
                               {front: 'Spaceviper', star: 'Spaceviper', port: 'Spaceviper'});
-const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', ['Arcanis Shield'], 
+*/
+  const testShip2 = new Starship('TestShip2', 'Zaab 01', 'Vartzila Space 1', ['Arcanis Shield'], 
                               {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
 
 // generate ships by parts. target, startlocation, colors, pilot
@@ -278,7 +283,7 @@ battleObject.obstacles.forEach( obs => {
 });  
 
 // make checkPoints for ai navigation
-battleObject.checkPoints = [{x: 50, y: 90},{x: 850, y: 90},{x: 50, y: 450},{x: 850, y: 450}];  
+battleObject.checkPoints = [{x: 50, y: 90},{x: 850, y: 90},{x: 50, y: 450},{x: 850, y: 450},{x: 110, y: 250},{x: 850, y: 100},{x: 321, y: 111}];  
 
   // choose the first checkPoint for ai ship.  
 battleObject.chosenCp = chooseCheckPoint(battleObject.ships[1], battleObject.checkPoints);
