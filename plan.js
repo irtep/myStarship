@@ -4,14 +4,16 @@ startmenu: early version ready
 mainmenu: early version ready
 travelling: early version ready
 spacecombat: early version ready.. maybe more speed to ships and power to guns?
+ to add: if ai ship gets hit, takes a new cp, if you are behind ai-ship, gets a new cp
+  - fix bugs too
 closecombat: not started
 events: not started
 missions: not started
 game saving and loading: not started
 
-bugs:
+bugs:spaceBattle
   majors:
-  
+    at space combat it is posible that ships get stuck or sometimes start to fly a circle
   minors:
     that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
     
