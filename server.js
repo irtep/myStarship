@@ -19,6 +19,10 @@ app.get('/sbattle', function(request, response) {
   response.sendFile(__dirname + '/views/spaceBattle/index.html');
 });
 
+// close combat:
+app.get('/ccombat', function(request, response) {
+  response.sendFile(__dirname + '/views/closeCombat/index.html');
+});
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);

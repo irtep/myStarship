@@ -1,6 +1,7 @@
 /*  gameData of players, opponents, planets etc. */
 
-import { Goods, Station, StarSystem, Location, Starship, Hull, Motor, ShipGun, ShipModule } from '/classes.js';
+import { Goods, Station, StarSystem, Location, Starship, Hull, Motor,
+        ShipGun, ShipModule, Character, Armour, Weapon, Guild, Race } from '/classes.js';
 
 // gameObject that contains all player and planet data.
 export const gameObject = {
@@ -45,7 +46,7 @@ Maybe do some intergalactic trading or bounty hunting?`
 ];
 
 // avatars for players and ai:s
-// should maybe need to move to classes... need to think..
+// just temporal, later will use classes
 export const avatars = [
   {name: 'bigDread', url: 'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713', desc: `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
 that makes you way more powerful than most of the creatures around the galaxy.`,
@@ -288,3 +289,49 @@ export const shipGuns = [
 export const shipModules = [
   new ShipModule('Arcanis Shield', 1, 0, 10, 'shield', 1000, 'Basic energy shield. Protects pretty ok damage')
 ];
+/*
+  CHARS AND COMBAT
+*/
+
+// CHARACTERS:
+const Pontus = new Character( 
+  // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
+false, 'Pontus', 'Dogfolk', 'Captain', 'Rookie', null, [], 0, 0, 
+  // stats, specialAttacks, injury (0 is no injury), live
+  {str: 12, con: 15, speed: 7, attacks: 4}, [], 0, true 
+);
+
+const Dread = new Character( 
+  // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
+false, 'Steelman', 'Dreadnought', 'Pirate', 'Rookie', null, ['Dreadnought fist', 'heavy flamer'], 0, 0, 
+  // stats, specialAttacks, injury (0 is no injury), live
+  {str: 16, con: 22, speed: 4, attacks: 1}, [], 0, true 
+);
+/*
+
+export class Armour {  // save is saving throw, requirements is what is needed to use
+  constructor(name, value, save, requirements, img){
+    this.name = name; this.value = value; this.save = save; this.requirements = requirements;
+    this.img = img;
+  }
+}
+
+export class Weapon {
+  constructor(name, value, size, requirements, power, armourPiercing, range, img) {
+    this.name = name; this.value = value; this.size = size; this.requirements = requirements;
+    this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img;
+  }
+}
+
+export class Race {
+  constructor(name, stats, desc, body, size, img) {
+    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img;
+  }
+}
+
+export class Guild {
+  constructor(name, stats, desc, specialAttacks, img) {
+    this.name = name; this.stats = stats; this.desc = desc; this.specialAttacks = specialAttacks;
+    this.img = img;
+  }
+*/

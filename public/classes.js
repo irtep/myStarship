@@ -306,3 +306,47 @@ export class RectObstacle extends AllRects {
     this.maxHitPoints = 1000;
   }
 }
+
+/*
+   Close Combat
+*/
+/*
+  could be something like that in gameObject the team is something like:
+  player(true/false), name, race, guild, rank(like rookie, veteran, elite), armour, weapons,
+  meleeExp, shootExp, stats: m, s, t, a, ws, bs, d, special attacks
+*/
+export class Character {
+  constructor(player, name, race, guild, rank, armour, weapons, meleeExp, shootExp, stats, specialAttacks, injury, live) {
+    this.player = player; this.name = name; this.race = race; this.guild = guild; this.rank = rank; 
+    this.armour = armour; this.weapons = weapons; this.meleeExp = meleeExp; this.shootExp = shootExp; 
+    this.stats = stats; this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; 
+  }
+}
+
+export class Armour {  // save is saving throw, requirements is what is needed to use
+  constructor(name, value, save, requirements, img){
+    this.name = name; this.value = value; this.save = save; this.requirements = requirements;
+    this.img = img;
+  }
+}
+
+export class Weapon {
+  constructor(name, value, size, requirements, power, armourPiercing, range, img) {
+    this.name = name; this.value = value; this.size = size; this.requirements = requirements;
+    this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img;
+  }
+}
+
+export class Race {
+  constructor(name, stats, desc, body, size, img) {
+    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img;
+  }
+}
+
+export class Guild {
+  constructor(name, stats, desc, specialAttacks, img) {
+    this.name = name; this.stats = stats; this.desc = desc; this.specialAttacks = specialAttacks;
+    this.img = img;
+  }
+}
+
