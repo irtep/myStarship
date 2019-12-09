@@ -57,6 +57,8 @@ export function spaceAiActions(ship, opponent, battleObject) {
     
     battleObject.chosenCp = chooseCheckPoint(ship, battleObject.checkPoints);
   }
+  
+  // add also that if opponent is maybe 100 or nearer, change check point for some added movement
 }
 
 /* ---------------- */

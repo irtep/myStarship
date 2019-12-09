@@ -1,3 +1,6 @@
+//import { Character, Armour, Weapon, Race, Guild } from '../classes.js';
+import { characters, armours, weapons, races, guilds } from '../gameData.js';
+console.log('chars ', characters);
 window.onload = ( () => {
   let gameObject = null;
   

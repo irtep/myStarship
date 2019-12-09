@@ -294,21 +294,49 @@ export const shipModules = [
 */
 
 // CHARACTERS:
-const Pontus = new Character( 
-  // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
-false, 'Pontus', 'Dogfolk', 'Captain', 'Rookie', null, [], 0, 0, 
-  // stats, specialAttacks, injury (0 is no injury), live
-  {str: 12, con: 15, speed: 7, attacks: 4}, [], 0, true 
-);
+// (player, name, race, guild, rank, armour, weapons, meleeExp, shootExp, stats, specialAttacks, injury, live)
+export const characters = [
+  
+  new Character( 
+    // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
+  true, 'Pontus', 'Dogfolk', 'Captain', 'Rookie', null, [], 0, 0, 
+    // stats, specialAttacks, injury (0 is no injury), live
+    {str: 12, con: 15, speed: 7, attacks: 4}, [], 0, true 
+  ),
+  
+  new Character( 
+    // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
+  false, 'Steelman', 'Dreadnought', 'Pirate', 'Rookie', null, ['dreadnought fist', 'heavy flamer'], 0, 0, 
+    // stats, specialAttacks, injury (0 is no injury), live
+    {str: 16, con: 22, speed: 4, attacks: 1}, [], 0, true 
+  )
+];
 
-const Dread = new Character( 
-  // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
-false, 'Steelman', 'Dreadnought', 'Pirate', 'Rookie', null, ['Dreadnought fist', 'heavy flamer'], 0, 0, 
-  // stats, specialAttacks, injury (0 is no injury), live
-  {str: 16, con: 22, speed: 4, attacks: 1}, [], 0, true 
-);
+// ARMOURS: characters, armours, weapons, races, guilds
+// constructor(name, value, save, requirements, img)
+export const armours = [];
+
+// WEAPONS
+// (name, value, size, requirements, power, armourPiercing, range, img, sound) 
+export const weapons = [
+  new Weapon('dreadnought fist', 1000, 1, {race: 'dreadnought', limb: 'hand', minStr: 15}, 18, 3, 10, null),
+  new Weapon('heavy flamer', 500, 1, {race: 'all', limb: 'hand', minStr: 10}, 12, 1, 100, null, null)
+];
+
+// RACES
+// (name, stats, desc, body, size, img)
+export const races = [
+  new Race('Dogfolk', {str: 12, con: 14, speed: 7, attack: 3}, 'Dogfolks are like dogs, but much more intelligents.', 
+           {heads: 1, hands: 0, claws: 2, torso: 0}, 4, null),
+  new Race('Dreadnought', {str: 16, con: 20, speed: 4, attacks: 1}, 'Dreadnoughts are mechanical, but have brains of humans.',
+          {heads: 0, hands: 2, claws: 0, torso: 0})
+];
+
+// GUILDS
+// (name, stats, desc, specialAttacks, img)
+export const guilds = [];
+
 /*
-
 export class Armour {  // save is saving throw, requirements is what is needed to use
   constructor(name, value, save, requirements, img){
     this.name = name; this.value = value; this.save = save; this.requirements = requirements;
