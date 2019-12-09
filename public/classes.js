@@ -310,7 +310,7 @@ export class RectObstacle extends AllRects {
 /*
    Close Combat
 */
-/*
+/* 
   could be something like that in gameObject the team is something like:
   player(true/false), name, race, guild, rank(like rookie, veteran, elite), armour, weapons,
   meleeExp, shootExp, stats: m, s, t, a, ws, bs, d, special attacks
@@ -331,9 +331,10 @@ export class Armour {  // save is saving throw, requirements is what is needed t
 }
 
 export class Weapon {
-  constructor(name, value, size, requirements, power, armourPiercing, range, img) {
+  constructor(name, value, size, requirements, power, armourPiercing, range, img, sound) {
     this.name = name; this.value = value; this.size = size; this.requirements = requirements;
     this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img;
+    this.sound = sound;
   }
 }
 
