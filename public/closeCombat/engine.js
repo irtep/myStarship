@@ -1,21 +1,33 @@
 //import { Character, Armour, Weapon, Race, Guild } from '../classes.js';
-import { characters, armours, weapons, races, guilds } from '../gameData.js';
+import { characters, armours, weapons, races, professions } from '../gameData.js';
+import { freezeCopy } from '../helpFunctions.js';
+
 console.log('chars ', characters);
 window.onload = ( () => {
   let gameObject = null;
   
   // load gameObject from storage and add it to gameObject
   // however now at test version i make here test teams
-  /*
-  could be something like that in gameObject the team is something like:
-  player(true/false), name, race, rank(like rookie, veteran, elite), armour, weapons,
-  class, meleeExp, shootExp, stats: m, s, t, a, ws, bs, d
-  constructor(player, name, race, guild, rank, armour, weapons, meleeExp, shootExp, stats, specialAttacks, injury, live)
-  */
+  
   const team1 = {
     player: true,
-    team: []
+    team: [ characters[0], characters[1]]
+  };
+  const team2 = {
+    player: false,
+    team: [ characters[2] ]
   };
   
+  // give stats, x and y to characters
+  
+  // make array that has both teams and sort it by speed order
+  
+  // make the arena
+  
+  // deployment. slowest first
+  
+  // start battle
+  
+  console.log('teams: ', team1, team2);
   
 });

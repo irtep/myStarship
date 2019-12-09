@@ -1,7 +1,7 @@
 const leftSection = document.getElementById('leftSection');
 const centerSection = document.getElementById('centerSection');
 const rightSection = document.getElementById('rightSection');
-import {avatars, gameObject, professions} from '../gameData.js';
+import {races, gameObject, professions} from '../gameData.js';
 
 // update profession, dropdown menu control
 function updatePro(newPro) { 
@@ -28,9 +28,9 @@ function updatePro(newPro) {
 
 // show description of avatar image:
 function showDesc(avatar) {
-  const avatarImage = avatars.filter(ava => ava.name === avatar.target.id);
+  const raceImage = races.filter(ava => ava.name === avatar.target.id);
   // write info:
-  leftSection.innerHTML = avatarImage[0].desc;
+  leftSection.innerHTML = raceImage[0].desc;
 }
 
 // checks if both password fields match and not empty.
@@ -119,9 +119,9 @@ function buttonControl(ide) {
         leftSection.innerHTML = '&nbsp; &nbsp; &nbsp; &nbsp; <span class= "fa fa-star stars small" style="font-size:7px;">';
         centerSection.innerHTML = `select avatar: <br>`;
         // make images:
-        avatars.forEach( (image) => {
+        races.forEach( (image) => {
 
-          centerSection.innerHTML += `<img src= ${image.url} alt= "avatarImage" class= "avaImage" id= ${image.name}>`;
+          centerSection.innerHTML += `<img src= ${image.img} alt= "avatarImage" class= "avaImage" id= ${image.name}>`;
         });
         // back button:
         centerSection.innerHTML += '<p><input type= "button" id= "backFromAva" value= "back" class= "but"></p>'
