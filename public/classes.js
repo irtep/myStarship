@@ -310,44 +310,39 @@ export class RectObstacle extends AllRects {
 /*
    Close Combat
 */
-/* 
-  could be something like that in gameObject the team is something like:
-  player(true/false), name, race, guild, rank(like rookie, veteran, elite), armour, weapons,
-  meleeExp, shootExp, stats: m, s, t, a, ws, bs, d, special attacks
-*/
 export class Character {
-  constructor(player, name, race, guild, rank, armour, weapons, meleeExp, shootExp, stats, specialAttacks, injury, live) {
-    this.player = player; this.name = name; this.race = race; this.guild = guild; this.rank = rank; 
+  constructor(player, name, race, profession, rank, armour, weapons, meleeExp, shootExp, specialAttacks, injury, live) {
+    this.player = player; this.name = name; this.race = race; this.profession = profession; this.rank = rank; 
     this.armour = armour; this.weapons = weapons; this.meleeExp = meleeExp; this.shootExp = shootExp; 
-    this.stats = stats; this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; 
+    this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; 
   }
 }
 
 export class Armour {  // save is saving throw, requirements is what is needed to use
-  constructor(name, value, save, requirements, img){
+  constructor(name, value, save, requirements, img, artBy){
     this.name = name; this.value = value; this.save = save; this.requirements = requirements;
-    this.img = img;
+    this.img = img; this.artBy = artBy;
   }
 }
 
 export class Weapon {
-  constructor(name, value, size, requirements, power, armourPiercing, range, img, sound) {
+  constructor(name, value, size, requirements, power, armourPiercing, range, img, sound, artBy) {
     this.name = name; this.value = value; this.size = size; this.requirements = requirements;
-    this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img;
-    this.sound = sound;
+    this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img; 
+    this.sound = sound; this.artBy = artBy;
   }
 }
 
 export class Race {
-  constructor(name, stats, desc, body, size, img) {
-    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img;
+  constructor(name, stats, desc, body, size, img, artBy) {
+    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img; this.artBy;
   }
 }
 
-export class Guild {
-  constructor(name, stats, desc, specialAttacks, img) {
+export class Profession {
+  constructor(name, stats, desc, specialAttacks, img, artBy) {
     this.name = name; this.stats = stats; this.desc = desc; this.specialAttacks = specialAttacks;
-    this.img = img;
+    this.img = img; this.artBy = artBy;
   }
 }
 
