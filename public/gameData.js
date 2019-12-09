@@ -308,10 +308,10 @@ export const characters = [
 export const armours = [];
 
 // WEAPONS
-// (name, value, size, requirements, power, armourPiercing, range, img, sound, artBy) 
+// (name, value, size, requirements, power, armourPiercing, minRange, maxRange, img, sound, artBy) 
 export const weapons = [
-  new Weapon('dreadnought fist', 1000, 1, {race: 'dreadnought', limb: 'hand', minStr: 15}, 18, 3, 10, null),
-  new Weapon('heavy flamer', 500, 1, {race: 'all', limb: 'hand', minStr: 10}, 12, 1, 100, null, null)
+  new Weapon('dreadnought fist', 1000, 1, {race: 'dreadnought', limb: 'hand', minStr: 15}, 18, 3, 0,  10, null, null),
+  new Weapon('heavy flamer', 500, 1,      {race: 'all', limb: 'hand', minStr: 10},         12, 1, 15, 100, null, null)
 ];
 
 // RACES

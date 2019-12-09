@@ -18,7 +18,7 @@ window.onload = ( () => {
     team: [ characters[2] ]
   };
   
-  // give stats, x and y to characters
+  // give stats, x and y to characters, attacks
   
   // make array that has both teams and sort it by speed order
   

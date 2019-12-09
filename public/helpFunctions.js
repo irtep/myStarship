@@ -2,22 +2,13 @@
 // need these for shipGenerator:
 import { hulls, motors, shipGuns, shipModules } from './gameData.js';
 import { Hull, Motor, ShipGun, ShipModule, ShipInCombat } from './classes.js';
-/*
-name, hull, motor, modules, weapons, value, desc
-const testShip = new Starship('TestShip1', 'Zaab 01', 'Vartzila Space 1', [], 
-                              {front: 'ValMet S1', star: 'ValMet S1', port: 'ValMet S1'});
-*/
-/*
-                   maxModules,   guns, value, desc  
-  new Hull('Zaab 01', 40, 100, {front: 16, sides: 16, back: 11}, 10, {front: 1, star: 2, port: 2}, 1000,
-          'Reliable classic starship hull.')
-*/
 
 // copy variable as it was at the moment
 export function freezeCopy(target){
   return JSON.parse(JSON.stringify(target));
 }
 
+// prepares ship for combat
 export function shipGenerator(ship, startPlace, colors){
   // find parts:
   const parts = {
