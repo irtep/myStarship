@@ -1,6 +1,7 @@
 //import { Character, Armour, Weapon, Race, Guild } from '../classes.js';
 import { characters, armours, weapons, races, professions } from '../gameData.js';
 import { freezeCopy } from '../helpFunctions.js';
+import { setupCharacter } from './battleFunctions.js';
 
 console.log('chars ', characters);
 window.onload = ( () => {
@@ -11,14 +12,15 @@ window.onload = ( () => {
   
   const team1 = {
     player: true,
-    team: [ characters[0], characters[1]]
+    team: [ setupCharacter(characters[0]), setupCharacter(characters[1])]
   };
   const team2 = {
     player: false,
-    team: [ characters[2] ]
+    team: [ setupCharacter(characters[2])]
   };
   
   // give stats, x and y to characters, attacks
+  // will come from setupCharacter function
   
   // make array that has both teams and sort it by speed order
   
