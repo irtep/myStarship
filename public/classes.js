@@ -310,7 +310,7 @@ export class RectObstacle extends AllRects {
 /*
    Close Combat
 */
-export class Character {
+export class Character {               // 'armour' is name of armour that he is wearing
   constructor(player, name, race, profession, rank, armour, weapons, meleeExp, shootExp, specialAttacks, injury, live) {
     this.player = player; this.name = name; this.race = race; this.profession = profession; this.rank = rank; 
     this.armour = armour; this.weapons = weapons; this.meleeExp = meleeExp; this.shootExp = shootExp; 
@@ -326,16 +326,18 @@ export class Armour {  // save is saving throw, requirements is what is needed t
 }
 
 export class Weapon {
-  constructor(name, value, size, requirements, power, armourPiercing, minRange, maxRange, img, sound, artBy) {
+  constructor(name, value, size, requirements, power, armourPiercing, minRange, maxRange, isMeleeWeapon, img, sound, artBy) {
     this.name = name; this.value = value; this.size = size; this.requirements = requirements;
     this.power = power, this.armourPiercing = armourPiercing; this.maxRange = maxRange; this.img = img; 
-    this.sound = sound; this.artBy = artBy; this.minRange = minRange;
+    this.sound = sound; this.artBy = artBy; this.minRange = minRange; this.isMeleeWeapon = isMeleeWeapon;
   }
 }
 
-export class Race {
-  constructor(name, stats, desc, body, size, img, artBy) {
-    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img; this.artBy;
+export class Race { // bodyparts in body are needed to check what weapon or armour needs
+  constructor(name, stats, desc, body, size, unarmed, specialAttacks, img, artBy) {
+    this.name = name; this.stats = stats; this.desc = desc; this.body = body; 
+    this.size = size; this.unarmed = unarmed, this.img = img; this.artBy;
+    this.specialAttacks = specialAttacks;
   }
 }
 
@@ -345,4 +347,3 @@ export class Profession {
     this.img = img; this.artBy = artBy;
   }
 }
-

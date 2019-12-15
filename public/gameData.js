@@ -308,23 +308,25 @@ export const characters = [
 export const armours = [];
 
 // WEAPONS
-// (name, value, size, requirements, power, armourPiercing, minRange, maxRange, img, sound, artBy) 
+// (name, value, size, requirements, power, armourPiercing, minRange, maxRange, isMeleeWeapon, img, sound, artBy) 
 export const weapons = [
-  new Weapon('dreadnought fist', 1000, 1, {race: 'dreadnought', limb: 'hand', minStr: 15}, 18, 3, 0,  10, null, null),
-  new Weapon('heavy flamer', 500, 1,      {race: 'all', limb: 'hand', minStr: 10},         12, 1, 15, 100, null, null)
+  new Weapon('dreadnought fist', 1000, 1, {race: 'dreadnought', limb: 'hand', minStr: 15}, 6, 3, 0,  10, true, null, null),
+  new Weapon('heavy flamer', 500, 1,      {race: 'all', limb: 'hand', minStr: 10},         12, 1, 15, 100, false, null, null)
 ];
 
 // RACES
-// (name, stats, desc, body, size, img, artBy)
+// (name, stats, desc, body, size, unarmed, specialAttacks, img, artBy)
 export const races = [
-  new Race('dogfolk', {str: 12, con: 14, speed: 7, attacks: 3}, 'Dogfolks are like dogs, but as intelligents as humans.', 
-           {heads: 1, hands: 0, claws: 2, torso: 0}, 4, 
+  new Race('dogfolk', {str: 11, con: 14, speed: 7, attacks: 3, def: 15}, 'Dogfolks are like dogs, but as intelligents as humans.', 
+           {heads: 1, hands: 0, claws: 2, torso: 0}, 4, 'bite',
+           null, /* should add some special attacks later*/
           'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
           'Yuko R'),
           
-  new Race('dreadnought', {str: 16, con: 20, speed: 4, attacks: 1}, `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
+  new Race('dreadnought', {str: 13, con: 20, speed: 4, attacks: 1, def: 10}, `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
 that makes you way more powerful than most of the creatures around the galaxy.`,
-          {heads: 0, hands: 2, claws: 0, torso: 0}, 10,
+          {heads: 0, hands: 2, claws: 0, torso: 0}, 10, 'punch',
+           null, /* should add some special attacks later*/
            'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713',
            'amorcitos.'
           )
@@ -334,82 +336,51 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
 // (name, stats, desc, specialAttacks, img)
 export const professions = [
   new Profession('Police', {
-    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 1, bs: 2, ms: 0, def: 0},
-    master: {str: 1, con: 1, speed: 1, attacks: 1, ws: 2, bs: 2, ms: 0, def: 1},
-    grandmaster: {str: 1, con: 1, speed: 1, attacks: 2, ws: 2, bs: 3, ms: 0, def: 2}
+    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 6, bs: 7, def: 0},
+    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 6, bs: 7, def: 0},
+    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 6, bs: 8, def: 0},
+    master: {str: 1, con: 2, speed: 1, attacks: 1, ws: 7, bs: 8, def: 1},
+    grandmaster: {str: 1, con: 2, speed: 1, attacks: 2, ws: 7, bs: 9, def: 2}
   }, `Galactic Police Force (GPF) maintains peace and order in sector.
 starting police officers get as a starting bonus, police-class cannons and shields to his ship and intresting and dangerous missions from raiding criminal
-outposts to patrols to keep trade routes safe.`,
+outposts to patrols to keep trade routes safe. Polices receive good melee and excellent shooting training.`,
   null /* should add some special attacks later*/,
   null
   ),
   new Profession('Raider', {
-    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 1, bs: 2, ms: 0, def: 0},
-    master: {str: 1, con: 1, speed: 1, attacks: 1, ws: 2, bs: 2, ms: 0, def: 1},
-    grandmaster: {str: 1, con: 1, speed: 1, attacks: 2, ws: 2, bs: 3, ms: 0, def: 2}
+    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 7, bs: 6, def: 0},
+    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 7, bs: 6, def: 0},
+    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 7, bs: 7, def: 0},
+    master: {str: 2, con: 1, speed: 1, attacks: 2, ws: 8, bs: 7, def: 1},
+    grandmaster: {str: 2, con: 2, speed: 1, attacks: 3, ws: 9, bs: 7, def: 2}
   }, `Raiders is an alliance of outlaw captains who make their living by robbing freighters and remote outposts.
-They give you an adventurous career that include raid missions and clashes againts Police Force. As an extra help to start new Raider member gets pretty good forward cannon to his ship.`,
+They give you an adventurous career that include raid missions and clashes againts Police Force. 
+As an extra help to start new Raider member gets pretty good forward cannon to his ship.
+In combat raiders concentrate in melee skills.`,
   null /* should add some special attacks later*/,
   null
   ),
   new Profession('Smuggler', {
-    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 1, bs: 2, ms: 0, def: 0},
-    master: {str: 1, con: 1, speed: 1, attacks: 1, ws: 2, bs: 2, ms: 0, def: 1},
-    grandmaster: {str: 1, con: 1, speed: 1, attacks: 2, ws: 2, bs: 3, ms: 0, def: 2}
+    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 5, bs: 6, def: 1},
+    veteran: {str: 1, con: 1, speed: 1, attacks: 0, ws: 5, bs: 6, def: 1},
+    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 5, bs: 7, def: 1},
+    master: {str: 1, con: 1, speed: 2, attacks: 1, ws: 6, bs: 7, def: 2},
+    grandmaster: {str: 2, con: 2, speed: 2, attacks: 2, ws: 6, bs: 8, def: 3}
   },`If you think that legal goods won't give you enough profits, as you can make much more money with illegal stuff like slaves, illegal imigrants and narcotics. Then the Smugglers are what you are looking for.
-Starting bonus is upgraded engine and some extra armour to keep a distance to hand of so called justice.`,
+Starting bonus is upgraded engine and some extra armour to keep a distance to hand of so called justice.
+They shoot better than hit in personal combat.`,
   null /* should add some special attacks later*/,
   null
   ),
   new Profession('Freelancer', {
-    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 1, bs: 1, ms: 0, def: 0},
-    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 1, bs: 2, ms: 0, def: 0},
-    master: {str: 1, con: 1, speed: 1, attacks: 1, ws: 2, bs: 2, ms: 0, def: 1},
-    grandmaster: {str: 1, con: 1, speed: 1, attacks: 2, ws: 2, bs: 3, ms: 0, def: 2}
+    rookie: {str: 1, con: 0, speed: 0, attacks: 0, ws: 5, bs: 5, def: 0},
+    veteran: {str: 1, con: 1, speed: 0, attacks: 0, ws: 5, bs: 5, def: 0},
+    elite: {str: 1, con: 1, speed: 1, attacks: 1, ws: 6, bs: 6, def: 1},
+    master: {str: 1, con: 1, speed: 2, attacks: 1, ws: 6, bs: 6, def: 1},
+    grandmaster: {str: 1, con: 1, speed: 3, attacks: 2, ws: 7, bs: 7, def: 3}
   }, `Instead of doing jobs for other people, why not to work for yourself? You will not get any starter bonuses but you are free to do whatever missions you like!
-Maybe do some intergalactic trading or bounty hunting?`,
+Maybe do some intergalactic trading or bounty hunting?. In combat they can do both, shoot and brawl.`,
   null /* should add some special attacks later*/,
   null
   ),
 ];
-/*
-   },{name: 'Smuggler', desc: `If you think that legal goods won't give you enough profits, as you can make much more money with illegal stuff like slaves, illegal imigrants and narcotics. Then the Smugglers are what you are looking for.
-Starting bonus is upgraded engine and some extra armour to keep a distance to hand of so called justice.`
-   },{name: 'Freelancer', desc: `Instead of doing jobs for other people, why not to work for yourself? You will not get any starter bonuses but you are free to do whatever missions you like!
-Maybe do some intergalactic trading or bounty hunting?`
-   }
-*/
-/*
-export class Armour {  // save is saving throw, requirements is what is needed to use
-  constructor(name, value, save, requirements, img){
-    this.name = name; this.value = value; this.save = save; this.requirements = requirements;
-    this.img = img;
-  }
-}
-
-export class Weapon {
-  constructor(name, value, size, requirements, power, armourPiercing, range, img) {
-    this.name = name; this.value = value; this.size = size; this.requirements = requirements;
-    this.power = power, this.armourPiercing = armourPiercing; this.range = range; this.img = img;
-  }
-}
-
-export class Race {
-  constructor(name, stats, desc, body, size, img) {
-    this.name = name; this.stats = stats; this.desc = desc; this.body = body; this.img = img;
-  }
-}
-
-export class Guild {
-  constructor(name, stats, desc, specialAttacks, img) {
-    this.name = name; this.stats = stats; this.desc = desc; this.specialAttacks = specialAttacks;
-    this.img = img;
-  }
-*/
