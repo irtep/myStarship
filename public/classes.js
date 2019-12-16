@@ -311,17 +311,17 @@ export class RectObstacle extends AllRects {
    Close Combat
 */
 export class Character {               // 'armour' is name of armour that he is wearing
-  constructor(player, name, race, profession, rank, armour, weapons, meleeExp, shootExp, specialAttacks, injury, live) {
+  constructor(player, name, race, profession, rank, armour, weapons, meleeExp, shootExp, specialAttacks, injury, live, desc) {
     this.player = player; this.name = name; this.race = race; this.profession = profession; this.rank = rank; 
     this.armour = armour; this.weapons = weapons; this.meleeExp = meleeExp; this.shootExp = shootExp; 
-    this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; 
+    this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; this.desc = desc;
   }
 }
 
 export class Armour {  // save is saving throw, requirements is what is needed to use
-  constructor(name, value, save, requirements, img, artBy){
+  constructor(name, value, save, requirements, img, artBy, desc, stats){
     this.name = name; this.value = value; this.save = save; this.requirements = requirements;
-    this.img = img; this.artBy = artBy;
+    this.img = img; this.artBy = artBy; this.desc = desc; this.stats = stats;
   }
 }
 

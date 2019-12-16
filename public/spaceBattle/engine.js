@@ -1,7 +1,7 @@
 /*
   propably lots of experimental stuff first...
 */
-import { hulls, motors, shipGuns, shipModules } from '../gameData.js';
+import { hulls, motors, shipGuns, shipModules } from '../gameData/shipData.js';
 import { Starship, AllRects, RectObstacle } from '../classes.js';
 import { shipGenerator, freezeCopy } from '../helpFunctions.js'; 
 import { draw } from './draw.js';

@@ -127,6 +127,7 @@ export const starMap = `
           </tr>
         </table>`;
 
+// Products to sell and buy
 export const products = [  // name, desc, basePrice, type
   new Goods('common metals', 'metals such as steel, iron, copper etc. usefull for many stuff', 100, 'materials'),
   new Goods('water', 'water is life! and life is precious. There might be huge price differences on this classis good as somewhere there can be plenty of this and somewhere none', 100, 'grocery'),
@@ -242,37 +243,7 @@ export const travelCanvases = `<div id= "travelContainer">
 </div>
 </div>`;
 
-/*
-   SHIP DATA:
-*/
 
-export const hulls = [
-  // name, width, height, armours, maxModules, gunMounts, value, desc
-  //         name,    w,  h,  armours                            maxModules,   guns, value, desc  
-  new Hull('Zaab 01', 20, 8, {front: 16, sides: 16, back: 11}, 10, {front: 1, star: 2, port: 2}, 1000,
-          'Reliable classic starship hull.'),
-  new Hull('Zaab 02', 30, 15, {front: 16, sides: 16, back: 11}, 13, {front: 2, star: 3, port: 3}, 2500,
-          'Extended version of classic Zaab 01.'),
-  new Hull('Juggernaut', 45, 25, {front: 18, sides: 16, back: 15}, 23, {front: 3, star: 4, port: 4}, 4500,
-          'Huge starship hull capable to hold lots of cannons and modules.')
-];
-// name, size, power, durability, value, refreshrate, desc
-export const motors = [
-  new Motor('Vartzila Space 1', 1, 10, 95, 1000, 1, 'Reliable but not very powerful engine.'),
-  new Motor('Vartzila Military', 2, 20, 95, 4000, 3, 'Great military class motor.')
-];
-// name, reloadTime, energyUsage, power, shieldPiercing, color, speed, range, value, desc
-export const shipGuns = [
-  new ShipGun('ValMet S1', 10, 2, 12, 0, 'red', 20, 400, 300, 'good self-defence gun.'),
-  new ShipGun('Spaceviper', 15, 4, 16, 1, 'cyan', 20, 400, 1000, 'great gun.')
-];
-/*
-    this.name = name; this.size = size; this.energyUsage = energyUsage, this.power = power; moduleType, value, this.desc = desc;
-}
-*/
-export const shipModules = [
-  new ShipModule('Arcanis Shield', 1, 0, 10, 'shield', 1000, 'Basic energy shield. Protects pretty ok damage')
-];
 /*
   CHARS AND COMBAT
 */
@@ -285,33 +256,41 @@ export const characters = [
     // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
   true, 'Pontus', 'dogfolk', 'Police', 'rookie', null, [], 0, 0, 
     // specialAttacks, injury (0 is no injury), live
-    [], 0, true 
+    [], 0, true, `Young but very spirited dogfolk.` 
   ),
   
   new Character( 
     // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
   false, 'Steelman', 'dreadnought', 'Raider', 'rookie', null, ['dreadnought fist', 'heavy flamer'], 0, 0, 
     // specialAttacks, injury (0 is no injury), live
-    [], 0, true 
+    [], 0, true, `Old war veteran who got injured, but luckily had enough money to get this huge exoskeleton.`
   ),
   
   new Character( 
     // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
   false, 'IronFist', 'dreadnought', 'Raider', 'veteran', null, ['dreadnought fist', 'heavy flamer'], 0, 0, 
     // specialAttacks, injury (0 is no injury), live
-    [], 0, true 
+    [], 0, true, `Veteran dreadnought who usually crushes everyone in his path.`
   ), 
   new Character( 
     // players, name, race, guild, rank, armour, weapons, meleeExp, shootExp,
   false, 'Queen', 'dogfolk', 'Freelancer', 'grandmaster', null, [], 0, 0, 
-    // specialAttacks, injury (0 is no injury), live
-    [], 0, true 
+    // specialAttacks, injury (0 is no injury), live, desc
+    [], 0, true, `Extremely tough female dogfolk.`
+  ),
+  new Character(false, 'Ryszard', 'human', 'Smuggler', 'rookie', 'kevlar breastplate', ['victorivich'], 0, 0,
+    [], 0, true, `Experienced smuggler rifleman`
   )
 ];
 
 // ARMOURS: characters, armours, weapons, races, guilds
-// constructor(name, value, save, requirements, img)
-export const armours = [];
+// constructor(name, value, save, requirements, img, artBy, desc, stats)
+export const armours = [
+  new Armour('kevlar breastplate', 100, 5, {race: 'all', limb: 'torso', minStr: 1}, null, null, 
+             `Lightweight but hard breastplate. Cheap choice that offers some protection against basic weapons.`,
+  {str: 0, speed: 0, con: 0})
+  
+];
 
 // WEAPONS
 // (name, value, size, requirements, power, armourPiercing, minRange, maxRange, attacks, isMeleeWeapon, img, sound, artBy, desc) 
@@ -333,7 +312,7 @@ recommended for optimal fire power.)`)
 // RACES
 // (name, stats, desc, body, size, unarmed, specialAttacks, img, artBy)
 export const races = [
-  new Race('dogfolk', {str: 11, con: 14, speed: 7, attacks: 3, def: 15}, 'Dogfolks are like dogs, but as intelligents as humans.', 
+  new Race('dogfolk', {str: 11, con: 14, speed: 7, attacks: 3, def: 15}, 'Dogfolks are like very big dogs, but as intelligents as humans.', 
            {heads: 1, hands: 0, claws: 2, torso: 0}, 4, 'bite',
            null, /* should add some special attacks later*/
           'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
@@ -345,6 +324,14 @@ that makes you way more powerful than most of the creatures around the galaxy.`,
            null, /* should add some special attacks later*/
            'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713',
            'amorcitos.'
+          ),
+          
+  new Race('human', {str: 7, con: 10, speed: 5, attacks: 1, def: 13}, `The most common known race in the galaxy. Very successfull and creative
+race that seems to get better all the time. However their power relies heavily in combining forces so 1v1 other races usually excel better.`,
+          {heads: 1, hands: 2, claws: 0, torso: 1}, 10, 'punch',
+           null, /* should add some special attacks later*/
+           null,
+           null
           )
 ];
 

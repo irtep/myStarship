@@ -13,12 +13,16 @@ export function setupCharacter(character, teamNbr) {
     bs: null, // ballistic skill(shooting)
     ws: null, // weapon skill(melee)
     con: null, // constitution
-    save: 6 // armour save, defaults 6, smaller the better
+    save: null // armour save, smaller the better
     };
   const myProf = professions.filter(  pro => pro.name === character.profession );
   const myRace = races.filter( rac => rac.name === character.race );
   const attacks = {melee: [], ranged: []};
   const myRank = character.rank;
+  let myArmour = null;
+  
+  // if has armour, lets find it from the inventory
+  if (character.armour !== null) { myArmour = armours.filter( armo => armo.name === character.armour); }
   
   // give stats
   stats.attacks = myProf[0].stats[myRank].attacks + myRace[0].stats.attacks;
@@ -30,7 +34,14 @@ export function setupCharacter(character, teamNbr) {
   stats.ws = myProf[0].stats[myRank].ws;
   stats.con = myProf[0].stats[myRank].con + myRace[0].stats.con;
   
-  // get and set armour
+  // get and set armour and its bonuses or "bonuses"
+  if (myArmour !== null) {
+      
+    stats.str += myArmour[0].stats.str;
+    stats.speed += myArmour[0].stats.speed;
+    stats.con += myArmour[0].stats.con;
+    stats.save = myArmour[0].save;    
+  }
   
   // get weapons:
   if (character.weapons.length > 0) {
@@ -51,6 +62,14 @@ export function setupCharacter(character, teamNbr) {
     
     // if character doesn't have any weapons
     // create unarmed attack:
+    const unarmedAttack = new Weapon(myRace[0].unarmed, 0, 0, null, stats.str, 0, 0, 20, true, null, null);
+    
+    attacks.melee.push(unarmedAttack);
+  }
+  
+  // check if has only melee attacks, if so, create unarmed one:
+  if (attacks.melee.length === 0) { 
+    
     const unarmedAttack = new Weapon(myRace[0].unarmed, 0, 0, null, stats.str, 0, 0, 20, true, null, null);
     
     attacks.melee.push(unarmedAttack);
