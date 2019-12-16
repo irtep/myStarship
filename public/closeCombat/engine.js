@@ -1,6 +1,6 @@
 
 import { characters } from '../gameData.js';
-import { freezeCopy, doubleDigsSort } from '../helpFunctions.js';
+import { freezeCopy } from '../helpFunctions.js';
 import { setupCharacter } from './battleFunctions.js';
 
 window.onload = ( () => {
@@ -11,7 +11,7 @@ window.onload = ( () => {
   
   const team1 = {
     player: true,
-    team: [ setupCharacter(characters[0], 1), setupCharacter(characters[1], 1)]
+    team: [ setupCharacter(characters[0], 1), setupCharacter(characters[1], 1), setupCharacter(characters[4], 1)]
   };
   const team2 = {
     player: false,
@@ -20,9 +20,7 @@ window.onload = ( () => {
   
   // make array that has both teams and sort it by speed order
   let battleArray = team1.team.concat(team2.team);
-  /*
-  list.sort((a, b) => (a.color > b.color) ? 1 : -1)
-  */
+  
   battleArray.sort( (a, b) => (a.stats.speed < b.stats.speed) ? 1: -1);
   console.log('battleA ', battleArray);
   // make the arena

@@ -3,6 +3,8 @@
 import { hulls, motors, shipGuns, shipModules } from './gameData.js';
 import { Hull, Motor, ShipGun, ShipModule, ShipInCombat } from './classes.js';
 
+/*
+it seems that this is not needed:
 // sort double digit numbers:
 export function doubleDigsSort(queue){
   
@@ -13,7 +15,7 @@ export function doubleDigsSort(queue){
   }  
   return queue;
 }
-
+*/
 // copy variable as it was at the moment
 export function freezeCopy(target){
   return JSON.parse(JSON.stringify(target));
