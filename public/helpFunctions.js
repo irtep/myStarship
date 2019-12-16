@@ -3,6 +3,17 @@
 import { hulls, motors, shipGuns, shipModules } from './gameData.js';
 import { Hull, Motor, ShipGun, ShipModule, ShipInCombat } from './classes.js';
 
+// sort double digit numbers:
+export function doubleDigsSort(queue){
+  
+  for (let index = 0; index < queue.length; index++){
+    if (queue[index][1] != '.'){
+      queue.push(queue.splice(index, 1)[0]);    
+    }
+  }  
+  return queue;
+}
+
 // copy variable as it was at the moment
 export function freezeCopy(target){
   return JSON.parse(JSON.stringify(target));

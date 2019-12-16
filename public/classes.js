@@ -326,10 +326,11 @@ export class Armour {  // save is saving throw, requirements is what is needed t
 }
 
 export class Weapon {
-  constructor(name, value, size, requirements, power, armourPiercing, minRange, maxRange, isMeleeWeapon, img, sound, artBy) {
+  constructor(name, value, size, requirements, power, armourPiercing, minRange, maxRange, attacks, isMeleeWeapon, img, sound, artBy, desc) {
     this.name = name; this.value = value; this.size = size; this.requirements = requirements;
     this.power = power, this.armourPiercing = armourPiercing; this.maxRange = maxRange; this.img = img; 
     this.sound = sound; this.artBy = artBy; this.minRange = minRange; this.isMeleeWeapon = isMeleeWeapon;
+    this.attacks = attacks; this.desc = desc;
   }
 }
 

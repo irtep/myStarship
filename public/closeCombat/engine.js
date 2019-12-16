@@ -1,9 +1,8 @@
-//import { Character, Armour, Weapon, Race, Guild } from '../classes.js';
+
 import { characters } from '../gameData.js';
-import { freezeCopy } from '../helpFunctions.js';
+import { freezeCopy, doubleDigsSort } from '../helpFunctions.js';
 import { setupCharacter } from './battleFunctions.js';
 
-console.log('chars ', characters);
 window.onload = ( () => {
   let gameObject = null;
   
@@ -12,15 +11,20 @@ window.onload = ( () => {
   
   const team1 = {
     player: true,
-    team: [ setupCharacter(characters[0]), setupCharacter(characters[1])]
+    team: [ setupCharacter(characters[0], 1), setupCharacter(characters[1], 1)]
   };
   const team2 = {
     player: false,
-    team: [ setupCharacter(characters[2])]
+    team: [ setupCharacter(characters[2], 2), setupCharacter(characters[3], 2)]
   };
   
   // make array that has both teams and sort it by speed order
-  
+  let battleArray = team1.team.concat(team2.team);
+  /*
+  list.sort((a, b) => (a.color > b.color) ? 1 : -1)
+  */
+  battleArray.sort( (a, b) => (a.stats.speed < b.stats.speed) ? 1: -1);
+  console.log('battleA ', battleArray);
   // make the arena
   
   // deployment. slowest first
