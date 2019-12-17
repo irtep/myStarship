@@ -1,5 +1,5 @@
 // imports:
-import {systems, starMap, travelCanvases } from '../gameData.js'; 
+import { systems } from '../gameData/systemsAndPlanets.js'; 
 import * as consoleScreens from './consoleScreens.js'; 
 import { travelMovement } from '../spaceTravel/engine.js';
 import { showPlanet, findPlanet } from '../helpFunctions.js';
@@ -172,7 +172,7 @@ export function clicked(elem) {
     case 't':
       
       // travel map:
-      centerPanel.innerHTML = travelCanvases;
+      centerPanel.innerHTML = consoleScreens.travelCanvases;
       // status update:
       // maybe this not should update status... testing:
       /*
@@ -192,7 +192,7 @@ export function clicked(elem) {
 function loadStarMap() {
    
   // show starmap
-  document.getElementById('centerPanel').innerHTML = starMap; 
+  document.getElementById('centerPanel').innerHTML = consoleScreens.starMap; 
   
   // event listeners:
   const allSystems2 = document.querySelectorAll('.systems2');

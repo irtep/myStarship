@@ -1,7 +1,8 @@
 const leftSection = document.getElementById('leftSection');
 const centerSection = document.getElementById('centerSection');
 const rightSection = document.getElementById('rightSection');
-import {races, gameObject, professions} from '../gameData.js';
+import { gameObject } from '../gameData/bigVariables.js';
+import { races, professions } from '../gameData/characters.js';
 
 // update profession, dropdown menu control
 function updatePro(newPro) { 

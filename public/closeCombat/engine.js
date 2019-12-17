@@ -1,5 +1,5 @@
 
-import { characters } from '../gameData.js';
+import { characters } from '../gameData/characters.js';
 import { freezeCopy } from '../helpFunctions.js';
 import { setupCharacter } from './battleFunctions.js';
 

@@ -1,4 +1,5 @@
-import { armours, weapons, races, professions } from '../gameData.js';
+import { armours, weapons } from '../gameData/weapons_armours.js';
+import { races, professions } from '../gameData/characters.js';
 import { freezeCopy } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 
