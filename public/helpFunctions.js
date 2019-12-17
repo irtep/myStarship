@@ -1,6 +1,6 @@
 
 // need these for shipGenerator:
-import { hulls, motors, shipGuns, shipModules } from './gameData.js';
+import { hulls, motors, shipGuns, shipModules } from './gameData/shipData.js';
 import { Hull, Motor, ShipGun, ShipModule, ShipInCombat } from './classes.js';
 
 /*

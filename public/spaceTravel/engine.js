@@ -1,6 +1,6 @@
 // space travel engine.
 
-import { travelCanvases } from '../gameData.js'; 
+import { travelCanvases } from '../mainScreen/consoleScreens.js'; 
 import { showPlanet, findPlanet } from '../helpFunctions.js';
 import { clicked, loadSystemMap } from '/mainScreen/client.js';
 /*
