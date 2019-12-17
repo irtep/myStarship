@@ -312,31 +312,3 @@ if ( !window.requestAnimationFrame ) {
         };
     }());
 }
-/*
-
-export class Starship extends AllRects {
-  constructor(name, hull, motor, modules, weapons){
-    super();
-    this.weapons = weapons;
-  }
-  // accelerate, break, turnLeft, turnRight, fireForward, fireStarboard, firePort  
-}
-
-export class Motor {
-  constructor(name, size, power, durability) {
-    this.name = name; this.size = size; this.power = power; this.energyUsage = energyUsage;
-  }
-}
-
-export class ShipGun {
-  constructor(name, reloadTime, energyUsage, power, armourPiercing, color, speed){
-    
-  }
-}
-ShipModule: name, size, energyUsage, power
-*/
-
-/*
-Note: When you call fill(), any open shapes are closed automatically, 
-so you don't have to call closePath(). This is not the case when you call stroke().
-*/

@@ -1,6 +1,6 @@
 import { armours, weapons } from '../gameData/weapons_armours.js';
 import { races, professions } from '../gameData/characters.js';
-import { freezeCopy } from '../helpFunctions.js';
+import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 
 // setups character for battle
@@ -85,4 +85,26 @@ export function setupCharacter(character, teamNbr) {
   character.teamNbr = teamNbr;
   
   return character;
+}
+
+// generates obstacles to battlefield
+// canvas is: width= "1200" height= "600">
+// lets try that deployment zones are:
+// y: 0 -> canvas.height / 6 and  canvas.height - canvas.height / 6 -> canvas.heigth 
+export function generateObstacle(canvas) {
+  const minWidth = 20;
+  const maxWidth = canvas.width / 4;
+  const minHeight = 20;
+  const maxHeight = canvas.height / 5;
+  let newObstacle = {x: null, y: null, arc: false, w: null, h: null} // if arc is false, then its rect
+  
+  // check if arc or rect
+  
+  // randomize width
+  
+  // randomize height
+  
+  // randomize x and y
+  
+  //return
 }
