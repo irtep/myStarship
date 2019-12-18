@@ -39,14 +39,14 @@ export const characters = [
 // (name, stats, desc, body, size, unarmed, specialAttacks, img, artBy)
 export const races = [
   new Race('dogfolk', {str: 11, con: 14, speed: 7, attacks: 3, def: 15}, 'Dogfolks are like very big dogs, but as intelligents as humans.', 
-           {heads: 1, hands: 0, claws: 2, torso: 0}, 4, 'bite',
+           {heads: 1, hands: 0, claws: 2, torso: 0}, 10, 'bite',
            null, /* should add some special attacks later*/
           'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2FScreenshot%202019-09-26%20at%208.30.56.png?v=1569475960131',
           'Yuko R'),
           
   new Race('dreadnought', {str: 13, con: 20, speed: 4, attacks: 1, def: 10}, `You are crippled human, but it doesn't matter as you have this powerful exoskeleton,
 that makes you way more powerful than most of the creatures around the galaxy.`,
-          {heads: 0, hands: 2, claws: 0, torso: 0}, 10, 'punch',
+          {heads: 0, hands: 2, claws: 0, torso: 0}, 30, 'punch',
            null, /* should add some special attacks later*/
            'https://cdn.glitch.com/3f44e207-d42e-45ee-8cec-c11c5fd0707a%2Fdread.png?v=1569043619713',
            'amorcitos.'

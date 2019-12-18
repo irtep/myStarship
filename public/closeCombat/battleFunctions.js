@@ -93,18 +93,38 @@ export function setupCharacter(character, teamNbr) {
 // y: 0 -> canvas.height / 6 and  canvas.height - canvas.height / 6 -> canvas.heigth 
 export function generateObstacle(canvas) {
   const minWidth = 20;
-  const maxWidth = canvas.width / 4;
+  const maxWidth = 250;
   const minHeight = 20;
-  const maxHeight = canvas.height / 5;
-  let newObstacle = {x: null, y: null, arc: false, w: null, h: null} // if arc is false, then its rect
+  const maxHeight = 320;
+  const minX = 0;
+  const maxX = canvas.width;
+  const minY = canvas.heigth / 4;
+  const maxY = canvas.height - canvas.height / 6;
+  let newObstacle = {x: null, y: null, arc: false, w: null, h: null, impassable: false, ind: 1} // if arc is false, then its rect
   
-  // check if arc or rect
+  // randomize if arc or rect
+  const isArc = callDice(2); if (isArc === 1) { newObstacle.arc = true; }
+  
+  // check if impassable or just gives cover also, change ind number that will decide drawing order
+  const isImpassable = callDice(2); if (isImpassable === 1) { newObstacle.impassable = true; newObstacle.ind = 2}
   
   // randomize width
+  let newWidth = callDice(maxWidth);
+  
+  if (newWidth < minWidth) { newObstacle.w = minWidth; } else { newObstacle.w = newWidth; }
   
   // randomize height
+  let newHeight = callDice(maxHeight); 
+  
+  if (newHeight < minHeight) { newObstacle.h = minHeight; } else { newObstacle.h = newHeight; }
   
   // randomize x and y
+  let newX = callDice(maxX);
+  let newY = callDice(maxY);
   
-  //return
+  if (newY < minY) { newObstacle.y = minY } else { newObstacle.y = newY }
+  
+  newObstacle.x = newX;
+  
+  return newObstacle;
 }
