@@ -16,6 +16,22 @@ export function doubleDigsSort(queue){
   return queue;
 }
 */
+
+// creates a table that can be used to show teams, items etc.
+// CONTINUE IN THIS!!
+export function listItems(totalHeaders, headers, totalColumns, columns) {
+  let theTable = `<table>`;
+  
+  for (let i = 0; i < totalHeaders.length; i++) {
+    theTable += `<tr><th>${headers[i]}`;
+  }
+  
+  for (let i = 0; i < totalColumns; i++) {
+    
+    
+  }
+  
+}
 // copy variable as it was at the moment
 export function freezeCopy(target){
   return JSON.parse(JSON.stringify(target));

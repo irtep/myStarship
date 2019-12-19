@@ -1,6 +1,6 @@
 
 import { characters } from '../gameData/characters.js';
-import { freezeCopy, callDice } from '../helpFunctions.js';
+import { freezeCopy, callDice, listItems } from '../helpFunctions.js';
 import { setupCharacter, generateObstacle } from './battleFunctions.js';
 import { draw } from './draw.js';
   
@@ -11,82 +11,50 @@ let battleObject = {
   teams: null,
   arena: {obstacles: null}
 };
-
-/* on hover listener of canvas elements:
-Reference to this: made by Hydroper at https://stackoverflow.com/questions/29300280/update-html5-canvas-rectangle-on-hover
-*/
+// these for canvas hovers:
 let hover = false;
 let id = null;
 
+// when mouse moves over the canvas
 canvas.onmousemove = (e) => {
   
   // Get the current mouse position
-  let r = canvas.getBoundingClientRect(),
-      x = e.clientX - r.left, y = e.clientY - r.top;
+  let r = canvas.getBoundingClientRect();
+  let x = e.clientX - r.left; 
+  let y = e.clientY - r.top;
+  
   hover = false;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for(let i = battleObject.arena.obstacles.length - 1, b; b = battleObject.arena.obstacles[i]; i--) {
+  for (let i = battleObject.arena.obstacles.length - 1, b; b = battleObject.arena.obstacles[i]; i--) {
         
-    // arcs
     if (battleObject.arena.obstacles[i].arc) {
+      
+      // arcs
+      if(x >= (b.x - b.w/2) && x <= (b.x - b.w/2) + b.w && y >= (b.y - b.h/2) && y <= (b.y - b.h/2) + b.h) {
+            
+        // hovering
+        hover = true;
+        id = i;
+        break;
+      }
       
     } else { 
       
-    // rects  
-    if(x >= b.x && x <= b.x + b.w &&
-      y >= b.y && y <= b.y + b.h) {
+      // rects  
+      if(x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) {
             
-      // The mouse honestly hits the rect
-      hover = true;
-      id = i;
-      break;
+        // hovering
+        hover = true;
+        id = i;
+        break;
+      }
     }
   }
-  }
-    // Draw the rectangles by Z (ASC)
-    draw(battleObject, canvas, hover, id);
-  //console.log('hover, id ', hover, id);
+    
+  draw(battleObject, canvas, hover, id);
 }
-
-
-/*
-];
-
-var hover = false, id;
-var _i, _b;
-function renderMap() {
-    for(_i = 0; _b = map[_i]; _i ++) {
-        ctx.fillStyle = (hover && id === _i) ? "red" : "blue";
-        ctx.fillRect(_b.x, _b.y, _b.w, _b.h);
-    }
-}
-// Render everything
-renderMap();
-canvas.onmousemove = function(e) {
-    // Get the current mouse position
-    var r = canvas.getBoundingClientRect(),
-        x = e.clientX - r.left, y = e.clientY - r.top;
-    hover = false;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for(var i = map.length - 1, b; b = map[i]; i--) {
-        if(x >= b.x && x <= b.x + b.w &&
-           y >= b.y && y <= b.y + b.h) {
-            // The mouse honestly hits the rect
-            hover = true;
-            id = i;
-            break;
-        }
-    }
-    // Draw the rectangles by Z (ASC)
-    renderMap();
-}
-<canvas id="canvas"></canvas>
-
-*/
 
 window.onload = ( () => {
   // load gameObject from storage and add it to gameObject
@@ -124,6 +92,8 @@ window.onload = ( () => {
   draw(battleObject, canvas, hover, id);
   
   // deployment. slowest first
+    // make a table, showing teams... who has deployment turn is highlighted
+    // CONTINUE IN THIS IN HELP FUNCTIONS
   
   // start battle
   

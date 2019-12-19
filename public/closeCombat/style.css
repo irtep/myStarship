@@ -1,5 +1,24 @@
+/* container where is canvas and informatic console*/
+#battleground {
+  position: relative;
+}
+
+/* canvas */
 #combatGround {
+  position: absolute;
   background-color: gray;
+  z-index: 1;
+}
+
+/* informatic console that is above the canvas*/
+#infoGround {
+  position: absolute;
+  z-index: 2;
+  background-color: transparent;
+  text-shadow: 2px 0 0 navy, -2px 0 0 navy, 0 2px 0 navy, 0 -2px 0 navy, 1px 1px navy, -1px -1px 0 navy, 1px -1px 0 navy, -1px 1px 0 navy;
+  color: gold;
+  font-weight: bold;
+
 }
 
 #infoPlace {
