@@ -6,7 +6,7 @@ travelling: early version ready
 spacecombat: early version ready.. maybe more speed to ships and power to guns?
  to add: if ai ship gets hit, takes a new cp, if you are behind ai-ship, gets a new cp
   - fix bugs too
-closecombat: not started
+closecombat: started
 events: not started
 missions: not started
 game saving and loading: not started
@@ -21,9 +21,7 @@ bugs:spaceBattle
     
     in spacecombat near top right corner ship gets stuck
 
-STARTSCREEN ------------------------------
- pretty much ok.
-  -------------------------------------
+
 game could be something like this:
 
  Main screen:

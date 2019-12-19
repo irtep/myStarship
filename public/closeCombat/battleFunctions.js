@@ -98,10 +98,10 @@ export function generateObstacle(canvas) {
   const maxHeight = 320;
   const minX = 0;
   const maxX = canvas.width;
-  const minY = canvas.heigth / 4;
-  const maxY = canvas.height - canvas.height / 6;
+  const minY = canvas.height / 4;
+  const maxY = canvas.height - canvas.height / 4;
   let newObstacle = {x: null, y: null, arc: false, w: null, h: null, impassable: false, ind: 1} // if arc is false, then its rect
-  
+  console.log('max x, min y, max y ', maxX, minY, maxY);
   // randomize if arc or rect
   const isArc = callDice(2); if (isArc === 1) { newObstacle.arc = true; }
   
