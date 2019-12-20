@@ -5,6 +5,7 @@ import { setupCharacter, generateObstacle } from './battleFunctions.js';
 import { draw } from './draw.js';
   
 const canvas = document.getElementById('combatGround');
+const infoGround = document.getElementById('infoGround');
 const ctx = canvas.getContext('2d');
 let gameObject = null;
 let battleObject = {
@@ -93,7 +94,9 @@ window.onload = ( () => {
   
   // deployment. slowest first
     // make a table, showing teams... who has deployment turn is highlighted
-    // CONTINUE IN THIS IN HELP FUNCTIONS
+  infoGround.innerHTML = listItems(['fighter: ', 'team: '], battleObject.teams);
+    
+  // CONTINUE WITH DEPLOYMENT PHASE
   
   // start battle
   

@@ -18,9 +18,28 @@
   text-shadow: 2px 0 0 navy, -2px 0 0 navy, 0 2px 0 navy, 0 -2px 0 navy, 1px 1px navy, -1px -1px 0 navy, 1px -1px 0 navy, -1px 1px 0 navy;
   color: gold;
   font-weight: bold;
-
+  width: 100vw;
 }
 
 #infoPlace {
   color: black;
+}
+
+.teamInfo {
+  width: 50%;
+  margin: auto;
+  border: 2px solid blue;
+}
+
+.teamInfo th {
+  color: white;
+  text-align: left;
+}
+
+.teamInfo td {
+  margin: 25px;
+}
+
+.blueText {
+  color: blue;
 }
