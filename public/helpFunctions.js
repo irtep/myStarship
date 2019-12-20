@@ -18,19 +18,35 @@ export function doubleDigsSort(queue){
 */
 
 // creates a table that can be used to show teams, items etc.
-// CONTINUE IN THIS!!
-export function listItems(totalHeaders, headers, totalColumns, columns) {
-  let theTable = `<table>`;
+// at the moment this is used at deployment phase
+export function listItems(headers, content) {
+  let theTable = `<table class= "teamInfo"><tr>`;
   
-  for (let i = 0; i < totalHeaders.length; i++) {
-    theTable += `<tr><th>${headers[i]}`;
+  //console.log('headers, content ', headers, content);
+  // add headers
+  for (let i = 0; i < headers.length; i++) {
+    theTable += `<th>${headers[i]}</th>`;
+  }
+  theTable += `</tr>`;
+  
+  // add content
+  for (let i = 0; i < content.length; i++) {
+    let theRow = `<tr>`;
+    
+    // adds i of all content
+    
+    //could be: name, stats, armour, weapons
+    theRow += `<td>${content[i].name} the ${content[i].race}<br>${content[i].desc}</td>`;
+    theRow += `<td>${content[i].teamNbr}</td></tr>`;
+    
+    // add to table
+    theTable += theRow;
   }
   
-  for (let i = 0; i < totalColumns; i++) {
-    
-    
-  }
+  // finalize table:
+  theTable += `</table>`
   
+  return theTable;
 }
 // copy variable as it was at the moment
 export function freezeCopy(target){

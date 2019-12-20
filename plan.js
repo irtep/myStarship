@@ -11,16 +11,20 @@ events: not started
 missions: not started
 game saving and loading: not started
 
-bugs:spaceBattle
-  majors:
-    at space combat it is posible that ships get stuck or sometimes start to fly a circle
-  minors:
-    that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
-    
-    blurry screen at travel. should set width and height at html file
-    
-    in spacecombat near top right corner ship gets stuck
+--------------------------------
+bugs:
 
+  majors:
+    spaceBattle:
+     - at spacecombat it is posible that ships get stuck or sometimes start to fly a circle
+     - in spacecombat near top right corner ship gets stuck 
+  minors:
+    mainScreen:
+     that "something else" needs to be taken away at some point, its from bottom panel buttons i think.
+    
+    spaceTravel:
+     blurry screen at travel. should set width and height at html file
+--------------------------------
 
 game could be something like this:
 
@@ -53,14 +57,15 @@ game could be something like this:
    then map screen and info that to complete mission navigate to sol.
    maybe close combat part later for second version?  {
    - on your way you get prison brake and you get close combat screen, with message first
-   like: pirate xxx has braken from his cell with some friends. who do you want to send to deal with them?
+   like: pirate xxx has broken from his cell with some friends. who do you want to send to deal with them?
    player can choose guys.
    then close combat, if loses can choose more guys if left
    if wins message that guy is dead or wounded or something.
    }
    then at luna, gets message that mission is done. reward is handed, maybe some money, police exp, good rep,
    and get message about what luna base is and explore1+,
-   
+
+--------------------------------
    gamePlay plan:
      load map screen:
      check if messages/missions? load z-index: 1; that has mission or message info... this could then go to missions/messages place for
@@ -73,8 +78,9 @@ game could be something like this:
      Map(activated by default)	The ship(shows ships systems)	Cargo(shows cargo)	Marines(for later versions)	Missions(shows avail and done missions),
      Planets(info about explored planets)
      
-*/
-/*
+
+--------------------------------
+
 chars:
   laukaaKK, kuokkalaYA, kauppis, eurom, kd, family, cats, dogs, finse, predators, 
   jefu, cork, peru, malta, batmud, happee, lätkä, poke, 
