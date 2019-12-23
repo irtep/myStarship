@@ -1,20 +1,25 @@
 
 import { characters } from '../gameData/characters.js';
 import { freezeCopy, callDice, listItems } from '../helpFunctions.js';
-import { setupCharacter, generateObstacle } from './battleFunctions.js';
+import { setupCharacter, generateObstacle, buttonControl } from './battleFunctions.js';
 import { draw } from './draw.js';
   
 const canvas = document.getElementById('combatGround');
 const infoGround = document.getElementById('infoGround');
 const ctx = canvas.getContext('2d');
 let gameObject = null;
-let battleObject = {
+export let battleObject = {
   teams: null,
-  arena: {obstacles: null}
+  arena: {obstacles: null},
+  hoveringIn: {x: null, y: null},
+  phase: null
 };
 // these for canvas hovers:
 let hover = false;
 let id = null;
+
+// button click listener
+
 
 // when mouse moves over the canvas
 canvas.onmousemove = (e) => {
@@ -23,6 +28,10 @@ canvas.onmousemove = (e) => {
   let r = canvas.getBoundingClientRect();
   let x = e.clientX - r.left; 
   let y = e.clientY - r.top;
+  
+  // mark them to hoveringIn in battleObject
+  battleObject.hoveringIn.x = x;
+  battleObject.hoveringIn.y = y;
   
   hover = false;
 
@@ -94,8 +103,14 @@ window.onload = ( () => {
   
   // deployment. slowest first
     // make a table, showing teams... who has deployment turn is highlighted
-  infoGround.innerHTML = listItems(['fighter: ', 'team: '], battleObject.teams);
-    
+  infoGround.innerHTML = '<div class= "teamInfo">' + 
+    listItems(['ship 1 team: '], team1.team) + listItems(['ship 2 team: '], team2.team) +
+    '<br><center><input type= "button" id= "continueToDepo" value= "Start deployment" class= "gameButton"></center></div>';
+  
+  // event listener for that created button:
+  const contDep = document.getElementById('continueToDepo');
+  
+  contDep.addEventListener("click", buttonControl);
   // CONTINUE WITH DEPLOYMENT PHASE
   
   // start battle

@@ -59,10 +59,45 @@ export function draw(battleObject, canvas, hover, id) {
       ctx.beginPath();
       ctx.fillStyle = '#49fb35';
       ctx.fillText('hovered', writeCoords.x, writeCoords.y);
-      ctx.fill;
+      ctx.fill();
       ctx.closePath();
     }
   });
+  
+  // paint where the mouse goes:
+  ctx.beginPath();
+  ctx.strokeStyle = 'green';
+  ctx.arc(battleObject.hoveringIn.x, battleObject.hoveringIn.y, 30, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.closePath();
+  
+  // if deployment phase, draw deployment zone lines
+  if (battleObject.phase === 'deployment') {
+    
+    /*team 1 at up*/
+    // line
+    ctx.beginPath();
+    ctx.moveTo(0, 200);
+    ctx.lineTo(canvas.width, 200);
+    ctx.stroke();
+    // text
+    ctx.fillStyle = 'green';
+    ctx.fillText('team1 deployment zone:', 20, 20);
+    ctx.fill();
+    ctx.closePath();
+    
+    /*team 2 at bottom*/
+    // line
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height - 200);
+    ctx.lineTo(canvas.width, canvas.height - 200);
+    ctx.stroke();
+    // text
+    ctx.fillStyle = 'blue';
+    ctx.fillText('team2 deployment zone:', 20, canvas.height - 180);
+    ctx.fill();
+    ctx.closePath();
+  }
   /*
     // paint hull of car
     ctx.beginPath();
