@@ -1,13 +1,45 @@
-/* container where is canvas and informatic console*/
+/* container where are battleground and battleConsole*/
+#container {
+  display: grid;
+  grid-template-colums: 25% 25% 25% 25%;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    'leftArea leftArea leftArea rightArea';
+}
 #battleground {
   position: relative;
+  grid-area: leftArea;
 }
+/*
 
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    'lefty centery righty';
+  grid-gap: 1px;
+  height: 100%;
+}
+#leftySect { 
+  grid-area: lefty;
+  border-right: solid;
+  border-color: blue;
+  text-align: center;
+}
+*/
 /* canvas */
 #combatGround {
   position: absolute;
   background-color: gray;
   z-index: 1;
+}
+
+#battleConsole {
+  grid-area: rightArea;
+  border: solid 3px black;
+  color: black;
+  height: 600px;
 }
 
 /* informatic console that is above the canvas*/

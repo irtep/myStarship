@@ -4,6 +4,20 @@ import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 import { battleObject } from './engine.js';
 
+// if someone clicks the canvas
+export function canvasClick() {
+  
+  switch (battleObject.phase) {
+      
+  // player deploys
+  
+  // player targets
+      
+    default: console.log('phase not found: ', battleObject.hoveringIn.x);    
+  }
+  
+}
+
 // collision detects
 function arcVsArc(sub, obj, subSize, objSize) {
   const dx = sub.x - obj.x;
@@ -37,7 +51,7 @@ function arcVsRect(sub, obj) {
 }
 
 // main function, process starts from here
-export function collisionDetect(who, battleObject, isRect) {
+export function collisionDetect(who, battleObject) {
   let collisionSummary = {
     nonDeploy1: false,
     nonDeploy2: false,
@@ -69,8 +83,8 @@ export function collisionDetect(who, battleObject, isRect) {
   battleObject.arena.obstacles.forEach( (obs, index) => {
     let collision = null;
     
-    if (obs.arc) {
-      collision = arcVsArc(who, obs, who.stats.size, obs.w); 
+    if (obs.arc) {                 // /3 as in thats how they are drawn
+      collision = arcVsArc(who, obs, who.stats.size, obs.w /3); 
     } else {
       collision = arcVsRect(who, obs);
     }
@@ -91,65 +105,10 @@ export function collisionDetect(who, battleObject, isRect) {
   const nonDep1 = arcVsRect(who, battleObject.arena.nonDeploy1);
   const nonDep2 = arcVsRect(who, battleObject.arena.nonDeploy2);
   
-  if (collisionSummary.nonDeploy1) { collisionSummary.nonDeploy1 = true; }
-  if (collisionSummary.nonDeploy2) { collisionSummary.nonDeploy2 = true; }
+  if (nonDep1) { collisionSummary.nonDeploy1 = true; }
+  if (nonDep2) { collisionSummary.nonDeploy2 = true; }
   
   return collisionSummary;
-  
-  // i leave the references there down below for now, until this is tested:
-  /*
-   ARC ARC
-  var circle1 = {radius: 20, x: 5, y: 5};
-var circle2 = {radius: 12, x: 10, y: 5};
-
-var dx = circle1.x - circle2.x;
-var dy = circle1.y - circle2.y;
-var distance = Math.sqrt(dx * dx + dy * dy);
-
-if (distance < circle1.radius + circle2.radius) {
-    // collision detected!
-}
-
-  ARC RECT
-var circle={x:100,y:290,r:10};
-var rect={x:100,y:100,w:40,h:100};
-
-// return true if the rectangle and circle are colliding
-function RectCircleColliding(circle,rect){
-    var distX = Math.abs(circle.x - rect.x-rect.w/2);
-    var distY = Math.abs(circle.y - rect.y-rect.h/2);
-
-    if (distX > (rect.w/2 + circle.r)) { return false; }
-    if (distY > (rect.h/2 + circle.r)) { return false; }
-
-    if (distX <= (rect.w/2)) { return true; } 
-    if (distY <= (rect.h/2)) { return true; }
-
-    var dx=distX-rect.w/2;
-    var dy=distY-rect.h/2;
-    return (dx*dx+dy*dy<=(circle.r*circle.r));
-}
-
- RECT RECT
-var rect1 = {x: 5, y: 5, width: 50, height: 50}
-var rect2 = {x: 20, y: 10, width: 10, height: 10}
-
-if (rect1.x < rect2.x + rect2.width &&
-   rect1.x + rect1.width > rect2.x &&
-   rect1.y < rect2.y + rect2.height &&
-   rect1.y + rect1.height > rect2.y) {
-    // collision detected!
-}
-
-// filling in the values =>
-
-if (5 < 30 &&
-    55 > 20 &&
-    5 < 20 &&
-    55 > 10) {
-    // collision detected!
-}
-  */
 }
 
 // setups character for battle
