@@ -1,28 +1,29 @@
 
 import { characters } from '../gameData/characters.js';
 import { freezeCopy, callDice, listItems } from '../helpFunctions.js';
-import { setupCharacter, generateObstacle, buttonControl } from './battleFunctions.js';
+import { setupCharacter, generateObstacle, buttonControl, collisionDetect, canvasClick } from './battleFunctions.js';
 import { draw } from './draw.js';
   
 const canvas = document.getElementById('combatGround');
+const clickCanvas = canvas.addEventListener('click', canvasClick);
 const infoGround = document.getElementById('infoGround');
 const ctx = canvas.getContext('2d');
 let gameObject = null;
 export let battleObject = {
+  team1: null,
+  team2: null,
   teams: null,
   arena: {obstacles: null, // nonDeploys are zones where they cant deploy at start of combat
-         nonDeploy2: {x: 0, y: 0, w: canvas.width, h: canvas.height- 200},
-         nonDeploy1: {x: 0, y: 200, w: canvas.width, h: canvas.height- 200}
+         nonDeploy2: {x: 0, y: 0, w: canvas.width, h: canvas.height- 150},
+         nonDeploy1: {x: 0, y: 150, w: canvas.width, h: canvas.height- 150}
          },
   hoveringIn: {x: null, y: null, stats: {size: 10}}, // has size in weird place as its needed for collision detect.
-  phase: null
+  phase: null,
+  onTurn: 0
 };
 // these for canvas hovers:
 let hover = false;
 let id = null;
-
-// button click listener
-
 
 // when mouse moves over the canvas
 canvas.onmousemove = (e) => {
@@ -35,6 +36,19 @@ canvas.onmousemove = (e) => {
   // mark them to hoveringIn in battleObject
   battleObject.hoveringIn.x = x;
   battleObject.hoveringIn.y = y;
+  
+  // collision detect test:
+  /* enable only if testing
+  const colTest = collisionDetect(battleObject.hoveringIn, battleObject);
+  const infoPlace = document.getElementById('infoPlace');
+  infoPlace.innerHTML = '';
+  if (colTest.nonDeploy1) { infoPlace.innerHTML += 'nonDep1 collision '}
+  if (colTest.nonDeploy2) { infoPlace.innerHTML += 'nonDep2 collision '}
+  if (colTest.coverObs.length > 0) { infoPlace.innerHTML += 'coverObs collision '}
+  if (colTest.solidObs.length > 0) { infoPlace.innerHTML += 'solidObs collision '}
+  if (colTest.ownTeam.length > 0) { infoPlace.innerHTML += 'ownteam collision '}
+  if (colTest.enemyTeam.length > 0) { infoPlace.innerHTML += 'enemyteam collision'}
+  */
   
   hover = false;
 
@@ -82,10 +96,12 @@ window.onload = ( () => {
     team: [ setupCharacter(characters[2], 2), setupCharacter(characters[3], 2)]
   };
   
-  // make array that has both teams and sort it by speed order
-  battleObject.teams = team1.team.concat(team2.team);
+  // add teams to battleObject
+  battleObject.team1 = team1;
+  battleObject.team2 = team2;
   
-  battleObject.teams.sort( (a, b) => (a.stats.speed < b.stats.speed) ? 1: -1);
+  // make array that has both teams and sort it by speed order
+  battleObject.teams = team1.team.concat(team2.team).sort( (a, b) => (a.stats.speed < b.stats.speed) ? 1: -1);
   
   // make the arena
   battleObject.arena.obstacles = [];

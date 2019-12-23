@@ -67,7 +67,7 @@ export function draw(battleObject, canvas, hover, id) {
   // paint where the mouse goes:
   ctx.beginPath();
   ctx.strokeStyle = 'green';
-  ctx.arc(battleObject.hoveringIn.x, battleObject.hoveringIn.y, 30, 0, 2 * Math.PI);
+  ctx.arc(battleObject.hoveringIn.x, battleObject.hoveringIn.y, 10, 0, 2 * Math.PI);
   ctx.stroke();
   ctx.closePath();
   
@@ -77,8 +77,8 @@ export function draw(battleObject, canvas, hover, id) {
     /*team 1 at up*/
     // line
     ctx.beginPath();
-    ctx.moveTo(0, 200);
-    ctx.lineTo(canvas.width, 200);
+    ctx.moveTo(0, 150);
+    ctx.lineTo(canvas.width, 150);
     ctx.stroke();
     // text
     ctx.fillStyle = 'green';
@@ -89,8 +89,8 @@ export function draw(battleObject, canvas, hover, id) {
     /*team 2 at bottom*/
     // line
     ctx.beginPath();
-    ctx.moveTo(0, canvas.height - 200);
-    ctx.lineTo(canvas.width, canvas.height - 200);
+    ctx.moveTo(0, canvas.height - 150);
+    ctx.lineTo(canvas.width, canvas.height - 150);
     ctx.stroke();
     // text
     ctx.fillStyle = 'blue';
