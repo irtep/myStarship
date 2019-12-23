@@ -10,8 +10,11 @@ const ctx = canvas.getContext('2d');
 let gameObject = null;
 export let battleObject = {
   teams: null,
-  arena: {obstacles: null},
-  hoveringIn: {x: null, y: null},
+  arena: {obstacles: null, // nonDeploys are zones where they cant deploy at start of combat
+         nonDeploy2: {x: 0, y: 0, w: canvas.width, h: canvas.height- 200},
+         nonDeploy1: {x: 0, y: 200, w: canvas.width, h: canvas.height- 200}
+         },
+  hoveringIn: {x: null, y: null, stats: {size: 10}}, // has size in weird place as its needed for collision detect.
   phase: null
 };
 // these for canvas hovers:
