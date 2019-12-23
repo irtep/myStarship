@@ -25,10 +25,14 @@
   color: black;
 }
 
+/* table */
 .teamInfo {
   width: 50%;
+  /* horizantaly centering: */
   margin: auto;
-  border: 2px solid blue;
+  /**/
+  padding-top: 10%; 
+  /*border: 2px solid blue;*/
 }
 
 .teamInfo th {
@@ -40,6 +44,15 @@
   margin: 25px;
 }
 
-.blueText {
-  color: blue;
+/* Text color classes */
+.blueText {color: blue;}
+.whiteText {color: white;}
+.redText {color: red;}
+
+/*button in game, could be something nice and futuristic*/
+.gameButton {
+  background: yellow;
+  color: black;
+  border: solid 2px;
+  border-radius: 5px;
 }

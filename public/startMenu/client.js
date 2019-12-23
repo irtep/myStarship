@@ -147,24 +147,20 @@ function buttonControl(ide) {
       default: console.log('buttonControl didnt find id.');
     }
   }
-      // event listeners:
-      const butButtons = document.querySelectorAll('.but');
-      const avas = document.querySelectorAll('.avaImage');
+    
+  // event listeners:
+  const butButtons = document.querySelectorAll('.but');
+  const avas = document.querySelectorAll('.avaImage');
 
-      butButtons.forEach((btn) => {
-        btn.addEventListener('click', buttonControl );
-      });
-      avas.forEach((ava) => {
-        ava.addEventListener('click', confAvatar );
-      });
-      avas.forEach((ava) => {
-        ava.addEventListener('mouseover', showDesc );
-      });
-  /*
-  document.addEventListener("mouseover", myFunction);
-document.addEventListener("click", someOtherFunction);
-document.addEventListener("mouseout", someOtherFunction);
-  */
+  butButtons.forEach((btn) => {
+    btn.addEventListener('click', buttonControl );
+  });
+  avas.forEach((ava) => {
+    ava.addEventListener('click', confAvatar );
+  });
+  avas.forEach((ava) => {
+    ava.addEventListener('mouseover', showDesc );
+  });
 }
 
 // -- ON LOAD ---

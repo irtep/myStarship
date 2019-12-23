@@ -2,6 +2,7 @@ import { armours, weapons } from '../gameData/weapons_armours.js';
 import { races, professions } from '../gameData/characters.js';
 import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
+import { battleObject } from './engine.js';
 
 // setups character for battle
 export function setupCharacter(character, teamNbr) {
@@ -88,7 +89,7 @@ export function setupCharacter(character, teamNbr) {
 }
 
 // generates obstacles to battlefield
-// canvas is: width= "1200" height= "600">
+// canvas is: width= "1000" height= "600">
 // lets try that deployment zones are:
 // y: 0 -> canvas.height / 6 and  canvas.height - canvas.height / 6 -> canvas.heigth 
 export function generateObstacle(canvas) {
@@ -127,4 +128,17 @@ export function generateObstacle(canvas) {
   newObstacle.x = newX;
   
   return newObstacle;
+}
+
+export function buttonControl(ide ){
+  
+  switch (ide.target.id) {
+    
+    case 'continueToDepo':
+      document.getElementById('infoGround').innerHTML = '';
+      battleObject.phase = 'deployment';
+    break;
+      
+    default: console.log('id not found in buttonControl'); 
+  }
 }
