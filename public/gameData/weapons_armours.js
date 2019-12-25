@@ -19,7 +19,7 @@ export const weapons = [
   // ranged weapons:
   new Weapon('heavy flamer', 500, 1,      {race: 'all', limb: 'hand', minStr: 10},         12, 1, 15, 100, 1, false, null, null,
              `Deadly but short ranged melee weapon that shoots target with a salvo of liquid flame. Pyromans wet day dream.`),
-  new Weapon('victorivich', 100, 2,      {race: 'all', limb: 'hand', minStr: 5},  10, 0, 15, 700, 2, false, null, null, 
+  new Weapon('victorivich rifle', 100, 2,      {race: 'all', limb: 'hand', minStr: 5},  10, 0, 15, 700, 2, false, null, null, 
              `Cheap but effective. Victor Weapons Company's Victor Assault Rifle is an AK-47 of modern day.
 This weapon doesn't require any maintenance at all. It fires almost anything.. all small caliber ammunition.. hell, you can
 even add there some dices or pens or whatever of about those sizes and they come out spitting death! (still, real ammunition is 

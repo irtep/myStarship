@@ -32,12 +32,27 @@ export function listItems(headers, content) {
   // add content
   for (let i = 0; i < content.length; i++) {
     let theRow = `<tr>`;
+    let weapons = `<br>`;
+    let armour = `<br>`;
     
     // adds i of all content
+    if (content[i].weapons.length > 0) {
+      weapons = '';
+      content[i].weapons.forEach( wep => {
+        weapons += wep + '<br>';
+      })
+    } else { weapons = 'unarmed. <br>'}
+    
+    if (content[i].armour !== null) {
+      armour = content[i].armour;
+    } else { armour = 'unarmoured. <br>'}
     
     //could be: name, stats, armour, weapons
-    theRow += `<td>${content[i].name} the ${content[i].race}<br>
-    <span class= "whiteText">${content[i].rank} ${content[i].profession}</span></td></tr>`;
+    theRow += `<td><span class= "whiteText">${content[i].name} the ${content[i].race}</span><br>
+    ${content[i].rank} ${content[i].profession}<br>
+    def: ${content[i].stats.def} speed: ${content[i].stats.speed} hit points: ${content[i].stats.hitPoints}
+    shooting: ${content[i].stats.bs} melee: ${content[i].stats.ws}<br>
+  weapons: ${weapons} armour: ${armour} </td></tr>`;
     // if need second data:
     /*
     theRow += `<td>${content[i].teamNbr}</td></tr>`;

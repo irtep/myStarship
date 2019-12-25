@@ -30,7 +30,7 @@ export const characters = [
     // specialAttacks, injury (0 is no injury), live, desc
     [], 0, true, `Extremely tough female dogfolk.`
   ),
-  new Character(false, 'Ryszard', 'human', 'Smuggler', 'rookie', 'kevlar breastplate', ['victorivich'], 0, 0,
+  new Character(false, 'Ryszard', 'human', 'Smuggler', 'rookie', 'kevlar breastplate', ['victorivich rifle'], 0, 0,
     [], 0, true, `Experienced smuggler rifleman`
   )
 ];

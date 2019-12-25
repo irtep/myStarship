@@ -239,6 +239,22 @@ export function generateObstacle(canvas) {
   return newObstacle;
 }
 
+// executes phase
+function phases() {
+  const commands = document.getElementById('commands');
+  const yourTeam = document.getElementById('yourTeam');
+  const opponentTeam = document.getElementById('opponentTeam');
+  
+  switch (battleObject.phase) {
+  
+    case 'deployment':
+      
+    break;
+      
+    default: commands.innerHTML = 'Phase not found!';
+  }
+}
+
 export function buttonControl(ide ){
   
   switch (ide.target.id) {
@@ -246,6 +262,7 @@ export function buttonControl(ide ){
     case 'continueToDepo':
       document.getElementById('infoGround').innerHTML = '';
       battleObject.phase = 'deployment';
+      battleObject.onTurn = 0;
     break;
       
     default: console.log('id not found in buttonControl'); 
