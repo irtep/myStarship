@@ -19,7 +19,7 @@ export let battleObject = {
          },
   hoveringIn: {x: null, y: null, stats: {size: 10}}, // has size in weird place as its needed for collision detect.
   phase: null,
-  onTurn: 0
+  onTurn: null
 };
 // these for canvas hovers:
 let hover = false;

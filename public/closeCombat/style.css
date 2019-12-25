@@ -10,24 +10,7 @@
   position: relative;
   grid-area: leftArea;
 }
-/*
 
-#container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: 
-    'lefty centery righty';
-  grid-gap: 1px;
-  height: 100%;
-}
-#leftySect { 
-  grid-area: lefty;
-  border-right: solid;
-  border-color: blue;
-  text-align: center;
-}
-*/
 /* canvas */
 #combatGround {
   position: absolute;
@@ -63,7 +46,9 @@
   /* horizantaly centering: */
   margin: auto;
   /**/
+  /*
   padding-top: 10%; 
+  */
   /*border: 2px solid blue;*/
 }
 
@@ -74,6 +59,7 @@
 
 .teamInfo td {
   margin: 25px;
+  font-size: 70%;
 }
 
 /* Text color classes */
