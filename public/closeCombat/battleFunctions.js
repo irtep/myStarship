@@ -10,7 +10,20 @@ export function canvasClick() {
   switch (battleObject.phase) {
       
   // player deploys
-  
+  case 'deployment':
+    
+    // show your team at battle console
+      // highlight who is in turn
+      // tell player to deploy that guy
+    
+    // show opponent team at battle console
+    
+    // if players clicks and if legal deployment deploy the warrior
+    
+    // if that was last guy, move to next phase, and onTurn to 0
+    // and activate ai-deployment.
+      // if not, move to next onTurn
+  break;    
   // player targets
       
     default: console.log('phase not found: ', battleObject.hoveringIn.x);    
@@ -240,6 +253,7 @@ export function generateObstacle(canvas) {
 }
 
 // executes phase
+/* not needed i think
 function phases() {
   const commands = document.getElementById('commands');
   const yourTeam = document.getElementById('yourTeam');
@@ -254,7 +268,7 @@ function phases() {
     default: commands.innerHTML = 'Phase not found!';
   }
 }
-
+*/
 export function buttonControl(ide ){
   
   switch (ide.target.id) {
