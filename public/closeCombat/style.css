@@ -1,11 +1,12 @@
 /* container where are battleground and battleConsole*/
 #container {
   display: grid;
-  grid-template-colums: 25% 25% 25% 25%;
+  grid-template-colums: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: 
-    'leftArea leftArea leftArea rightArea';
+    'leftArea leftArea leftArea leftArea leftArea rightArea';
 }
+/* this is where canvas is*/
 #battleground {
   position: relative;
   grid-area: leftArea;
@@ -18,11 +19,16 @@
   z-index: 1;
 }
 
+/* console at right hand side*/
 #battleConsole {
+  position: relative;
   grid-area: rightArea;
   border: solid 3px black;
   color: black;
   height: 600px;
+  max-width: 350px;
+  float: right;  
+  z-index: 1;
 }
 
 /* informatic console that is above the canvas*/
@@ -66,6 +72,10 @@
 .blueText {color: blue;}
 .whiteText {color: white;}
 .redText {color: red;}
+
+.highLighted {
+  background-color: yellow;
+}
 
 /*button in game, could be something nice and futuristic*/
 .gameButton {
