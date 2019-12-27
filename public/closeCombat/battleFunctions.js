@@ -4,16 +4,73 @@ import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 import { battleObject } from './engine.js';
 
+/*
+   <div id= "helpBox"></div>
+        <div id= "commands"></div>
+        <div id= "yourTeam"></div><br><br>
+        <div id= "opponentTeam"></div>
+         info1
+*/
+
+// gives info pack of a warrior
+function highlightedInfo(warrior) {
+  let weapons = `<br>`;
+  let armour = `<br>`;
+    
+  // adds i of all content
+  if (warrior.weapons.length > 0) {
+    weapons = '';
+    warrior.weapons.forEach( wep => {
+      weapons += wep + '<br>';
+    })
+  } else { weapons = 'unarmed. <br>'}
+    
+  if (warrior.armour !== null) {
+    armour = warrior.armour;
+  } else { armour = 'unarmoured. <br>'}
+    
+  return `${warrior.name} the ${warrior.race} <br>
+        ${warrior.rank} ${warrior.profession} <br>
+     str: ${warrior.stats.str}   def: ${warrior.stats.def} speed: ${warrior.stats.speed} 
+     hit points: ${warrior.stats.hitPoints} <br>
+    shooting skill: ${warrior.stats.bs} melee skill: ${warrior.stats.ws} melee attacks: ${warrior.stats.attacks}<br>
+  weapons: ${weapons} armour: ${armour} `;
+}
+
 // if someone clicks the canvas
 export function canvasClick() {
+  const helpBox = document.getElementById('helpBox');
+  const commands = document.getElementById('commands');
+  const yourTeam = document.getElementById('yourTeam');
+  const opponentTeam = document.getElementById('opponentTeam');
+  const info1 = document.getElementById('info1');
   
   switch (battleObject.phase) {
       
   // player deploys
   case 'deployment':
-    
+     
+    // some guidance
+      
+    helpBox.innerHTML = 'Deploy your troops. Highlighed warrior is on turn.'
+     
     // show your team at battle console
-      // highlight who is in turn
+    yourTeam.innerHTML = 'Your team: <br>';
+    battleObject.team1.team.forEach( (figh, indx) => { 
+      let start = '';
+      let end = '';
+      let info1text = '';
+      
+      if (indx === battleObject.onTurn) { 
+        start = '<span class= "highLighted">'
+        end = '</span>';
+        // make info of highlighted fighter
+        info1.innerHTML = highlightedInfo(figh);
+      }
+      
+      yourTeam.innerHTML += `${start} ${figh.name} ${end}<br>` 
+    });
+    // highlight who is in turn
       // tell player to deploy that guy
     
     // show opponent team at battle console
