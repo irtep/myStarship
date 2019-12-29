@@ -138,5 +138,25 @@ export function draw(battleObject, canvas, hover, id) {
       ctx.fill();
       ctx.closePath();
     }
+  });  
+  
+  battleObject.team2.team.forEach( guy => {
+    
+    // warrior need to have x and y set
+    if (guy.x !== NaN) {
+    
+      ctx.beginPath();
+      ctx.fillStyle = 'blue';
+      ctx.arc(guy.x, guy.y, guy.stats.size, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+      
+      // write text
+      ctx.beginPath();
+      ctx.fillStyle = 'white';
+      ctx.fillText(guy.name, guy.x -10, guy.y -10);
+      ctx.fill();
+      ctx.closePath();
+    }
   });
 }

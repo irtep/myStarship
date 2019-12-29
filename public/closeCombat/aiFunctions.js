@@ -16,27 +16,16 @@ export function aiDeploys(team, battleObject) {
     const testWarrior = {x: startPlace.x, y: startPlace.y, stats: {size: warrior.stats.size}}
     
     // check from side if collisions
-    const checkResults = collisionDetect(testWarrior, battleObject);
+    let checkResults = collisionDetect(testWarrior, battleObject);
     
-    // do until warrior has x
-    /*  THIS BREAKS THIS NOW... Need to investigate and fix...
-    for (let i = 0; warrior.x !== NaN || i >= 100; testWarrior.x += tryDir) {
+    // look places for deployment
+    for (let i = 0;i < 100; i++) {
       
-      // if collision try bit to other side until no collision
-      if (checkResults.obsOrWarriorCol === false) {
-        warrior.x = testWarrior.x;
-        warrior.y = testWarrior.y;
-      }
-      
-      // if for some reason couldn't assign x and y... lets try again adding some y.
-      if (testWarrior.x < 50) { testWarrior.y += 40; tryDir = 50;}
-      if (testWarrior.x > canvas.width - 40) { testWarrior.y += 40; tryDir = -50}
-      
-      // i is a backup loop breaker, just in case if i just created loop that continues.
-      i++;
-      if (i > 99) { console.log('i reached 100');}
+      testWarrior.x += tryDir;
+      checkResults = collisionDetect(testWarrior, battleObject);
+      if (checkResults.obsOrWarriorCol === false) {i = 101}
     }
-    */
-    // try bit up if no collisions there
+    
+    warrior.x = testWarrior.x; warrior.y = testWarrior.y;
   });
 }

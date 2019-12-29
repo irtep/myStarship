@@ -63,7 +63,7 @@ function warriorInfo() {
     let end = '';
     let info1text = '';
       
-    if (indx === battleObject.onTurn) { 
+    if (indx === battleObject.onTurn && battleObject.phase === 'deployment') { 
       
       start = '<span class= "highLighted">'
       end = '</span>';
@@ -102,7 +102,8 @@ export function canvasClick() {
         draw(battleObject, canvas, battleObject.hover, battleObject.id)
         
         // next phase
-        battleObject.phase
+        battleObject.phase = 'fight';
+        battleObject.onTurn = 0;
       } else {
         // next warrior
         battleObject.onTurn++;
