@@ -52,8 +52,13 @@ canvas.onmousemove = (e) => {
   
   hover = false;
 
+  // clear all
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // obstacles
+  /*
+   should add warriors to this too
+  */
   for (let i = battleObject.arena.obstacles.length - 1, b; b = battleObject.arena.obstacles[i]; i--) {
         
     if (battleObject.arena.obstacles[i].arc) {
