@@ -4,7 +4,7 @@ import { freezeCopy, callDice, listItems } from '../helpFunctions.js';
 import { setupCharacter, generateObstacle, buttonControl, collisionDetect, canvasClick } from './battleFunctions.js';
 import { draw } from './draw.js';
   
-const canvas = document.getElementById('combatGround');
+export const canvas = document.getElementById('combatGround');
 const clickCanvas = canvas.addEventListener('click', canvasClick);
 const infoGround = document.getElementById('infoGround');
 const ctx = canvas.getContext('2d');
@@ -19,11 +19,11 @@ export let battleObject = {
          },
   hoveringIn: {x: null, y: null, stats: {size: 10}}, // has size in weird place as its needed for collision detect.
   phase: null,
-  onTurn: null
+  onTurn: null,
+  // these for canvas hovers
+  hover: false,
+  id: null
 };
-// these for canvas hovers:
-let hover = false;
-let id = null;
 
 // when mouse moves over the canvas
 canvas.onmousemove = (e) => {
@@ -50,7 +50,7 @@ canvas.onmousemove = (e) => {
   if (colTest.enemyTeam.length > 0) { infoPlace.innerHTML += 'enemyteam collision'}
   */
   
-  hover = false;
+  battleObject.hover = false;
 
   // clear all
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -67,8 +67,8 @@ canvas.onmousemove = (e) => {
       if(x >= (b.x - b.w/2) && x <= (b.x - b.w/2) + b.w && y >= (b.y - b.h/2) && y <= (b.y - b.h/2) + b.h) {
             
         // hovering
-        hover = true;
-        id = i;
+        battleObject.hover = true;
+        battleObject.id = i;
         break;
       }
       
@@ -78,14 +78,14 @@ canvas.onmousemove = (e) => {
       if(x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) {
             
         // hovering
-        hover = true;
-        id = i;
+        battleObject.hover = true;
+        battleObject.id = i;
         break;
       }
     }
   }
     
-  draw(battleObject, canvas, hover, id);
+  draw(battleObject, canvas, battleObject.hover, battleObject.id);
 }
 
 window.onload = ( () => {
@@ -123,7 +123,7 @@ window.onload = ( () => {
   battleObject.arena.obstacles.sort( (a, b) => (a.ind > b.ind) ? 1: -1);
   
   // draw canvas
-  draw(battleObject, canvas, hover, id);
+  draw(battleObject, canvas, battleObject.hover, battleObject.id);
   
   // deployment. slowest first
     // make a table, showing teams... who has deployment turn is highlighted
