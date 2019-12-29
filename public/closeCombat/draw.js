@@ -7,6 +7,8 @@ import { collisionDetect } from './battleFunctions.js';
         ctx.fillRect(_b.x, _b.y, _b.w, _b.h);
 */
 
+// hover and id are for hovering effects
+// main draw function
 export function draw(battleObject, canvas, hover, id) {
   const ctx = canvas.getContext('2d');
   

@@ -3,6 +3,9 @@ import { races, professions } from '../gameData/characters.js';
 import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 import { battleObject } from './engine.js';
+import { aiDeploys } from './aiFunctions.js';
+import { draw } from './draw.js';
+import { canvas } from './engine.js';
 const helpBox = document.getElementById('helpBox');
 const commands = document.getElementById('commands');
 const yourTeam = document.getElementById('yourTeam');
@@ -90,9 +93,16 @@ export function canvasClick() {
       battleObject.team1.team[battleObject.onTurn].y = battleObject.hoveringIn.y;
       
       // next warrior or next phase
-      // 0 2
       if (battleObject.onTurn + 1 === battleObject.team1.team.length) {
+        
+        // ai makes deployment
+        aiDeploys(battleObject.team2.team, battleObject);
+        
+        // draw
+        draw(battleObject, canvas, battleObject.hover, battleObject.id)
+        
         // next phase
+        battleObject.phase
       } else {
         // next warrior
         battleObject.onTurn++;
