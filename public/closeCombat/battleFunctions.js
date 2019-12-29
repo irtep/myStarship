@@ -3,6 +3,11 @@ import { races, professions } from '../gameData/characters.js';
 import { freezeCopy, callDice } from '../helpFunctions.js';
 import { Weapon } from '../classes.js';
 import { battleObject } from './engine.js';
+const helpBox = document.getElementById('helpBox');
+const commands = document.getElementById('commands');
+const yourTeam = document.getElementById('yourTeam');
+const opponentTeam = document.getElementById('opponentTeam');
+const info1 = document.getElementById('info1');
 
 /*
    <div id= "helpBox"></div>
@@ -37,39 +42,66 @@ function highlightedInfo(warrior) {
   weapons: ${weapons} armour: ${armour} `;
 }
 
+// shows info about warriors
+function warriorInfo() {
+  let helpBoxInfo = null;
+  
+  if (battleObject.phase === 'deployment') {
+    helpBoxInfo = 'Deploy your troops. Highlighed warrior is on turn.';
+  }
+  
+  // some guidance
+  helpBox.innerHTML = helpBoxInfo;
+     
+  // show your team at battle console
+  yourTeam.innerHTML = 'Your team: <br>';
+  battleObject.team1.team.forEach( (figh, indx) => { 
+    let start = '';
+    let end = '';
+    let info1text = '';
+      
+    if (indx === battleObject.onTurn) { 
+      
+      start = '<span class= "highLighted">'
+      end = '</span>';
+      // make info of highlighted fighter
+      info1.innerHTML = highlightedInfo(figh);
+    }
+      
+    yourTeam.innerHTML += `${start} ${figh.name} ${end}<br>` 
+  });
+}
+
 // if someone clicks the canvas
 export function canvasClick() {
-  const helpBox = document.getElementById('helpBox');
-  const commands = document.getElementById('commands');
-  const yourTeam = document.getElementById('yourTeam');
-  const opponentTeam = document.getElementById('opponentTeam');
-  const info1 = document.getElementById('info1');
+  const colDe = collisionDetect(battleObject.hoveringIn, battleObject);
+  // set size
+  battleObject.hoveringIn.stats.size = battleObject.team1.team[battleObject.onTurn].stats.size;
   
   switch (battleObject.phase) {
       
-  // player deploys
+  // player deploying
   case 'deployment':
      
-    // some guidance
+    // succesfull deployment place found  
+    if (colDe.nonDeploy1 === false && colDe.obsOrWarriorCol === false) {
+
+      battleObject.team1.team[battleObject.onTurn].x = battleObject.hoveringIn.x;
+      battleObject.team1.team[battleObject.onTurn].y = battleObject.hoveringIn.y;
       
-    helpBox.innerHTML = 'Deploy your troops. Highlighed warrior is on turn.'
-     
-    // show your team at battle console
-    yourTeam.innerHTML = 'Your team: <br>';
-    battleObject.team1.team.forEach( (figh, indx) => { 
-      let start = '';
-      let end = '';
-      let info1text = '';
-      
-      if (indx === battleObject.onTurn) { 
-        start = '<span class= "highLighted">'
-        end = '</span>';
-        // make info of highlighted fighter
-        info1.innerHTML = highlightedInfo(figh);
+      // next warrior or next phase
+      // 0 2
+      if (battleObject.onTurn + 1 === battleObject.team1.team.length) {
+        // next phase
+      } else {
+        // next warrior
+        battleObject.onTurn++;
+        //battleObject.hoveringIn.stats.size = battleObject.team1.team[battleObject.onTurn].stats.size;
       }
       
-      yourTeam.innerHTML += `${start} ${figh.name} ${end}<br>` 
-    });
+      warriorInfo();
+    }
+     
     // highlight who is in turn
       // tell player to deploy that guy
     
@@ -128,7 +160,8 @@ export function collisionDetect(who, battleObject) {
     coverObs: [],
     solidObs: [],
     ownTeam: [],
-    enemyTeam: []
+    enemyTeam: [],
+    obsOrWarriorCol: false // true if obstruction or warrior collision detected, excluding covers
   }
   
   // vs teams:
@@ -145,6 +178,7 @@ export function collisionDetect(who, battleObject) {
         } else {
           collisionSummary.enemyTeam.push(guy);
         }
+        collisionSummary.obsOrWarriorCol = true;
       }  
     }
   });
@@ -163,7 +197,8 @@ export function collisionDetect(who, battleObject) {
         
       if (obs.impassable) {
   
-        collisionSummary.solidObs.push(obs);    
+        collisionSummary.solidObs.push(obs);  
+        collisionSummary.obsOrWarriorCol = true;  
       } else {
 
         collisionSummary.coverObs.push(obs);
@@ -334,6 +369,7 @@ export function buttonControl(ide ){
       document.getElementById('infoGround').innerHTML = '';
       battleObject.phase = 'deployment';
       battleObject.onTurn = 0;
+      warriorInfo();
     break;
       
     default: console.log('id not found in buttonControl'); 

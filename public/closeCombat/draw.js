@@ -1,3 +1,5 @@
+
+import { collisionDetect } from './battleFunctions.js';
 /*
 
     for(_i = 0; _b = map[_i]; _i ++) {
@@ -8,6 +10,12 @@
 export function draw(battleObject, canvas, hover, id) {
   const ctx = canvas.getContext('2d');
   
+  // set collision detect of mouse location size and draw size:
+  if (battleObject.phase === 'deployment') { battleObject.hoveringIn.stats.size = battleObject.team1.team[battleObject.onTurn].stats.size}
+  
+  // collision detect of mouse arc
+  const colDe = collisionDetect(battleObject.hoveringIn, battleObject);
+  
   // clear canvas:
   ctx.clearRect(0,0,canvas.width,canvas.height);  // clear all
   
@@ -16,7 +24,7 @@ export function draw(battleObject, canvas, hover, id) {
     let ink = 'black';
     let arc = false;
     
-    // impassables will be painted black, covers brown
+    // impassables will be painted black, covers maroon
     if (obs.impassable === false) { ink = 'maroon' }
     
     ctx.beginPath();
@@ -64,12 +72,22 @@ export function draw(battleObject, canvas, hover, id) {
     }
   });
   
-  // paint where the mouse goes:
-  ctx.beginPath();
-  ctx.strokeStyle = 'green';
-  ctx.arc(battleObject.hoveringIn.x, battleObject.hoveringIn.y, 10, 0, 2 * Math.PI);
-  ctx.stroke();
-  ctx.closePath();
+  // paint where the mouse goes if needed:
+  if (battleObject.phase === 'deployment' && colDe.nonDeploy1 === false && colDe.obsOrWarriorCol === false) {
+    
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    ctx.arc(battleObject.hoveringIn.x, battleObject.hoveringIn.y, battleObject.hoveringIn.stats.size, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+  } else {
+    
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.fillText('can not deploy here', battleObject.hoveringIn.x, battleObject.hoveringIn.y);
+    ctx.fill();
+    ctx.closePath();
+  }
   
   // if deployment phase, draw deployment zone lines
   if (battleObject.phase === 'deployment') {
@@ -98,21 +116,25 @@ export function draw(battleObject, canvas, hover, id) {
     ctx.fill();
     ctx.closePath();
   }
-  /*
-    // paint hull of car
-    ctx.beginPath();
-    ctx.fillStyle = partsToPaint.hull.color;
-    ctx.save(); // save coords system
-    if (unit.leftTopCorner !== undefined) {
-      ctx.translate(unit.leftTopCorner.x, unit.leftTopCorner.y);}
-    else {
-      //ctx.translate(partsToPaint.hull.x, partsToPaint.hull.y);} // go here
-      ctx.translate(unit.x, unit.y);} // go here
-    ctx.rotate(degrees * Math.PI / 180);
-    ctx.rect(drawPoint.x, drawPoint.y, partsToPaint.hull.w, partsToPaint.hull.h);// time to paint it
-    ctx.fill();
-    ctx.closePath();
-   
-  */
   
+  // draw teams
+  battleObject.team1.team.forEach( guy => {
+    
+    // warrior need to have x and y set
+    if (guy.x !== NaN) {
+    
+      ctx.beginPath();
+      ctx.fillStyle = 'blue';
+      ctx.arc(guy.x, guy.y, guy.stats.size, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+      
+      // write text
+      ctx.beginPath();
+      ctx.fillStyle = 'white';
+      ctx.fillText(guy.name, guy.x -10, guy.y -10);
+      ctx.fill();
+      ctx.closePath();
+    }
+  });
 }
