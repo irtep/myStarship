@@ -45,6 +45,17 @@ function highlightedInfo(warrior) {
   weapons: ${weapons} armour: ${armour} `;
 }
 
+// action phase
+function actionPhase() {
+  // add info about action phase
+  
+  // refresh teams... or is necessary?
+  
+  // if opponents warriors turn, make its action
+  
+  // make buttons: move and attack, run, aim and shoot (if has ranged attack) 
+}
+
 // shows info about warriors
 function warriorInfo() {
   let helpBoxInfo = null;
@@ -104,6 +115,9 @@ export function canvasClick() {
         // next phase
         battleObject.phase = 'fight';
         battleObject.onTurn = 0;
+        
+        // call action phase:
+        actionPhase();
       } else {
         // next warrior
         battleObject.onTurn++;
