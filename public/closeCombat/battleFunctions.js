@@ -47,12 +47,21 @@ function highlightedInfo(warrior) {
 
 // action phase
 function actionPhase() {
+  console.log('action phase, in turn: ', battleObject.teams[battleObject.onTurn]);
   // add info about action phase
-  
+  /*
+  helpBox.innerHTML = `turn of: ${battleObject.teams[battleObject.onTurn]}`;
+  */
   // refresh teams... or is necessary?
   
+  // get information of what team is the warrior in turn
+  const checkTeam1 = battleObject.team1.team.filter( warrior => warrior.name === battleObject.teams[battleObject.onTurn]);
+  const checkTeam2 = battleObject.team2.team.filter( warrior => warrior.name === battleObject.teams[battleObject.onTurn]);
+  
+  if (checkTeam1.length === 0) {console.log('player 2 in turn');} else {console.log('player 1 in turn');}
   // if opponents warriors turn, make its action
   
+  // if players turn:
   // make buttons: move and attack, run, aim and shoot (if has ranged attack) 
 }
 
@@ -78,6 +87,7 @@ function warriorInfo() {
       
       start = '<span class= "highLighted">'
       end = '</span>';
+      
       // make info of highlighted fighter
       info1.innerHTML = highlightedInfo(figh);
     }
@@ -341,7 +351,7 @@ export function generateObstacle(canvas) {
   const minY = canvas.height / 4;
   const maxY = canvas.height - canvas.height / 4;
   let newObstacle = {x: null, y: null, arc: false, w: null, h: null, impassable: false, ind: 1} // if arc is false, then its rect
-  console.log('max x, min y, max y ', maxX, minY, maxY);
+  
   // randomize if arc or rect
   const isArc = callDice(2); if (isArc === 1) { newObstacle.arc = true; }
   

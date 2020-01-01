@@ -1,6 +1,7 @@
 /*
   Classes for game.
 */
+import { callDice } from './helpFunctions.js';
 
 export class StarSystem {
   constructor(name, desc, security, stations, locations, locatedAt, image, artBy){
@@ -315,6 +316,22 @@ export class Character {               // 'armour' is name of armour that he is 
     this.player = player; this.name = name; this.race = race; this.profession = profession; this.rank = rank; 
     this.armour = armour; this.weapons = weapons; this.meleeExp = meleeExp; this.shootExp = shootExp; 
     this.specialAttacks = specialAttacks; this.injury = injury; this.live = live; this.desc = desc;
+  }
+
+  move() {
+    
+  }
+  
+  attack(selectedAttack, target) {
+    
+  }
+  
+  // destroy this character
+  destroy() {
+    
+    this.live = false;
+    this.x = null;
+    this.y = null;
   }
 }
 
